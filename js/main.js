@@ -57,25 +57,6 @@ function getCurrentPageType() {
   return pageType;
 }
 
-// ===== 设置当前选中的课程 =====
-function setCurrentCourseSelect() {
-  const select = document.getElementById('courseSelect');
-  if (!select) return;
-  
-  // 从 URL 中获取当前课程
-  const path = window.location.pathname;
-  const pathParts = path.split('/');
-  
-  // 查找课程目录
-  const courseIndex = pathParts.indexOf('courses') + 1;
-  if (courseIndex > 0 && courseIndex < pathParts.length) {
-    const currentCourse = pathParts[courseIndex];
-    if (currentCourse) {
-      select.value = currentCourse;
-    }
-  }
-}
-
 // ===== 资源搜索功能 =====
 function searchResources() {
   const input = document.getElementById('searchInput');
@@ -113,9 +94,6 @@ document.addEventListener('DOMContentLoaded', function() {
   cards.forEach((card, index) => {
     card.style.animationDelay = (index * 0.1) + 's';
   });
-  
-  // 设置当前课程选择器
-  setCurrentCourseSelect();
 });
 
 // ===== 移动端菜单切换 =====

@@ -7,6 +7,37 @@
 let currentPage = '';
 
 /**
+ * 导航点击处理函数 - 全局函数供 navbar.html 使用
+ * @param {Event} event - 点击事件
+ * @param {string} page - 页面类型 (index, lectures, tutorials, homework, exams, notes)
+ */
+function handleNavClick(event, page) {
+  event.preventDefault();
+  const courseSelect = document.getElementById('courseSelect');
+  const selectedCourse = courseSelect ? courseSelect.value : '';
+  
+  if (!selectedCourse) {
+    alert('请先选择课程');
+    courseSelect?.focus();
+    return;
+  }
+  
+  const path = window.location.pathname;
+  const isInCoursesDir = path.includes('/courses/');
+  
+  let newHref;
+  if (isInCoursesDir) {
+    // 在课程子页面，直接跳转到当前课程的其他页面
+    newHref = page === 'index' ? 'index.html' : page + '.html';
+  } else {
+    // 在首页，跳转到所选课程的对应页面
+    newHref = `courses/${selectedCourse}/${page === 'index' ? 'index' : page}.html`;
+  }
+  
+  window.location.href = newHref;
+}
+
+/**
  * 获取组件基础路径 - 根据当前页面位置动态计算
  */
 function getComponentsBasePath() {
@@ -45,9 +76,10 @@ async function loadComponent(componentName, containerId, options = {}) {
       options.onLoad(container);
     }
     
-    // 如果是导航栏，设置当前页面高亮
+    // 如果是导航栏，设置当前页面高亮和课程选择器
     if (componentName === 'navbar') {
       highlightCurrentNav();
+      setCurrentCourseSelect();
     }
     
   } catch (error) {
@@ -63,6 +95,27 @@ async function loadComponent(componentName, containerId, options = {}) {
 function setCurrentPage(page) {
   currentPage = page;
   highlightCurrentNav();
+}
+
+/**
+ * 设置当前选中的课程 - 从 URL 中提取课程名并设置下拉框
+ */
+function setCurrentCourseSelect() {
+  const select = document.getElementById('courseSelect');
+  if (!select) return;
+  
+  // 从 URL 中获取当前课程
+  const path = window.location.pathname;
+  const pathParts = path.split('/');
+  
+  // 查找课程目录
+  const courseIndex = pathParts.indexOf('courses') + 1;
+  if (courseIndex > 0 && courseIndex < pathParts.length) {
+    const currentCourse = pathParts[courseIndex];
+    if (currentCourse) {
+      select.value = currentCourse;
+    }
+  }
 }
 
 /**

@@ -18,17 +18,17 @@
     </div>
     
     <ul class="nav-links" id="navLinks">
-      <li><a href="#" data-page="index" class="nav-link-item">首页</a></li>
-      <li><a href="#" data-page="lectures" class="nav-link-item">课件</a></li>
-      <li><a href="#" data-page="tutorials" class="nav-link-item">习题</a></li>
-      <li><a href="#" data-page="homework" class="nav-link-item">作业</a></li>
-      <li><a href="#" data-page="exams" class="nav-link-item">考试</a></li>
-      <li><a href="#" data-page="notes" class="nav-link-item">笔记</a></li>
+      <li><a href="#" data-page="index" class="nav-link-item" onclick="handleNavClick(event, 'index')">首页</a></li>
+      <li><a href="#" data-page="lectures" class="nav-link-item" onclick="handleNavClick(event, 'lectures')">课件</a></li>
+      <li><a href="#" data-page="tutorials" class="nav-link-item" onclick="handleNavClick(event, 'tutorials')">习题</a></li>
+      <li><a href="#" data-page="homework" class="nav-link-item" onclick="handleNavClick(event, 'homework')">作业</a></li>
+      <li><a href="#" data-page="exams" class="nav-link-item" onclick="handleNavClick(event, 'exams')">考试</a></li>
+      <li><a href="#" data-page="notes" class="nav-link-item" onclick="handleNavClick(event, 'notes')">笔记</a></li>
     </ul>
   </div>
 </nav>
 <script>
-  // 动态设置导航链接
+  // 动态设置导航链接和课程选择器
   (function() {
     const path = window.location.pathname;
     const isCoursePage = path.includes('/courses/');
@@ -39,25 +39,6 @@
     if (brandLink) {
       brandLink.href = isCoursePage ? '../../index.html' : 'index.html';
     }
-    
-    // 设置导航链接
-    const navItems = document.querySelectorAll('.nav-link-item');
-    const pages = ['index', 'lectures', 'tutorials', 'homework', 'exams', 'notes'];
-    
-    navItems.forEach((item, index) => {
-      const page = pages[index];
-      if (isCoursePage) {
-        item.href = page === 'index' ? 'index.html' : page + '.html';
-      } else {
-        // 在首页时，导航链接需要指向课程页面
-        if (courseMatch && courseMatch[1]) {
-          item.href = page === 'index' ? 'index.html' : page + '.html';
-        } else {
-          // 在根页面，导航没有意义，禁用或指向首页
-          item.href = 'index.html';
-        }
-      }
-    });
     
     // 设置当前课程选择器
     const courseSelect = document.getElementById('courseSelect');
