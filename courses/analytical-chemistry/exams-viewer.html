@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>考试资料 - 分析化学</title>
+  <link rel="stylesheet" href="../../css/style.css">
+  <!-- 引入 marked.js 用于解析 Markdown -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  
+  <!-- 引入 MathJax 用于渲染数学公式 -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true,
+        processEnvironments: true
+      },
+      svg: {
+        fontCache: 'global'
+      },
+      startup: {
+        pageReady: function() {
+          return MathJax.startup.defaultPageReady();
+        }
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+  
+  <style>
+    /* 考试资料页面特定样式 */
+    .exam-section {
+      margin-bottom: 2rem;
+      padding: 1.5rem;
+      background: #f8f9fa;
+      border-radius: 8px;
+    }
+    .exam-section h2 {
+      color: var(--primary-color);
+      border-bottom: 2px solid var(--primary-color);
+      padding-bottom: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .exam-info {
+      background: #e3f2fd;
+      border-left: 4px solid #2196f3;
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 4px;
+    }
+    .pdf-links {
+      background: #fff3e0;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-top: 1rem;
+    }
+    .pdf-links a {
+      color: var(--primary-color);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .pdf-links a:hover {
+      text-decoration: underline;
+    }
+    .tips-section {
+      background: #f1f8e9;
+      border-left: 4px solid #8bc34a;
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <!-- 导航栏容器 -->
+  <div id="navbar-container"></div>
+  <script>
+    // 设置当前课程
+    window.currentCourse = 'analytical-chemistry';
+  </script>
+
+  <!-- 阅读页面容器 -->
+  <div class="reader-container">
+    <!-- 左侧导航 -->
+    <aside class="reader-sidebar">
+      <!-- 章节导航和本章目录并排容器 -->
+      <div class="sidebar-navs">
+        <!-- 考试导航 -->
+        <div class="sidebar-nav-column">
+          <h3>📚 考试资料导航</h3>
+          <ul class="reader-nav-list" id="examNav">
+            <li><a href="?course=analytical-chemistry&exam=model" data-exam="model">📄 期末考试样题模型</a></li>
+            <li><a href="?course=analytical-chemistry&exam=2024spring" data-exam="2024spring">📝 2024 春季期末考试 A 卷</a></li>
+          </ul>
+        </div>
+        
+        <!-- 本章目录 -->
+        <div class="sidebar-nav-column">
+          <h3>📑 本章目录 <button class="toc-toggle-all" id="tocToggleAll" onclick="toggleAllTOC()">全部展开</button></h3>
+          <ul class="toc-list" id="tocList">
+            <li class="toc-loading">正在加载目录...</li>
+          </ul>
+        </div>
+      </div>
+    </aside>
+
+    <!-- 右侧内容 -->
+    <main class="reader-content">
+      <!-- 加载提示 -->
+      <div id="loading" style="text-align: center; padding: 4rem 2rem;">
+        <div style="font-size: 3rem; margin-bottom: 1rem;">📖</div>
+        <p>正在加载考试资料...</p>
+      </div>
+
+      <!-- Markdown 内容容器 -->
+      <div id="markdownContent" class="markdown-viewer" style="display: none;"></div>
+
+      <!-- 上一章/下一章导航 -->
+      <div class="reader-nav-buttons" id="readerNavButtons" style="display: none;">
+        <a href="#" id="prevExam" class="btn btn-outline">← 上一份</a>
+        <a href="exams.html" class="btn btn-primary">📋 返回考试列表</a>
+        <a href="#" id="nextExam" class="btn btn-outline">下一份 →</a>
+      </div>
+
+      <!-- 错误提示 -->
+      <div id="errorMsg" style="display: none; text-align: center; padding: 4rem 2rem;">
+        <div style="font-size: 3rem; margin-bottom: 1rem;">😕</div>
+        <p style="color: var(--text-secondary);">无法加载考试资料</p>
+        <p style="font-size: 0.9rem; margin-top: 0.5rem;">请确保考试资料文件存在于 exams 文件夹中</p>
+      </div>
+    </main>
+  </div>
+
+  <!-- 页脚容器 -->
+  <div id="footer-container"></div>
+
+  <!-- 引入组件加载脚本和主脚本 -->
+  <script src="../../js/components.js"></script>
+  <script src="../../js/main.js"></script>
+  <script>
+    // 考试资料标题映射
+    const examTitles = {
+      'model': '期末考试样题模型',
+      '2024spring': '2024 春季期末考试 A 卷'
+    };
+
+    // 考试资料文件映射
+    const examFiles = {
+      'model': 'final_exam_model.md',
+      '2024spring': 'final_exam_2024_spring.md'
+    };
+
+    // 获取当前考试资料
+    function getCurrentExam() {
+      const params = new URLSearchParams(window.location.search);
+      const exam = params.get('exam');
+      if (exam === null || exam === '' || !examFiles[exam]) {
+        return 'model';
+      }
+      return exam;
+    }
+
+    // 更新导航按钮状态
+    function updateNavButtons(exam) {
+      const prevBtn = document.getElementById('prevExam');
+      const nextBtn = document.getElementById('nextExam');
+      
+      const examKeys = Object.keys(examFiles);
+      const currentIndex = examKeys.indexOf(exam);
+      
+      if (currentIndex > 0) {
+        const prevExam = examKeys[currentIndex - 1];
+        prevBtn.href = `?course=analytical-chemistry&exam=${prevExam}`;
+        prevBtn.style.display = 'inline-flex';
+      } else {
+        prevBtn.style.display = 'none';
+      }
+      
+      if (currentIndex < examKeys.length - 1) {
+        const nextExam = examKeys[currentIndex + 1];
+        nextBtn.href = `?course=analytical-chemistry&exam=${nextExam}`;
+        nextBtn.style.display = 'inline-flex';
+      } else {
+        nextBtn.style.display = 'none';
+      }
+      
+      // 更新考试导航高亮
+      document.querySelectorAll('.reader-nav-list a').forEach(link => {
+        link.classList.remove('active');
+        if (link.dataset.exam === exam) {
+          link.classList.add('active');
+        }
+      });
+      
+      // 更新页面标题
+      document.title = `${examTitles[exam]} - 分析化学`;
+    }
+
+    // 加载 Markdown 文件
+    async function loadMarkdown(exam) {
+      const loading = document.getElementById('loading');
+      const content = document.getElementById('markdownContent');
+      const errorMsg = document.getElementById('errorMsg');
+      const navButtons = document.getElementById('readerNavButtons');
+      const filePath = `exams/${examFiles[exam]}`;
+      
+      console.log('正在加载:', filePath);
+      
+      try {
+        const response = await fetch(filePath, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'text/markdown'
+          },
+          cache: 'no-cache'
+        });
+        
+        if (!response.ok) {
+          throw new Error(`HTTP 错误：${response.status} ${response.statusText}`);
+        }
+        
+        const markdown = await response.text();
+        console.log('Markdown 加载成功，长度:', markdown.length);
+        
+        // 使用 marked.js 渲染 Markdown
+        const html = marked.parse(markdown);
+        content.innerHTML = html;
+        
+        // 为考试信息、PDF 链接、备考建议添加特殊样式
+        const sections = content.querySelectorAll('h2');
+        sections.forEach(h2 => {
+          const parent = h2.parentElement;
+          if (h2.textContent.includes('考试信息')) {
+            parent.classList.add('exam-section', 'exam-info');
+          } else if (h2.textContent.includes('考试说明')) {
+            parent.classList.add('exam-section');
+          } else if (h2.textContent.includes('PDF') || h2.textContent.includes('文件')) {
+            parent.classList.add('pdf-links');
+          } else if (h2.textContent.includes('备考')) {
+            parent.classList.add('tips-section');
+          }
+        });
+        
+        // 为 PDF 链接添加样式
+        const pdfLinks = content.querySelectorAll('a[href*=".pdf"]');
+        pdfLinks.forEach(link => {
+          const parent = link.parentElement;
+          if (parent.tagName === 'LI' || parent.tagName === 'P') {
+            parent.classList.add('pdf-links');
+          }
+        });
+        
+        // 生成目录
+        generateTOC(content);
+        
+        loading.style.display = 'none';
+        content.style.display = 'block';
+        navButtons.style.display = 'flex';
+        errorMsg.style.display = 'none';
+        
+        updateNavButtons(exam);
+        
+        // MathJax 渲染公式 - 使用 setTimeout 确保 MathJax 已加载
+        setTimeout(() => {
+          if (window.MathJax && typeof MathJax.typesetPromise === 'function') {
+            MathJax.typesetPromise([content]).then(() => {
+              console.log('MathJax 渲染完成');
+            }).catch((err) => console.log('MathJax 渲染错误:', err));
+          } else if (window.MathJax && typeof MathJax.typeset === 'function') {
+            // 备用方法
+            MathJax.typeset([content]);
+            console.log('MathJax 使用 typeset 渲染');
+          } else {
+            console.log('MathJax 尚未加载，跳过公式渲染');
+          }
+        }, 100);
+      } catch (error) {
+        console.error('加载 Markdown 失败:', error);
+        errorMsg.innerHTML = `
+          <div style="font-size: 3rem; margin-bottom: 1rem;">😕</div>
+          <p style="color: var(--text-secondary);">无法加载考试资料</p>
+          <p style="font-size: 0.9rem; margin-top: 0.5rem;">错误信息：${error.message}</p>
+          <p style="font-size: 0.8rem; margin-top: 0.5rem; color: #999;">文件路径：${filePath}</p>
+          <button onclick="location.reload()" style="margin-top: 1rem; padding: 0.5rem 1rem; cursor: pointer;">🔄 重试</button>
+        `;
+        loading.style.display = 'none';
+        content.style.display = 'none';
+        navButtons.style.display = 'none';
+        errorMsg.style.display = 'block';
+      }
+    }
+
+    // 生成目录
+    function generateTOC(contentElement) {
+      const tocList = document.getElementById('tocList');
+      const headings = contentElement.querySelectorAll('h2, h3');
+      const toggleAllBtn = document.getElementById('tocToggleAll');
+      
+      if (headings.length === 0) {
+        tocList.innerHTML = '<li class="toc-empty">暂无目录</li>';
+        if (toggleAllBtn) toggleAllBtn.style.display = 'none';
+        return;
+      }
+      
+      // 检查是否有 H3 子标题
+      const hasH3 = Array.from(headings).some(h => h.tagName === 'H3');
+      if (toggleAllBtn) {
+        toggleAllBtn.style.display = hasH3 ? 'inline-block' : 'none';
+      }
+      
+      let html = '';
+      let currentH2Index = -1;
+      
+      headings.forEach((heading, index) => {
+        // 为每个标题添加 ID
+        const id = `heading-${index}`;
+        heading.id = id;
+        
+        // 根据标题级别设置缩进
+        const isH2 = heading.tagName === 'H2';
+        
+        if (isH2) {
+          currentH2Index++;
+          // 检查这个 H2 后面是否有 H3
+          let hasSubItems = false;
+          for (let i = index + 1; i < headings.length; i++) {
+            if (headings[i].tagName === 'H3') {
+              hasSubItems = true;
+              break;
+            } else if (headings[i].tagName === 'H2') {
+              break;
+            }
+          }
+          
+          if (hasSubItems) {
+            // 有子项的 H2，添加展开/收起按钮
+            html += `<li class="toc-item toc-h2" data-index="${currentH2Index}">
+              <div class="toc-link-wrapper">
+                <button class="toc-toggle-btn" onclick="toggleTOC(${currentH2Index})" title="展开/收起">▼</button>
+                <a href="#${id}" class="toc-link">${heading.textContent}</a>
+              </div>
+            </li>`;
+          } else {
+            // 没有子项的 H2，不添加按钮
+            html += `<li class="toc-item toc-h2 no-children" data-index="${currentH2Index}">
+              <a href="#${id}" class="toc-link">${heading.textContent}</a>
+            </li>`;
+          }
+        } else {
+          // H3 子项，默认折叠，添加 expanded 类
+          html += `<li class="toc-item toc-h3" data-parent="${currentH2Index}"><a href="#${id}">${heading.textContent}</a></li>`;
+        }
+      });
+      
+      tocList.innerHTML = html;
+      
+      // 默认展开所有一级目录
+      expandAllTOC();
+    }
+    
+    // 切换单个目录项的展开/收起状态
+    function toggleTOC(h2Index) {
+      const tocList = document.getElementById('tocList');
+      const h2Item = tocList.querySelector(`.toc-h2[data-index="${h2Index}"]`);
+      const toggleBtn = h2Item?.querySelector('.toc-toggle-btn');
+      
+      if (!h2Item || !toggleBtn) return;
+      
+      const isExpanded = h2Item.classList.contains('expanded');
+      
+      // 直接查找所有属于这个 H2 的 H3 项
+      const childH3s = tocList.querySelectorAll(`.toc-h3[data-parent="${h2Index}"]`);
+      
+      if (isExpanded) {
+        // 收起
+        h2Item.classList.remove('expanded');
+        toggleBtn.textContent = '▶';
+        // 隐藏所有属于这个 H2 的 H3 项
+        childH3s.forEach(h3Item => {
+          h3Item.style.display = 'none';
+        });
+      } else {
+        // 展开
+        h2Item.classList.add('expanded');
+        toggleBtn.textContent = '▼';
+        // 显示所有属于这个 H2 的 H3 项
+        childH3s.forEach(h3Item => {
+          h3Item.style.display = 'block';
+        });
+      }
+    }
+    
+    // 全部展开
+    function expandAllTOC() {
+      const tocList = document.getElementById('tocList');
+      const toggleAllBtn = document.getElementById('tocToggleAll');
+      
+      tocList.querySelectorAll('.toc-h2').forEach(h2Item => {
+        const toggleBtn = h2Item.querySelector('.toc-toggle-btn');
+        const h2Index = parseInt(h2Item.dataset.index);
+        if (toggleBtn) {
+          h2Item.classList.add('expanded');
+          toggleBtn.textContent = '▼';
+        }
+        // 显示所有属于这个 H2 的 H3 项
+        const childH3s = tocList.querySelectorAll(`.toc-h3[data-parent="${h2Index}"]`);
+        childH3s.forEach(h3Item => {
+          h3Item.style.display = 'block';
+        });
+      });
+      
+      if (toggleAllBtn) toggleAllBtn.textContent = '全部展开';
+    }
+    
+    // 全部收起
+    function collapseAllTOC() {
+      const tocList = document.getElementById('tocList');
+      const toggleAllBtn = document.getElementById('tocToggleAll');
+      
+      tocList.querySelectorAll('.toc-h2').forEach(h2Item => {
+        const toggleBtn = h2Item.querySelector('.toc-toggle-btn');
+        const h2Index = parseInt(h2Item.dataset.index);
+        if (toggleBtn) {
+          h2Item.classList.remove('expanded');
+          toggleBtn.textContent = '▶';
+        }
+        // 隐藏所有属于这个 H2 的 H3 项
+        const childH3s = tocList.querySelectorAll(`.toc-h3[data-parent="${h2Index}"]`);
+        childH3s.forEach(h3Item => {
+          h3Item.style.display = 'none';
+        });
+      });
+      
+      if (toggleAllBtn) toggleAllBtn.textContent = '全部收起';
+    }
+    
+    // 切换全部展开/收起
+    function toggleAllTOC() {
+      const tocList = document.getElementById('tocList');
+      const toggleAllBtn = document.getElementById('tocToggleAll');
+      
+      // 检查当前状态：如果有任何一个 H2 是展开的，就全部收起；否则全部展开
+      const hasExpanded = tocList.querySelectorAll('.toc-h2.expanded').length > 0;
+      
+      if (hasExpanded) {
+        collapseAllTOC();
+      } else {
+        expandAllTOC();
+      }
+    }
+
+    // 页面加载时初始化组件
+    document.addEventListener('DOMContentLoaded', function() {
+      loadComponent('navbar', 'navbar-container');
+      loadComponent('footer', 'footer-container');
+      setCurrentPage('exams');
+      
+      const exam = getCurrentExam();
+      loadMarkdown(exam);
+    });
+  </script>
+</body>
+</html>

@@ -673,17 +673,21 @@ a:hover {
   gap: 2.5rem;
   max-width: 1600px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 0 2rem 2rem;
 }
 
 .reader-sidebar {
   position: sticky;
-  top: 100px;
-  height: fit-content;
+  top: 70px;
+  height: calc(100vh - 80px);
+  max-height: calc(100vh - 80px);
   background: var(--card-bg);
-  padding: 1.25rem;
+  padding: 1rem;
   border-radius: var(--radius);
   box-shadow: var(--shadow);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 .reader-sidebar h3 {
@@ -891,7 +895,7 @@ a:hover {
 /* 侧边栏并排导航样式 */
 .sidebar-navs {
   display: flex;
-  gap: 2rem;
+  gap: 1.5rem;
 }
 
 .sidebar-nav-column {
@@ -900,7 +904,7 @@ a:hover {
 }
 
 .sidebar-nav-column:first-child {
-  flex: 0 0 46%;
+  flex: 0 0 45%;
 }
 
 .sidebar-nav-column:last-child {
@@ -909,15 +913,24 @@ a:hover {
 
 .sidebar-nav-column h3 {
   color: var(--primary-color);
-  margin-bottom: 0.75rem;
-  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
   white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.sidebar-nav-column .reader-nav-list,
-.sidebar-nav-column .toc-list {
-  max-height: calc(100vh - 160px);
+.sidebar-nav-column .reader-nav-list {
+  max-height: calc(100vh - 140px);
   overflow-y: auto;
+  padding-right: 0.5rem;
+}
+
+.sidebar-nav-column .toc-list {
+  max-height: calc(100vh - 140px);
+  overflow-y: auto;
+  padding-right: 0.5rem;
 }
 
 .sidebar-nav-column .reader-nav-list {
@@ -926,6 +939,19 @@ a:hover {
 
 .sidebar-nav-column .toc-list {
   padding-right: 0.25rem;
+}
+
+/* 优化习题导航列表项样式 - 更紧凑的布局 */
+.sidebar-nav-column .reader-nav-list li {
+  margin-bottom: 0.35rem;
+}
+
+.sidebar-nav-column .reader-nav-list a {
+  padding: 0.4rem 0.45rem;
+  font-size: 0.85rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 @media (max-width: 768px) {
