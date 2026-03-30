@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>考试资料 - 分析化学学习博客</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- 导航栏 -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-brand">
+        <span class="icon">🧪</span>
+        <span>分析化学学习博客</span>
+      </a>
+      <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+      <ul class="nav-links">
+        <li><a href="index.html">首页</a></li>
+        <li><a href="lectures.html">课件</a></li>
+        <li><a href="tutorials.html">习题</a></li>
+        <li><a href="homework.html">作业</a></li>
+        <li><a href="exams.html" class="active">考试</a></li>
+        <li><a href="notes.html">笔记</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- 主容器 -->
+  <div class="container">
+    <!-- 页面标题 -->
+    <div class="page-header">
+      <h1>🎯 考试资料</h1>
+      <p>期末考试样题、评分标准和参考答案</p>
+    </div>
+
+    <!-- 搜索框 -->
+    <div class="search-container">
+      <span class="search-icon">🔍</span>
+      <input type="text" class="search-input" id="searchInput" placeholder="搜索考试资料..." onkeyup="searchExams()">
+    </div>
+
+    <!-- 考试资料列表 -->
+    <div class="card-grid" id="examGrid">
+      <!-- 期末考试样题 -->
+      <div class="resource-card" data-title="Final Exam 期末考试样题">
+        <div class="card-header">
+          <span class="card-icon">📄</span>
+          <h3 class="card-title">期末考试样题模型</h3>
+        </div>
+        <p class="card-description">分析化学 1 期末考试样题模板，工程师课程适用</p>
+        <div class="card-meta">
+          <span class="card-tag">样题</span>
+          <div class="card-actions">
+            <a href="exam/Final Exams Model for Analytical Chemistry 1 for Engineers.pdf" class="btn btn-primary btn-sm" download>
+              ⬇️ 下载
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2024 春季期末考题 A 卷答案 -->
+      <div class="resource-card" data-title="2024 Spring Final Exam A 2024 春季期末考 A 卷">
+        <div class="card-header">
+          <span class="card-icon">📝</span>
+          <h3 class="card-title">2024 春季学期期末考试 A 卷 - 评分答案</h3>
+        </div>
+        <p class="card-description">2024 年春季学期期末考试 A 卷的评分标准和参考答案</p>
+        <div class="card-meta">
+          <span class="card-tag">2024 春季</span>
+          <div class="card-actions">
+            <a href="exam/125101- Final Exam A for 2024 Spring Semester Answers for grading.pdf" class="btn btn-primary btn-sm" download>
+              ⬇️ 下载
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 备考提示 -->
+    <section style="margin-top: 3rem; background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+      <h2 style="color: var(--primary-color); margin-bottom: 1rem;">💡 备考建议</h2>
+      <ul style="color: var(--text-secondary); line-height: 2; padding-left: 1.5rem;">
+        <li>复习所有课件（Lecture 1-13），重点关注每章的核心概念</li>
+        <li>完成所有习题（Tutorial）和作业（Homework），确保理解解题方法</li>
+        <li>研究期末考试样题，熟悉题型和考试格式</li>
+        <li>重点掌握：误差分析、酸碱滴定、电位分析、重量分析等核心内容</li>
+        <li>练习计算题，熟练掌握公式应用</li>
+      </ul>
+    </section>
+
+    <!-- 无结果提示 -->
+    <div class="no-results" id="noResults" style="display: none;">
+      <div class="no-results-icon">🔍</div>
+      <p>未找到匹配的考试资料</p>
+    </div>
+  </div>
+
+  <!-- 页脚 -->
+  <footer class="footer">
+    <p>© 2025 分析化学学习博客 | 个人学习资源整理</p>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

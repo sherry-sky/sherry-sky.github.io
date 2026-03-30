@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>学习笔记 - 分析化学学习博客</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- 导航栏 -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-brand">
+        <span class="icon">🧪</span>
+        <span>分析化学学习博客</span>
+      </a>
+      <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+      <ul class="nav-links">
+        <li><a href="index.html">首页</a></li>
+        <li><a href="lectures.html">课件</a></li>
+        <li><a href="tutorials.html">习题</a></li>
+        <li><a href="homework.html">作业</a></li>
+        <li><a href="exams.html">考试</a></li>
+        <li><a href="notes.html" class="active">笔记</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- 主容器 -->
+  <div class="container">
+    <!-- 页面标题 -->
+    <div class="page-header">
+      <h1>📝 学习笔记</h1>
+      <p>分析化学 1 课程学习笔记，共 13 章</p>
+    </div>
+
+    <!-- 搜索框 -->
+    <div class="search-container">
+      <span class="search-icon">🔍</span>
+      <input type="text" class="search-input" id="searchInput" placeholder="搜索笔记..." onkeyup="searchNotes()">
+    </div>
+
+    <!-- 笔记列表 -->
+    <div class="card-grid" id="notesGrid">
+      <!-- Chapter 1 -->
+      <div class="resource-card note-card" data-title="Chapter 1 分析化学导论" onclick="location.href='notes-viewer.html?chapter=1'">
+        <div class="card-header">
+          <span class="card-icon">📖</span>
+          <h3 class="card-title">Chapter 1 - 分析化学导论</h3>
+        </div>
+        <p class="card-description">介绍分析化学的基本概念、发展历程、分析方法分类和应用领域</p>
+        <div class="card-meta">
+          <span class="card-tag">第 1 章</span>
+          <span class="note-meta">📄 Markdown 笔记</span>
+        </div>
+      </div>
+
+      <!-- Chapter 2 -->
+      <div class="resource-card note-card" data-title="Chapter 2 基础知识" onclick="location.href='notes-viewer.html?chapter=2'">
+        <div class="card-header">
+          <span class="card-icon">📖</span>
+          <h3 class="card-title">Chapter 2 - 基础知识</h3>
+        </div>
+        <p class="card-description">溶液浓度表示方法、化学平衡原理、活度与活度系数</p>
+        <div class="card-meta">
+          <span class="card-tag">第 2 章</span>
+          <span class="note-meta">📄 Markdown 笔记</span>
+        </div>
+      </div>
+
+      <!-- Chapter 3 -->
+      <div class="resource-card note-card" data-title="Chapter 3 实验误差" onclick="location.href='notes-viewer.html?chapter=3'">
+        <div class="card-header">
+          <span class="card-icon">📖</span>
+          <h3 class="card-title">Chapter 3 - 实验误差及其估算</h3>
+        </div>
+        <p class="card-description">误差的来源、分类、准确度与精密度、误差的表示方法</p>
+        <div class="card-meta">
+          <span class="card-tag">第 3 章</span>
+          <span class="note-meta">📄 Markdown 笔记</span>
+        </div>
+      </div>
+
+      <!-- Chapter 4 -->
+      <div class="resource-card note-card" data-title="Chapter 4 随机误差" onclick="location.href='notes-viewer.html?chapter=4'">
+        <div class="card-header">
+          <span class="card-icon">📖</span>
+          <h3 class="card-title">Chapter 4 - 随机误差及其估算</h3>
+        </div>
+        <p class="card-description">随机误差的统计特性、正态分布、置信区间、显著性检验</p>
+        <div class="card-meta">
+          <span class="card-tag">第 4 章</span>
+          <span class="note-meta">📄 Markdown 笔记</span>
+        </div>
+      </div>
+
+      <!-- Chapter 5 -->
+      <div class="resource-card note-card" data-title="Chapter 5 线性回归" onclick="location.href='notes-viewer.html?chapter=5'">
+        <div class="card-header">
+          <span class="card-icon">📖</span>
+          <h3 class="card-title">Chapter 5 - 线性回归分析</h3>
+        </div>
+        <p class="card-description">最小二乘法原理、校准曲线、相关系数、回归方程的应用</p>
+        <div class="card-meta">
+          <span class="card-tag">第 5 章</span>
+          <span class="note-meta">📄 Markdown 笔记</span>
+        </div>
+      </div>
+
+      <!-- Chapter 6 -->
+      <div class="resource-card note-card" data-title="Chapter 6 pH 缓冲溶液" onclick="location.href='notes-viewer.html?chapter=6'">
+        <div class="card-header">
+          <span class="card-icon">📖</span>
+          <h3 class="card-title">Chapter 6 - pH 与缓冲溶液</h3>
+        </div>
+        <p class="card-description">酸碱质子理论、pH 计算、缓冲溶液原理、缓冲容量</p>
+        <div class="card-meta">
+          <span class="card-tag">第 6 章</span>
+          <span class="note-meta">📄 Markdown 笔记</span>
+        </div>
+      </div>
+
+      <!-- Chapter 7 -->
+      <div class="resource-card note-card" data-title="Chapter 7 滴定分析入门" onclick="location.href='notes-viewer.html?chapter=7'">
+        <div class="card-header">
+          <span class="card-icon">📖</span>
+          <h3 class="card-title">Chapter 7 - 滴定分析入门</h3>
+        </div>
+        <p class="card-description">滴定分析概述、滴定曲线、指示剂选择、终点误差</p>
+        <div class="card-meta">
+          <span class="card-tag">第 7 章</span>
+          <span class="note-meta">📄 Markdown 笔记</span>
+        </div>
+      </div>
+
+      <!-- Chapter 8 -->
+      <div class="resource-card note-card" data-title="Chapter 8 滴定分析进阶" onclick="location.href='notes-viewer.html?chapter=8'">
+        <div class="card-header">
+          <span class="card-icon">📖</span>
+          <h3 class="card-title">Chapter 8 - 滴定分析进阶</h3>
+        </div>
+        <p class="card-description">酸碱滴定法、氧化还原滴定法、配位滴定法、沉淀滴定法</p>
+        <div class="card-meta">
+          <span class="card-tag">第 8 章</span>
+          <span class="note-meta">📄 Markdown 笔记</span>
+        </div>
+      </div>
+
+      <!-- Chapter 9 -->
+      <div class="resource-card note-card" data-title="Chapter 9 电位滴定法" onclick="location.href='notes-viewer.html?chapter=9'">
+        <div class="card-header">
+          <span class="card-icon">📖</span>
+          <h3 class="card-title">Chapter 9 - 电位滴定法</h3>
+        </div>
+        <p class="card-description">电位分析原理、指示电极、参比电极、电位滴定应用</p>
+        <div class="card-meta">
+          <span class="card-tag">第 9 章</span>
+          <span class="note-meta">📄 Markdown 笔记</span>
+        </div>
+      </div>
+
+      <!-- Chapter 10 -->
+      <div class="resource-card note-card" data-title="Chapter 10 Gran 作图法" onclick="location.href='notes-viewer.html?chapter=10'">
+        <div class="card-header">
+          <span class="card-icon">📖</span>
+          <h3 class="card-title">Chapter 10 - Gran 作图法</h3>
+        </div>
+        <p class="card-description">Gran 函数、Gran 作图法原理、终点确定的数学方法</p>
+        <div class="card-meta">
+          <span class="card-tag">第 10 章</span>
+          <span class="note-meta">📄 Markdown 笔记</span>
+        </div>
+      </div>
+
+      <!-- Chapter 11 -->
+      <div class="resource-card note-card" data-title="Chapter 11 电化学分析" onclick="location.href='notes-viewer.html?chapter=11'">
+        <div class="card-header">
+          <span class="card-icon">📖</span>
+          <h3 class="card-title">Chapter 11 - 电化学分析技术</h3>
+        </div>
+        <p class="card-description">伏安法、极谱法、库仑分析法、电导分析法</p>
+        <div class="card-meta">
+          <span class="card-tag">第 11 章</span>
+          <span class="note-meta">📄 Markdown 笔记</span>
+        </div>
+      </div>
+
+      <!-- Chapter 12 -->
+      <div class="resource-card note-card" data-title="Chapter 12 重量分析" onclick="location.href='notes-viewer.html?chapter=12'">
+        <div class="card-header">
+          <span class="card-icon">📖</span>
+          <h3 class="card-title">Chapter 12 - 重量分析法</h3>
+        </div>
+        <p class="card-description">沉淀重量法原理、沉淀条件、沉淀纯度、结果计算</p>
+        <div class="card-meta">
+          <span class="card-tag">第 12 章</span>
+          <span class="note-meta">📄 Markdown 笔记</span>
+        </div>
+      </div>
+
+      <!-- Chapter 13 -->
+      <div class="resource-card note-card" data-title="Chapter 13 课程总结" onclick="location.href='notes-viewer.html?chapter=13'">
+        <div class="card-header">
+          <span class="card-icon">📖</span>
+          <h3 class="card-title">Chapter 13 - 课程总结</h3>
+        </div>
+        <p class="card-description">分析化学 1 全课程重点内容回顾与总结</p>
+        <div class="card-meta">
+          <span class="card-tag">第 13 章</span>
+          <span class="note-meta">📄 Markdown 笔记</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 无结果提示 -->
+    <div class="no-results" id="noResults" style="display: none;">
+      <div class="no-results-icon">🔍</div>
+      <p>未找到匹配的笔记</p>
+    </div>
+  </div>
+
+  <!-- 页脚 -->
+  <footer class="footer">
+    <p>© 2025 分析化学学习博客 | 个人学习资源整理</p>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

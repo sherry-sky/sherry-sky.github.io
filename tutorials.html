@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>习题解答 - 分析化学学习博客</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- 导航栏 -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-brand">
+        <span class="icon">🧪</span>
+        <span>分析化学学习博客</span>
+      </a>
+      <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+      <ul class="nav-links">
+        <li><a href="index.html">首页</a></li>
+        <li><a href="lectures.html">课件</a></li>
+        <li><a href="tutorials.html" class="active">习题</a></li>
+        <li><a href="homework.html">作业</a></li>
+        <li><a href="exams.html">考试</a></li>
+        <li><a href="notes.html">笔记</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- 主容器 -->
+  <div class="container">
+    <!-- 页面标题 -->
+    <div class="page-header">
+      <h1>✏️ 习题解答</h1>
+      <p>Tutorial 习题集，每道习题都配有详细解答</p>
+    </div>
+
+    <!-- 搜索框 -->
+    <div class="search-container">
+      <span class="search-icon">🔍</span>
+      <input type="text" class="search-input" id="searchInput" placeholder="搜索习题..." onkeyup="searchTutorials()">
+    </div>
+
+    <!-- 习题列表 -->
+    <div class="card-grid" id="tutorialGrid">
+      <!-- Tutorial 2 -->
+      <div class="resource-card" data-title="Tutorial 2 基础习题">
+        <div class="card-header">
+          <span class="card-icon">📝</span>
+          <h3 class="card-title">Tutorial 2 - 基础习题</h3>
+        </div>
+        <p class="card-description">分析化学基础概念练习题</p>
+        <div class="card-meta">
+          <span class="card-tag">第 2 次习题</span>
+          <div class="card-actions">
+            <button class="btn btn-outline btn-sm" onclick="toggleAnswer('tut2')">👁️ 查看/隐藏</button>
+          </div>
+        </div>
+        <div class="answer-content" id="tut2">
+          <strong>📄 题目文件：</strong>
+          <p style="margin-top: 0.5rem;">
+            <a href="T 课/2T-Questions for Tutorial of Anal Chem 1.pdf" target="_blank" style="color: var(--primary-light);">
+              📥 点击下载题目 PDF
+            </a>
+          </p>
+          <strong style="margin-top: 0.5rem; display: block;">📄 答案文件：</strong>
+          <p style="margin-top: 0.5rem;">
+            <a href="T 课/2T-Answer for Tutorial of Anal Chem 1.pdf" target="_blank" style="color: var(--primary-light);">
+              📥 点击下载答案 PDF
+            </a>
+          </p>
+        </div>
+      </div>
+
+      <!-- Tutorial 3 -->
+      <div class="resource-card" data-title="Tutorial 3 误差分析">
+        <div class="card-header">
+          <span class="card-icon">📝</span>
+          <h3 class="card-title">Tutorial 3 - 误差分析习题</h3>
+        </div>
+        <p class="card-description">实验误差估算相关练习</p>
+        <div class="card-meta">
+          <span class="card-tag">第 3 次习题</span>
+          <div class="card-actions">
+            <button class="btn btn-outline btn-sm" onclick="toggleAnswer('tut3')">👁️ 查看/隐藏</button>
+          </div>
+        </div>
+        <div class="answer-content" id="tut3">
+          <strong>📄 题目文件：</strong>
+          <p style="margin-top: 0.5rem;">
+            <a href="T 课/3T-Questions for Tutorial of Anal Chem 1.pdf" target="_blank" style="color: var(--primary-light);">
+              📥 点击下载题目 PDF
+            </a>
+          </p>
+          <strong style="margin-top: 0.5rem; display: block;">📄 答案文件：</strong>
+          <p style="margin-top: 0.5rem;">
+            <a href="T 课/3T-Solutions for Tutorial of Anal Chem 1.pdf" target="_blank" style="color: var(--primary-light);">
+              📥 点击下载答案 PDF
+            </a>
+          </p>
+        </div>
+      </div>
+
+      <!-- Tutorial 4 -->
+      <div class="resource-card" data-title="Tutorial 4 随机误差">
+        <div class="card-header">
+          <span class="card-icon">📝</span>
+          <h3 class="card-title">Tutorial 4 - 随机误差习题</h3>
+        </div>
+        <p class="card-description">随机误差统计分析练习</p>
+        <div class="card-meta">
+          <span class="card-tag">第 4 次习题</span>
+          <div class="card-actions">
+            <button class="btn btn-outline btn-sm" onclick="toggleAnswer('tut4')">👁️ 查看/隐藏</button>
+          </div>
+        </div>
+        <div class="answer-content" id="tut4">
+          <strong>📄 题目文件：</strong>
+          <p style="margin-top: 0.5rem;">
+            <a href="T 课/4T-Question for Tutorial of Anal Chem 1.pdf" target="_blank" style="color: var(--primary-light);">
+              📥 点击下载题目 PDF
+            </a>
+          </p>
+          <strong style="margin-top: 0.5rem; display: block;">📄 答案文件：</strong>
+          <p style="margin-top: 0.5rem;">
+            <a href="T 课/4T-Answer for Tutorial of Anal Chem 1.pdf" target="_blank" style="color: var(--primary-light);">
+              📥 点击下载答案 PDF
+            </a>
+          </p>
+        </div>
+      </div>
+
+      <!-- Tutorial 5 -->
+      <div class="resource-card" data-title="Tutorial 5 线性回归">
+        <div class="card-header">
+          <span class="card-icon">📝</span>
+          <h3 class="card-title">Tutorial 5 - 线性回归习题</h3>
+        </div>
+        <p class="card-description">回归分析应用练习</p>
+        <div class="card-meta">
+          <span class="card-tag">第 5 次习题</span>
+          <div class="card-actions">
+            <button class="btn btn-outline btn-sm" onclick="toggleAnswer('tut5')">👁️ 查看/隐藏</button>
+          </div>
+        </div>
+        <div class="answer-content" id="tut5">
+          <strong>📄 题目文件：</strong>
+          <p style="margin-top: 0.5rem;">
+            <a href="T 课/5T-Tutorial for Anal Chem1.pdf" target="_blank" style="color: var(--primary-light);">
+              📥 点击下载题目 PDF
+            </a>
+          </p>
+          <strong style="margin-top: 0.5rem; display: block;">📄 答案文件：</strong>
+          <p style="margin-top: 0.5rem;">
+            <a href="T 课/5T-Answer for Tutorial of Anal Chem1.pdf" target="_blank" style="color: var(--primary-light);">
+              📥 点击下载答案 PDF
+            </a>
+          </p>
+        </div>
+      </div>
+
+      <!-- Tutorial 6 -->
+      <div class="resource-card" data-title="Tutorial 6 pH 缓冲溶液">
+        <div class="card-header">
+          <span class="card-icon">📝</span>
+          <h3 class="card-title">Tutorial 6 - pH 与缓冲溶液习题</h3>
+        </div>
+        <p class="card-description">酸碱平衡与缓冲溶液计算练习</p>
+        <div class="card-meta">
+          <span class="card-tag">第 6 次习题</span>
+          <div class="card-actions">
+            <button class="btn btn-outline btn-sm" onclick="toggleAnswer('tut6')">👁️ 查看/隐藏</button>
+          </div>
+        </div>
+        <div class="answer-content" id="tut6">
+          <strong>📄 题目文件：</strong>
+          <p style="margin-top: 0.5rem;">
+            <a href="T 课/6T-Tutorial for Anal Chem1.pdf" target="_blank" style="color: var(--primary-light);">
+              📥 点击下载题目 PDF
+            </a>
+          </p>
+          <strong style="margin-top: 0.5rem; display: block;">📄 答案文件：</strong>
+          <p style="margin-top: 0.5rem;">
+            <a href="T 课/6T-Answer for Tutorial of Anal Chem1.pdf" target="_blank" style="color: var(--primary-light);">
+              📥 点击下载答案 PDF
+            </a>
+          </p>
+        </div>
+      </div>
+
+      <!-- Tutorial 7 -->
+      <div class="resource-card" data-title="Tutorial 7 酸碱滴定">
+        <div class="card-header">
+          <span class="card-icon">📝</span>
+          <h3 class="card-title">Tutorial 7 - 酸碱滴定习题</h3>
+        </div>
+        <p class="card-description">酸碱滴定分析练习（含 Excel 文件）</p>
+        <div class="card-meta">
+          <span class="card-tag">第 7 次习题</span>
+          <div class="card-actions">
+            <button class="btn btn-outline btn-sm" onclick="toggleAnswer('tut7')">👁️ 查看/隐藏</button>
+          </div>
+        </div>
+        <div class="answer-content" id="tut7">
+          <strong>📄 题目文件：</strong>
+          <p style="margin-top: 0.5rem;">
+            <a href="T 课/7T-Tutorial for Anal Chem1.pdf" target="_blank" style="color: var(--primary-light);">
+              📥 点击下载题目 PDF
+            </a>
+          </p>
+          <strong style="margin-top: 0.5rem; display: block;">📄 答案文件：</strong>
+          <p style="margin-top: 0.5rem;">
+            <a href="T 课/7T-Answer for Tutorial of Anal Chem1.pdf" target="_blank" style="color: var(--primary-light);">
+              📥 点击下载答案 PDF
+            </a>
+          </p>
+          <strong style="margin-top: 0.5rem; display: block;">📊 Excel 文件：</strong>
+          <p style="margin-top: 0.5rem;">
+            <a href="T 课/Exercise 2 Tutorial 7-Acid Base titrations.xlsx" target="_blank" style="color: var(--primary-light);">
+              📥 点击下载 Excel 文件
+            </a>
+          </p>
+        </div>
+      </div>
+
+      <!-- Tutorial 8 -->
+      <div class="resource-card" data-title="Tutorial 8 滴定分析">
+        <div class="card-header">
+          <span class="card-icon">📝</span>
+          <h3 class="card-title">Tutorial 8 - 滴定分析习题</h3>
+        </div>
+        <p class="card-description">滴定分析综合练习</p>
+        <div class="card-meta">
+          <span class="card-tag">第 8 次习题</span>
+          <div class="card-actions">
+            <button class="btn btn-outline btn-sm" onclick="toggleAnswer('tut8')">👁️ 查看/隐藏</button>
+          </div>
+        </div>
+        <div class="answer-content" id="tut8">
+          <strong>📄 题目文件：</strong>
+          <p style="margin-top: 0.5rem;">
+            <a href="T 课/8T-Tutorial for Anal Chem1.pdf" target="_blank" style="color: var(--primary-light);">
+              📥 点击下载题目 PDF
+            </a>
+          </p>
+          <strong style="margin-top: 0.5rem; display: block;">📄 答案文件：</strong>
+          <p style="margin-top: 0.5rem;">
+            <a href="T 课/8T-Answer of Tutorial for Anal Chem1 2022.pdf" target="_blank" style="color: var(--primary-light);">
+              📥 点击下载答案 PDF
+            </a>
+          </p>
+        </div>
+      </div>
+
+      <!-- Tutorial 9 -->
+      <div class="resource-card" data-title="Tutorial 9 电位滴定">
+        <div class="card-header">
+          <span class="card-icon">📝</span>
+          <h3 class="card-title">Tutorial 9 - 电位滴定习题</h3>
+        </div>
+        <p class="card-description">电位分析法练习</p>
+        <div class="card-meta">
+          <span class="card-tag">第 9 次习题</span>
+          <div class="card-actions">
+            <button class="btn btn-outline btn-sm" onclick="toggleAnswer('tut9')">👁️ 查看/隐藏</button>
+          </div>
+        </div>
+        <div class="answer-content" id="tut9">
+          <strong>📄 题目文件：</strong>
+          <p style="margin-top: 0.5rem;">
+            <a href="T 课/9T-Tutorial for Anal Chem1.pdf" target="_blank" style="color: var(--primary-light);">
+              📥 点击下载题目 PDF
+            </a>
+          </p>
+          <strong style="margin-top: 0.5rem; display: block;">📄 答案文件：</strong>
+          <p style="margin-top: 0.5rem;">
+            <a href="T 课/9T-Answer of Tutorial for Anal Chem1.pdf" target="_blank" style="color: var(--primary-light);">
+              📥 点击下载答案 PDF
+            </a>
+          </p>
+        </div>
+      </div>
+
+      <!-- Tutorial 10 -->
+      <div class="resource-card" data-title="Tutorial 10 Gran 作图">
+        <div class="card-header">
+          <span class="card-icon">📝</span>
+          <h3 class="card-title">Tutorial 10 - Gran 作图法习题</h3>
+        </div>
+        <p class="card-description">Gran 作图法在滴定中的应用练习</p>
+        <div class="card-meta">
+          <span class="card-tag">第 10 次习题</span>
+          <div class="card-actions">
+            <button class="btn btn-outline btn-sm" onclick="toggleAnswer('tut10')">👁️ 查看/隐藏</button>
+          </div>
+        </div>
+        <div class="answer-content" id="tut10">
+          <strong>📄 题目文件：</strong>
+          <p style="margin-top: 0.5rem;">
+            <a href="T 课/10T-Tutorial for Anal Chem1.pdf" target="_blank" style="color: var(--primary-light);">
+              📥 点击下载题目 PDF
+            </a>
+          </p>
+          <strong style="margin-top: 0.5rem; display: block;">📄 答案文件：</strong>
+          <p style="margin-top: 0.5rem;">
+            <a href="T 课/10T-Answer for Tutorial of Anal Chem1.pdf" target="_blank" style="color: var(--primary-light);">
+              📥 点击下载答案 PDF
+            </a>
+          </p>
+        </div>
+      </div>
+
+      <!-- Tutorial 11 -->
+      <div class="resource-card" data-title="Tutorial 11 电化学分析">
+        <div class="card-header">
+          <span class="card-icon">📝</span>
+          <h3 class="card-title">Tutorial 11 - 电化学分析习题</h3>
+        </div>
+        <p class="card-description">电化学分析技术练习</p>
+        <div class="card-meta">
+          <span class="card-tag">第 11 次习题</span>
+          <div class="card-actions">
+            <button class="btn btn-outline btn-sm" onclick="toggleAnswer('tut11')">👁️ 查看/隐藏</button>
+          </div>
+        </div>
+        <div class="answer-content" id="tut11">
+          <strong>📄 题目文件：</strong>
+          <p style="margin-top: 0.5rem;">
+            <a href="T 课/11T-Tutorial for Anal Chem1.pdf" target="_blank" style="color: var(--primary-light);">
+              📥 点击下载题目 PDF
+            </a>
+          </p>
+          <strong style="margin-top: 0.5rem; display: block;">📄 答案文件：</strong>
+          <p style="margin-top: 0.5rem;">
+            <a href="T 课/11T-Answer for Tutorial of Anal Chem1.pdf" target="_blank" style="color: var(--primary-light);">
+              📥 点击下载答案 PDF
+            </a>
+          </p>
+        </div>
+      </div>
+
+      <!-- Tutorial 12 -->
+      <div class="resource-card" data-title="Tutorial 12 重量分析">
+        <div class="card-header">
+          <span class="card-icon">📝</span>
+          <h3 class="card-title">Tutorial 12 - 重量分析习题</h3>
+        </div>
+        <p class="card-description">重量分析法练习</p>
+        <div class="card-meta">
+          <span class="card-tag">第 12 次习题</span>
+          <div class="card-actions">
+            <button class="btn btn-outline btn-sm" onclick="toggleAnswer('tut12')">👁️ 查看/隐藏</button>
+          </div>
+        </div>
+        <div class="answer-content" id="tut12">
+          <strong>📄 题目文件：</strong>
+          <p style="margin-top: 0.5rem;">
+            <a href="T 课/12T-Tutorial for Anal Chem1.pdf" target="_blank" style="color: var(--primary-light);">
+              📥 点击下载题目 PDF
+            </a>
+          </p>
+          <strong style="margin-top: 0.5rem; display: block;">📄 答案文件：</strong>
+          <p style="margin-top: 0.5rem;">
+            <a href="T 课/12T-Answer for Tutorial of Anal Chem1.pdf" target="_blank" style="color: var(--primary-light);">
+              📥 点击下载答案 PDF
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 无结果提示 -->
+    <div class="no-results" id="noResults" style="display: none;">
+      <div class="no-results-icon">🔍</div>
+      <p>未找到匹配的习题</p>
+    </div>
+  </div>
+
+  <!-- 页脚 -->
+  <footer class="footer">
+    <p>© 2025 分析化学学习博客 | 个人学习资源整理</p>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
