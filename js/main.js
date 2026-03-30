@@ -1,14 +1,8 @@
 /**
- * 分析化学学习博客 - 交互脚本
+ * 学习博客 - 主交互脚本
+ * 
+ * 支持四门课程的多课程学习平台
  */
-
-// ===== 移动端菜单切换 =====
-function toggleMenu() {
-  const navLinks = document.querySelector('.nav-links');
-  if (navLinks) {
-    navLinks.classList.toggle('active');
-  }
-}
 
 // ===== 答案显示/隐藏切换 =====
 function toggleAnswer(id) {
@@ -18,133 +12,95 @@ function toggleAnswer(id) {
   }
 }
 
-// ===== 课件搜索功能 =====
-function searchLectures() {
-  const searchInput = document.getElementById('searchInput');
-  const lectureGrid = document.getElementById('lectureGrid');
-  const noResults = document.getElementById('noResults');
+// ===== 课程切换功能 =====
+function switchCourse() {
+  const select = document.getElementById('courseSelect');
+  const selectedCourse = select.value;
   
-  if (!searchInput || !lectureGrid) return;
-  
-  const searchTerm = searchInput.value.toLowerCase().trim();
-  const cards = lectureGrid.querySelectorAll('.resource-card');
-  let hasResults = false;
-  
-  cards.forEach(card => {
-    const title = card.getAttribute('data-title') || '';
-    const cardTitle = card.querySelector('.card-title')?.textContent || '';
-    const cardDesc = card.querySelector('.card-description')?.textContent || '';
+  if (selectedCourse) {
+    // 获取当前页面类型（lectures, tutorials, homework, exams, notes）
+    const currentPage = getCurrentPageType();
     
-    const searchText = (title + ' ' + cardTitle + ' ' + cardDesc).toLowerCase();
+    // 根据当前页面位置动态生成正确的路径
+    const path = window.location.pathname;
+    let newHref;
     
-    if (searchText.includes(searchTerm)) {
-      card.style.display = 'flex';
-      hasResults = true;
+    // 检查是否在课程目录下
+    const isInCoursesDir = path.includes('/courses/');
+    
+    if (isInCoursesDir) {
+      // 在课程子页面（如 /courses/analytical-chemistry/lectures.html）
+      // 需要返回一级到 courses/ 目录，再进入目标课程
+      newHref = `../${selectedCourse}/${currentPage}.html`;
     } else {
-      card.style.display = 'none';
+      // 在根页面或首页（如 /index.html 或 /）
+      // 需要进入 courses 目录
+      newHref = `courses/${selectedCourse}/${currentPage}.html`;
     }
-  });
-  
-  // 显示/隐藏无结果提示
-  if (noResults) {
-    noResults.style.display = hasResults ? 'none' : 'block';
+    
+    // 跳转到对应课程的对应页面
+    window.location.href = newHref;
   }
 }
 
-// ===== 习题搜索功能 =====
-function searchTutorials() {
-  const searchInput = document.getElementById('searchInput');
-  const tutorialGrid = document.getElementById('tutorialGrid');
-  const noResults = document.getElementById('noResults');
+// ===== 获取当前页面类型 =====
+function getCurrentPageType() {
+  const path = window.location.pathname;
+  const fileName = path.split('/').pop();
+  const pageType = fileName.replace('.html', '');
   
-  if (!searchInput || !tutorialGrid) return;
+  // 如果是课程首页，返回 index
+  if (pageType === 'index' || pageType === '') {
+    return 'index';
+  }
   
-  const searchTerm = searchInput.value.toLowerCase().trim();
-  const cards = tutorialGrid.querySelectorAll('.resource-card');
-  let hasResults = false;
+  return pageType;
+}
+
+// ===== 设置当前选中的课程 =====
+function setCurrentCourseSelect() {
+  const select = document.getElementById('courseSelect');
+  if (!select) return;
   
-  cards.forEach(card => {
-    const title = card.getAttribute('data-title') || '';
-    const cardTitle = card.querySelector('.card-title')?.textContent || '';
-    const cardDesc = card.querySelector('.card-description')?.textContent || '';
-    
-    const searchText = (title + ' ' + cardTitle + ' ' + cardDesc).toLowerCase();
-    
-    if (searchText.includes(searchTerm)) {
-      card.style.display = 'flex';
-      hasResults = true;
-    } else {
-      card.style.display = 'none';
+  // 从 URL 中获取当前课程
+  const path = window.location.pathname;
+  const pathParts = path.split('/');
+  
+  // 查找课程目录
+  const courseIndex = pathParts.indexOf('courses') + 1;
+  if (courseIndex > 0 && courseIndex < pathParts.length) {
+    const currentCourse = pathParts[courseIndex];
+    if (currentCourse) {
+      select.value = currentCourse;
     }
-  });
-  
-  // 显示/隐藏无结果提示
-  if (noResults) {
-    noResults.style.display = hasResults ? 'none' : 'block';
   }
 }
 
-// ===== 作业搜索功能 =====
-function searchHomework() {
-  const searchInput = document.getElementById('searchInput');
-  const homeworkGrid = document.getElementById('homeworkGrid');
+// ===== 资源搜索功能 =====
+function searchResources() {
+  const input = document.getElementById('searchInput');
+  const grid = document.getElementById('resourceGrid');
   const noResults = document.getElementById('noResults');
   
-  if (!searchInput || !homeworkGrid) return;
+  if (!input || !grid) return;
   
-  const searchTerm = searchInput.value.toLowerCase().trim();
-  const cards = homeworkGrid.querySelectorAll('.resource-card');
+  const filter = input.value.toLowerCase();
+  const cards = grid.getElementsByClassName('resource-card');
   let hasResults = false;
   
-  cards.forEach(card => {
+  for (let i = 0; i < cards.length; i++) {
+    const card = cards[i];
     const title = card.getAttribute('data-title') || '';
-    const cardTitle = card.querySelector('.card-title')?.textContent || '';
-    const cardDesc = card.querySelector('.card-description')?.textContent || '';
+    const description = card.querySelector('.card-description')?.textContent || '';
     
-    const searchText = (title + ' ' + cardTitle + ' ' + cardDesc).toLowerCase();
-    
-    if (searchText.includes(searchTerm)) {
-      card.style.display = 'flex';
+    if (title.toLowerCase().includes(filter) || description.toLowerCase().includes(filter)) {
+      card.style.display = '';
       hasResults = true;
     } else {
       card.style.display = 'none';
     }
-  });
-  
-  // 显示/隐藏无结果提示
-  if (noResults) {
-    noResults.style.display = hasResults ? 'none' : 'block';
   }
-}
-
-// ===== 考试资料搜索功能 =====
-function searchExams() {
-  const searchInput = document.getElementById('searchInput');
-  const examGrid = document.getElementById('examGrid');
-  const noResults = document.getElementById('noResults');
   
-  if (!searchInput || !examGrid) return;
-  
-  const searchTerm = searchInput.value.toLowerCase().trim();
-  const cards = examGrid.querySelectorAll('.resource-card');
-  let hasResults = false;
-  
-  cards.forEach(card => {
-    const title = card.getAttribute('data-title') || '';
-    const cardTitle = card.querySelector('.card-title')?.textContent || '';
-    const cardDesc = card.querySelector('.card-description')?.textContent || '';
-    
-    const searchText = (title + ' ' + cardTitle + ' ' + cardDesc).toLowerCase();
-    
-    if (searchText.includes(searchTerm)) {
-      card.style.display = 'flex';
-      hasResults = true;
-    } else {
-      card.style.display = 'none';
-    }
-  });
-  
-  // 显示/隐藏无结果提示
   if (noResults) {
     noResults.style.display = hasResults ? 'none' : 'block';
   }
@@ -158,43 +114,14 @@ document.addEventListener('DOMContentLoaded', function() {
     card.style.animationDelay = (index * 0.1) + 's';
   });
   
-  // 移动端菜单点击外部关闭
-  document.addEventListener('click', function(event) {
-    const navLinks = document.querySelector('.nav-links');
-    const menuToggle = document.querySelector('.menu-toggle');
-    
-    if (navLinks && menuToggle && 
-        !navLinks.contains(event.target) && 
-        !menuToggle.contains(event.target) &&
-        navLinks.classList.contains('active')) {
-      navLinks.classList.remove('active');
-    }
-  });
-  
-  // 搜索框自动聚焦（仅在大屏幕上）
-  const searchInput = document.querySelector('.search-input');
-  if (searchInput && window.innerWidth > 768) {
-    // 可选：自动聚焦搜索框
-    // searchInput.focus();
-  }
+  // 设置当前课程选择器
+  setCurrentCourseSelect();
 });
 
-// ===== 键盘快捷键 =====
-document.addEventListener('keydown', function(event) {
-  // 按 "/" 键聚焦搜索框
-  if (event.key === '/' && !event.target.matches('input, textarea')) {
-    event.preventDefault();
-    const searchInput = document.querySelector('.search-input');
-    if (searchInput) {
-      searchInput.focus();
-    }
+// ===== 移动端菜单切换 =====
+function toggleMenu() {
+  const navLinks = document.getElementById('navLinks');
+  if (navLinks) {
+    navLinks.classList.toggle('active');
   }
-  
-  // 按 ESC 键关闭移动端菜单
-  if (event.key === 'Escape') {
-    const navLinks = document.querySelector('.nav-links');
-    if (navLinks) {
-      navLinks.classList.remove('active');
-    }
-  }
-});
+}

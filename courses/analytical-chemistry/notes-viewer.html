@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>笔记阅读 - 分析化学学习博客</title>
-  <link rel="stylesheet" href="css/style.css">
+  <title>笔记阅读 - 分析化学</title>
+  <link rel="stylesheet" href="../../css/style.css">
   <!-- 引入 marked.js 用于解析 Markdown -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   
@@ -30,24 +30,12 @@
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 </head>
 <body>
-  <!-- 导航栏 -->
-  <nav class="navbar">
-    <div class="nav-container">
-      <a href="index.html" class="nav-brand">
-        <span class="icon">🧪</span>
-        <span>分析化学学习博客</span>
-      </a>
-      <button class="menu-toggle" onclick="toggleMenu()">☰</button>
-      <ul class="nav-links">
-        <li><a href="index.html">首页</a></li>
-        <li><a href="lectures.html">课件</a></li>
-        <li><a href="tutorials.html">习题</a></li>
-        <li><a href="homework.html">作业</a></li>
-        <li><a href="exams.html">考试</a></li>
-        <li><a href="notes.html" class="active">笔记</a></li>
-      </ul>
-    </div>
-  </nav>
+  <!-- 导航栏容器 -->
+  <div id="navbar-container"></div>
+  <script>
+    // 设置当前课程
+    window.currentCourse = 'analytical-chemistry';
+  </script>
 
   <!-- 阅读页面容器 -->
   <div class="reader-container">
@@ -59,19 +47,19 @@
         <div class="sidebar-nav-column">
           <h3>📚 章节导航</h3>
           <ul class="reader-nav-list" id="chapterNav">
-            <li><a href="?chapter=1" data-chapter="1">第 1 章 分析化学导论</a></li>
-            <li><a href="?chapter=2" data-chapter="2">第 2 章 基础知识</a></li>
-            <li><a href="?chapter=3" data-chapter="3">第 3 章 实验误差</a></li>
-            <li><a href="?chapter=4" data-chapter="4">第 4 章 随机误差</a></li>
-            <li><a href="?chapter=5" data-chapter="5">第 5 章 线性回归</a></li>
-            <li><a href="?chapter=6" data-chapter="6">第 6 章 pH 与缓冲溶液</a></li>
-            <li><a href="?chapter=7" data-chapter="7">第 7 章 滴定分析入门</a></li>
-            <li><a href="?chapter=8" data-chapter="8">第 8 章 滴定分析进阶</a></li>
-            <li><a href="?chapter=9" data-chapter="9">第 9 章 电位滴定法</a></li>
-            <li><a href="?chapter=10" data-chapter="10">第 10 章 Gran 作图法</a></li>
-            <li><a href="?chapter=11" data-chapter="11">第 11 章 电化学分析</a></li>
-            <li><a href="?chapter=12" data-chapter="12">第 12 章 重量分析</a></li>
-            <li><a href="?chapter=13" data-chapter="13">第 13 章 课程总结</a></li>
+            <li><a href="?course=analytical-chemistry&chapter=1" data-chapter="1">第 1 章 分析化学导论</a></li>
+            <li><a href="?course=analytical-chemistry&chapter=2" data-chapter="2">第 2 章 基础知识</a></li>
+            <li><a href="?course=analytical-chemistry&chapter=3" data-chapter="3">第 3 章 实验误差</a></li>
+            <li><a href="?course=analytical-chemistry&chapter=4" data-chapter="4">第 4 章 随机误差</a></li>
+            <li><a href="?course=analytical-chemistry&chapter=5" data-chapter="5">第 5 章 线性回归</a></li>
+            <li><a href="?course=analytical-chemistry&chapter=6" data-chapter="6">第 6 章 pH 与缓冲溶液</a></li>
+            <li><a href="?course=analytical-chemistry&chapter=7" data-chapter="7">第 7 章 滴定分析入门</a></li>
+            <li><a href="?course=analytical-chemistry&chapter=8" data-chapter="8">第 8 章 滴定分析进阶</a></li>
+            <li><a href="?course=analytical-chemistry&chapter=9" data-chapter="9">第 9 章 电位滴定法</a></li>
+            <li><a href="?course=analytical-chemistry&chapter=10" data-chapter="10">第 10 章 Gran 作图法</a></li>
+            <li><a href="?course=analytical-chemistry&chapter=11" data-chapter="11">第 11 章 电化学分析</a></li>
+            <li><a href="?course=analytical-chemistry&chapter=12" data-chapter="12">第 12 章 重量分析</a></li>
+            <li><a href="?course=analytical-chemistry&chapter=13" data-chapter="13">第 13 章 课程总结</a></li>
           </ul>
         </div>
         
@@ -112,12 +100,12 @@
     </main>
   </div>
 
-  <!-- 页脚 -->
-  <footer class="footer">
-    <p>© 2025 分析化学学习博客 | 个人学习资源整理</p>
-  </footer>
+  <!-- 页脚容器 -->
+  <div id="footer-container"></div>
 
-  <script src="js/main.js"></script>
+  <!-- 引入组件加载脚本和主脚本 -->
+  <script src="../../js/components.js"></script>
+  <script src="../../js/main.js"></script>
   <script>
     // 章节标题映射
     const chapterTitles = {
@@ -156,14 +144,14 @@
       const nextBtn = document.getElementById('nextChapter');
       
       if (chapter > 1) {
-        prevBtn.href = `?chapter=${chapter - 1}`;
+        prevBtn.href = `?course=analytical-chemistry&chapter=${chapter - 1}`;
         prevBtn.style.display = 'inline-flex';
       } else {
         prevBtn.style.display = 'none';
       }
       
       if (chapter < 13) {
-        nextBtn.href = `?chapter=${chapter + 1}`;
+        nextBtn.href = `?course=analytical-chemistry&chapter=${chapter + 1}`;
         nextBtn.style.display = 'inline-flex';
       } else {
         nextBtn.style.display = 'none';
@@ -178,7 +166,7 @@
       });
       
       // 更新页面标题
-      document.title = `第${chapter}章 ${chapterTitles[chapter]} - 分析化学学习博客`;
+      document.title = `第${chapter}章 ${chapterTitles[chapter]} - 分析化学`;
     }
 
     // 加载 Markdown 文件
@@ -410,8 +398,12 @@
       }
     }
 
-    // 页面加载时执行
+    // 页面加载时初始化组件
     document.addEventListener('DOMContentLoaded', function() {
+      loadComponent('navbar', 'navbar-container');
+      loadComponent('footer', 'footer-container');
+      setCurrentPage('notes');
+      
       const chapter = getCurrentChapter();
       loadMarkdown(chapter);
     });

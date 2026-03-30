@@ -1,0 +1,68 @@
+<nav class="navbar">
+  <div class="nav-container">
+    <a href="#" class="nav-brand" id="navBrandLink">
+      <span class="icon"></span>
+      <span>学习博客</span>
+    </a>
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+    
+    <!-- 课程选择下拉菜单 -->
+    <div class="course-selector">
+      <select id="courseSelect" onchange="switchCourse()">
+        <option value="">选择课程...</option>
+        <option value="analytical-chemistry" data-icon="🧪">🧪 分析化学</option>
+        <option value="calculus-1m" data-icon="∫">∫ 微积分 1M</option>
+        <option value="algebra-1" data-icon="Σ">Σ 代数 1</option>
+        <option value="chem-biology" data-icon="🧬">🧬 化学生物</option>
+      </select>
+    </div>
+    
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#" data-page="index" class="nav-link-item">首页</a></li>
+      <li><a href="#" data-page="lectures" class="nav-link-item">课件</a></li>
+      <li><a href="#" data-page="tutorials" class="nav-link-item">习题</a></li>
+      <li><a href="#" data-page="homework" class="nav-link-item">作业</a></li>
+      <li><a href="#" data-page="exams" class="nav-link-item">考试</a></li>
+      <li><a href="#" data-page="notes" class="nav-link-item">笔记</a></li>
+    </ul>
+  </div>
+</nav>
+<script>
+  // 动态设置导航链接
+  (function() {
+    const path = window.location.pathname;
+    const isCoursePage = path.includes('/courses/');
+    const courseMatch = path.match(/\/courses\/([^\/]+)/);
+    
+    // 设置品牌链接
+    const brandLink = document.getElementById('navBrandLink');
+    if (brandLink) {
+      brandLink.href = isCoursePage ? '../../index.html' : 'index.html';
+    }
+    
+    // 设置导航链接
+    const navItems = document.querySelectorAll('.nav-link-item');
+    const pages = ['index', 'lectures', 'tutorials', 'homework', 'exams', 'notes'];
+    
+    navItems.forEach((item, index) => {
+      const page = pages[index];
+      if (isCoursePage) {
+        item.href = page === 'index' ? 'index.html' : page + '.html';
+      } else {
+        // 在首页时，导航链接需要指向课程页面
+        if (courseMatch && courseMatch[1]) {
+          item.href = page === 'index' ? 'index.html' : page + '.html';
+        } else {
+          // 在根页面，导航没有意义，禁用或指向首页
+          item.href = 'index.html';
+        }
+      }
+    });
+    
+    // 设置当前课程选择器
+    const courseSelect = document.getElementById('courseSelect');
+    if (courseSelect && courseMatch && courseMatch[1]) {
+      courseSelect.value = courseMatch[1];
+    }
+  })();
+</script>

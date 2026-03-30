@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>化学生物 - 课程首页</title>
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+  <!-- 导航栏容器 -->
+  <div id="navbar-container"></div>
+  <script>
+    // 设置当前课程
+    window.currentCourse = 'chem-biology';
+  </script>
+
+  <!-- 主容器 -->
+  <div class="container">
+    <!-- 特色区域 -->
+    <section class="hero">
+      <h2>🧬 化学生物</h2>
+      <p>化学生物学是化学与生物学的交叉学科，运用化学方法研究生物系统，探索生命过程的分子机制</p>
+      <div class="hero-buttons">
+        <a href="lectures.html" class="hero-btn">📚 浏览课件</a>
+        <a href="tutorials.html" class="hero-btn">✏️ 做习题</a>
+        <a href="homework.html" class="hero-btn">📝 查作业</a>
+      </div>
+    </section>
+
+    <!-- 快速导航 -->
+    <section class="quick-links">
+      <a href="lectures.html" class="quick-link-card">
+        <div class="quick-link-icon">📖</div>
+        <h3 class="quick-link-title">课程课件</h3>
+        <p class="quick-link-desc">待添加课件内容</p>
+      </a>
+      <a href="tutorials.html" class="quick-link-card">
+        <div class="quick-link-icon">📝</div>
+        <h3 class="quick-link-title">习题解答</h3>
+        <p class="quick-link-desc">待添加习题内容</p>
+      </a>
+      <a href="homework.html" class="quick-link-card">
+        <div class="quick-link-icon">📋</div>
+        <h3 class="quick-link-title">课后作业</h3>
+        <p class="quick-link-desc">待添加作业内容</p>
+      </a>
+      <a href="exams.html" class="quick-link-card">
+        <div class="quick-link-icon">🎯</div>
+        <h3 class="quick-link-title">考试资料</h3>
+        <p class="quick-link-desc">待添加考试资料</p>
+      </a>
+      <a href="notes.html" class="quick-link-card">
+        <div class="quick-link-icon">📚</div>
+        <h3 class="quick-link-title">学习笔记</h3>
+        <p class="quick-link-desc">待添加笔记内容</p>
+      </a>
+    </section>
+
+    <!-- 课程简介 -->
+    <section style="margin-top: 3rem; background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+      <h2 style="color: var(--primary-color); margin-bottom: 1rem;">📌 关于化学生物</h2>
+      <p style="color: var(--text-secondary); line-height: 1.8;">
+        化学生物学是化学与生物学的交叉学科，主要内容包括：
+      </p>
+      <ul style="color: var(--text-secondary); line-height: 2; margin-top: 1rem; padding-left: 1.5rem;">
+        <li>生物大分子结构与功能</li>
+        <li>酶催化机制</li>
+        <li>代谢途径与调控</li>
+        <li>化学生物学技术</li>
+        <li>药物设计与发现</li>
+        <li>化学生物学前沿</li>
+      </ul>
+      <p style="color: #999; margin-top: 1rem; font-style: italic;">📝 课程内容待添加</p>
+    </section>
+  </div>
+
+  <!-- 页脚容器 -->
+  <div id="footer-container"></div>
+
+  <!-- 引入组件加载脚本和主脚本 -->
+  <script src="../../js/components.js"></script>
+  <script src="../../js/main.js"></script>
+  <script>
+    // 页面加载时初始化组件
+    document.addEventListener('DOMContentLoaded', function() {
+      loadComponent('navbar', 'navbar-container');
+      loadComponent('footer', 'footer-container');
+      setCurrentPage('index');
+    });
+  </script>
+</body>
+</html>

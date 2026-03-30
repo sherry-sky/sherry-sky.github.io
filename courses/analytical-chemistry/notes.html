@@ -3,28 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>学习笔记 - 分析化学学习博客</title>
-  <link rel="stylesheet" href="css/style.css">
+  <title>学习笔记 - 分析化学</title>
+  <link rel="stylesheet" href="../../css/style.css">
 </head>
 <body>
-  <!-- 导航栏 -->
-  <nav class="navbar">
-    <div class="nav-container">
-      <a href="index.html" class="nav-brand">
-        <span class="icon">🧪</span>
-        <span>分析化学学习博客</span>
-      </a>
-      <button class="menu-toggle" onclick="toggleMenu()">☰</button>
-      <ul class="nav-links">
-        <li><a href="index.html">首页</a></li>
-        <li><a href="lectures.html">课件</a></li>
-        <li><a href="tutorials.html">习题</a></li>
-        <li><a href="homework.html">作业</a></li>
-        <li><a href="exams.html">考试</a></li>
-        <li><a href="notes.html" class="active">笔记</a></li>
-      </ul>
-    </div>
-  </nav>
+  <!-- 导航栏容器 -->
+  <div id="navbar-container"></div>
+  <script>
+    // 设置当前课程
+    window.currentCourse = 'analytical-chemistry';
+  </script>
 
   <!-- 主容器 -->
   <div class="container">
@@ -37,13 +25,13 @@
     <!-- 搜索框 -->
     <div class="search-container">
       <span class="search-icon">🔍</span>
-      <input type="text" class="search-input" id="searchInput" placeholder="搜索笔记..." onkeyup="searchNotes()">
+      <input type="text" class="search-input" id="searchInput" placeholder="搜索笔记..." onkeyup="searchResources()">
     </div>
 
     <!-- 笔记列表 -->
-    <div class="card-grid" id="notesGrid">
+    <div class="card-grid" id="resourceGrid">
       <!-- Chapter 1 -->
-      <div class="resource-card note-card" data-title="Chapter 1 分析化学导论" onclick="location.href='notes-viewer.html?chapter=1'">
+      <div class="resource-card note-card" data-title="Chapter 1 分析化学导论" onclick="location.href='notes-viewer.html?course=analytical-chemistry&chapter=1'">
         <div class="card-header">
           <span class="card-icon">📖</span>
           <h3 class="card-title">Chapter 1 - 分析化学导论</h3>
@@ -56,7 +44,7 @@
       </div>
 
       <!-- Chapter 2 -->
-      <div class="resource-card note-card" data-title="Chapter 2 基础知识" onclick="location.href='notes-viewer.html?chapter=2'">
+      <div class="resource-card note-card" data-title="Chapter 2 基础知识" onclick="location.href='notes-viewer.html?course=analytical-chemistry&chapter=2'">
         <div class="card-header">
           <span class="card-icon">📖</span>
           <h3 class="card-title">Chapter 2 - 基础知识</h3>
@@ -69,7 +57,7 @@
       </div>
 
       <!-- Chapter 3 -->
-      <div class="resource-card note-card" data-title="Chapter 3 实验误差" onclick="location.href='notes-viewer.html?chapter=3'">
+      <div class="resource-card note-card" data-title="Chapter 3 实验误差" onclick="location.href='notes-viewer.html?course=analytical-chemistry&chapter=3'">
         <div class="card-header">
           <span class="card-icon">📖</span>
           <h3 class="card-title">Chapter 3 - 实验误差及其估算</h3>
@@ -82,7 +70,7 @@
       </div>
 
       <!-- Chapter 4 -->
-      <div class="resource-card note-card" data-title="Chapter 4 随机误差" onclick="location.href='notes-viewer.html?chapter=4'">
+      <div class="resource-card note-card" data-title="Chapter 4 随机误差" onclick="location.href='notes-viewer.html?course=analytical-chemistry&chapter=4'">
         <div class="card-header">
           <span class="card-icon">📖</span>
           <h3 class="card-title">Chapter 4 - 随机误差及其估算</h3>
@@ -95,7 +83,7 @@
       </div>
 
       <!-- Chapter 5 -->
-      <div class="resource-card note-card" data-title="Chapter 5 线性回归" onclick="location.href='notes-viewer.html?chapter=5'">
+      <div class="resource-card note-card" data-title="Chapter 5 线性回归" onclick="location.href='notes-viewer.html?course=analytical-chemistry&chapter=5'">
         <div class="card-header">
           <span class="card-icon">📖</span>
           <h3 class="card-title">Chapter 5 - 线性回归分析</h3>
@@ -108,7 +96,7 @@
       </div>
 
       <!-- Chapter 6 -->
-      <div class="resource-card note-card" data-title="Chapter 6 pH 缓冲溶液" onclick="location.href='notes-viewer.html?chapter=6'">
+      <div class="resource-card note-card" data-title="Chapter 6 pH 缓冲溶液" onclick="location.href='notes-viewer.html?course=analytical-chemistry&chapter=6'">
         <div class="card-header">
           <span class="card-icon">📖</span>
           <h3 class="card-title">Chapter 6 - pH 与缓冲溶液</h3>
@@ -121,7 +109,7 @@
       </div>
 
       <!-- Chapter 7 -->
-      <div class="resource-card note-card" data-title="Chapter 7 滴定分析入门" onclick="location.href='notes-viewer.html?chapter=7'">
+      <div class="resource-card note-card" data-title="Chapter 7 滴定分析入门" onclick="location.href='notes-viewer.html?course=analytical-chemistry&chapter=7'">
         <div class="card-header">
           <span class="card-icon">📖</span>
           <h3 class="card-title">Chapter 7 - 滴定分析入门</h3>
@@ -134,7 +122,7 @@
       </div>
 
       <!-- Chapter 8 -->
-      <div class="resource-card note-card" data-title="Chapter 8 滴定分析进阶" onclick="location.href='notes-viewer.html?chapter=8'">
+      <div class="resource-card note-card" data-title="Chapter 8 滴定分析进阶" onclick="location.href='notes-viewer.html?course=analytical-chemistry&chapter=8'">
         <div class="card-header">
           <span class="card-icon">📖</span>
           <h3 class="card-title">Chapter 8 - 滴定分析进阶</h3>
@@ -147,7 +135,7 @@
       </div>
 
       <!-- Chapter 9 -->
-      <div class="resource-card note-card" data-title="Chapter 9 电位滴定法" onclick="location.href='notes-viewer.html?chapter=9'">
+      <div class="resource-card note-card" data-title="Chapter 9 电位滴定法" onclick="location.href='notes-viewer.html?course=analytical-chemistry&chapter=9'">
         <div class="card-header">
           <span class="card-icon">📖</span>
           <h3 class="card-title">Chapter 9 - 电位滴定法</h3>
@@ -160,7 +148,7 @@
       </div>
 
       <!-- Chapter 10 -->
-      <div class="resource-card note-card" data-title="Chapter 10 Gran 作图法" onclick="location.href='notes-viewer.html?chapter=10'">
+      <div class="resource-card note-card" data-title="Chapter 10 Gran 作图法" onclick="location.href='notes-viewer.html?course=analytical-chemistry&chapter=10'">
         <div class="card-header">
           <span class="card-icon">📖</span>
           <h3 class="card-title">Chapter 10 - Gran 作图法</h3>
@@ -173,7 +161,7 @@
       </div>
 
       <!-- Chapter 11 -->
-      <div class="resource-card note-card" data-title="Chapter 11 电化学分析" onclick="location.href='notes-viewer.html?chapter=11'">
+      <div class="resource-card note-card" data-title="Chapter 11 电化学分析" onclick="location.href='notes-viewer.html?course=analytical-chemistry&chapter=11'">
         <div class="card-header">
           <span class="card-icon">📖</span>
           <h3 class="card-title">Chapter 11 - 电化学分析技术</h3>
@@ -186,7 +174,7 @@
       </div>
 
       <!-- Chapter 12 -->
-      <div class="resource-card note-card" data-title="Chapter 12 重量分析" onclick="location.href='notes-viewer.html?chapter=12'">
+      <div class="resource-card note-card" data-title="Chapter 12 重量分析" onclick="location.href='notes-viewer.html?course=analytical-chemistry&chapter=12'">
         <div class="card-header">
           <span class="card-icon">📖</span>
           <h3 class="card-title">Chapter 12 - 重量分析法</h3>
@@ -199,7 +187,7 @@
       </div>
 
       <!-- Chapter 13 -->
-      <div class="resource-card note-card" data-title="Chapter 13 课程总结" onclick="location.href='notes-viewer.html?chapter=13'">
+      <div class="resource-card note-card" data-title="Chapter 13 课程总结" onclick="location.href='notes-viewer.html?course=analytical-chemistry&chapter=13'">
         <div class="card-header">
           <span class="card-icon">📖</span>
           <h3 class="card-title">Chapter 13 - 课程总结</h3>
@@ -219,11 +207,19 @@
     </div>
   </div>
 
-  <!-- 页脚 -->
-  <footer class="footer">
-    <p>© 2025 分析化学学习博客 | 个人学习资源整理</p>
-  </footer>
+  <!-- 页脚容器 -->
+  <div id="footer-container"></div>
 
-  <script src="js/main.js"></script>
+  <!-- 引入组件加载脚本和主脚本 -->
+  <script src="../../js/components.js"></script>
+  <script src="../../js/main.js"></script>
+  <script>
+    // 页面加载时初始化组件
+    document.addEventListener('DOMContentLoaded', function() {
+      loadComponent('navbar', 'navbar-container');
+      loadComponent('footer', 'footer-container');
+      setCurrentPage('notes');
+    });
+  </script>
 </body>
 </html>

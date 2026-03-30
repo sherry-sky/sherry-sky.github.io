@@ -3,28 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>课后作业 - 分析化学学习博客</title>
-  <link rel="stylesheet" href="css/style.css">
+  <title>课后作业 - 分析化学</title>
+  <link rel="stylesheet" href="../../css/style.css">
 </head>
 <body>
-  <!-- 导航栏 -->
-  <nav class="navbar">
-    <div class="nav-container">
-      <a href="index.html" class="nav-brand">
-        <span class="icon">🧪</span>
-        <span>分析化学学习博客</span>
-      </a>
-      <button class="menu-toggle" onclick="toggleMenu()">☰</button>
-      <ul class="nav-links">
-        <li><a href="index.html">首页</a></li>
-        <li><a href="lectures.html">课件</a></li>
-        <li><a href="tutorials.html">习题</a></li>
-        <li><a href="homework.html" class="active">作业</a></li>
-        <li><a href="exams.html">考试</a></li>
-        <li><a href="notes.html">笔记</a></li>
-      </ul>
-    </div>
-  </nav>
+  <!-- 导航栏容器 -->
+  <div id="navbar-container"></div>
+  <script>
+    // 设置当前课程
+    window.currentCourse = 'analytical-chemistry';
+  </script>
 
   <!-- 主容器 -->
   <div class="container">
@@ -37,11 +25,11 @@
     <!-- 搜索框 -->
     <div class="search-container">
       <span class="search-icon">🔍</span>
-      <input type="text" class="search-input" id="searchInput" placeholder="搜索作业..." onkeyup="searchHomework()">
+      <input type="text" class="search-input" id="searchInput" placeholder="搜索作业..." onkeyup="searchResources()">
     </div>
 
     <!-- 作业列表 -->
-    <div class="card-grid" id="homeworkGrid">
+    <div class="card-grid" id="resourceGrid">
       <!-- Homework 2 -->
       <div class="resource-card" data-title="Homework 2 基础作业">
         <div class="card-header">
@@ -351,11 +339,19 @@
     </div>
   </div>
 
-  <!-- 页脚 -->
-  <footer class="footer">
-    <p>© 2025 分析化学学习博客 | 个人学习资源整理</p>
-  </footer>
+  <!-- 页脚容器 -->
+  <div id="footer-container"></div>
 
-  <script src="js/main.js"></script>
+  <!-- 引入组件加载脚本和主脚本 -->
+  <script src="../../js/components.js"></script>
+  <script src="../../js/main.js"></script>
+  <script>
+    // 页面加载时初始化组件
+    document.addEventListener('DOMContentLoaded', function() {
+      loadComponent('navbar', 'navbar-container');
+      loadComponent('footer', 'footer-container');
+      setCurrentPage('homework');
+    });
+  </script>
 </body>
 </html>
