@@ -4,21 +4,32 @@
 
 ---
 
+## 背景知识点
+
+<!-- BACKGROUND_START -->
+- **重量分析**：通过称量沉淀的质量来确定被测组分含量的分析方法
+- **沉淀洗涤**：少量多次的洗涤方式比一次性用大量洗涤液更有效
+  - 洗涤 n 次后残留污染物分数：$\frac{x_n}{x_0} = \left(\frac{\mu}{\mu + V/n}\right)^n$
+  - 其中 μ 为沉淀液体积，V 为洗涤液总体积
+- **化学计量关系**：利用反应的摩尔比进行计算
+<!-- BACKGROUND_END -->
+
 ## 📝 题目部分
 
+<!-- QUESTION_START id="T12-1" -->
 **T12-1.** 一个 0.649 g 样品含有 K₂SO₄ (M.W. 174.27 g/mol) 和 (NH₄)₂SO₄ (M.W. 132.14 g/mol)，将其溶于水并用 Ba(NO₃)₂ (M.W. 233.39 g/mol) 处理，使所有 SO₄²⁻ 沉淀为 BaSO₄。若得到 0.977 g 沉淀，求样品中 K₂SO₄ 的质量百分比。
+<!-- QUESTION_END -->
 
----
-
+<!-- QUESTION_START id="T12-2" -->
 **T12-2.** 在重量分析中，一个摩尔质量为 417 g/mol 的有机化合物通过以下反应分析乙氧基 (CH₃CH₂O—)：
 
 $$\text{CH}_3\text{CH}_2\text{OR} + \text{HI} \rightarrow \text{ROH} + \text{CH}_3\text{CH}_2\text{I}$$
 $$\text{CH}_3\text{CH}_2\text{I} + \text{Ag}^+ + \text{OH}^- \rightarrow \text{AgI(↓)} + \text{CH}_3\text{CH}_2\text{OH}$$
 
 25.42 mg 该化合物样品产生 29.03 mg AgI。每个分子中有多少个乙氧基？
+<!-- QUESTION_END -->
 
----
-
+<!-- QUESTION_START id="T12-3" -->
 **T12-3.** 测定钢中的镍 (Ni) 含量时，将合金溶于 12M HCl 中，并在柠檬酸根离子存在下中和。将微碱性溶液加热，加入醇性丁二酮肟 (DMG) 溶液，定量沉淀红色 DMG-Ni 配合物。将产物过滤，用冷水洗涤，在 110°C 下干燥。
 
 a. 若已知 Ni 含量约为 3 wt%，你希望分析 1.0 g 钢。为了使 DMG 过量 50%，应使用多少体积的 1.0 wt% 醇性 DMG 溶液？DMG 的密度为 0.79 g/mL。
@@ -29,19 +40,18 @@ b. 若 1.1634 g 钢产生 0.1795 g 沉淀，钢中 Ni 的百分比是多少？
 - M.W.(Ni) = 58.69 g/mol
 - M.W.(DMG) = 116.12 g/mol
 - M.W.(配合物) = 288.91 g/mol
+<!-- QUESTION_END -->
 
-**图片:**
-![page1_img1.png](../tutorials/images/tutorial-12/page1_img1.png)
-
----
-
+<!-- QUESTION_START id="T12-4" -->
 **T12-4.** 沉淀液是指残留在沉淀中并含有污染物的液体。若沉淀液体积为 1 mL，洗涤液为 20 mL，请计算洗涤 n 次（n = 1, 2, 3）后沉淀液中残留的污染物。若洗涤液增加到 60 mL，你的答案将如何变化？从结果中可以得出什么结论？
+<!-- QUESTION_END -->
 
 ---
 
 ## 💡 参考答案
 
-### T12-1. 混合物中 K₂SO₄ 含量测定
+<!-- ANSWER_START for="T12-1" -->
+**T12-1.** 混合物中 K₂SO₄ 含量测定
 
 **已知条件：**
 - 样品质量：0.649 g
@@ -66,10 +76,10 @@ $$x = 0.397\ \text{g}$$
 
 **K₂SO₄ 质量百分比：**
 $$w(\text{K}_2\text{SO}_4) = \frac{0.397\ \text{g}}{0.649\ \text{g}} \times 100\% = \mathbf{61.1\%}$$
+<!-- ANSWER_END -->
 
----
-
-### T12-2. 乙氧基数目测定
+<!-- ANSWER_START for="T12-2" -->
+**T12-2.** 乙氧基数目测定
 
 **已知条件：**
 - 有机化合物摩尔质量：417 g/mol
@@ -89,10 +99,10 @@ $$n(\text{化合物}) = \frac{25.42\ \text{mg}}{417\ \text{g/mol}} = 0.06090\ \t
 $$\frac{n(\text{乙氧基})}{n(\text{化合物})} = \frac{0.12365\ \text{mmol}}{0.06090\ \text{mmol}} = 2.03 \approx \mathbf{2}$$
 
 **结论：** 每个有机化合物分子中含有 **2 个乙氧基**。
+<!-- ANSWER_END -->
 
----
-
-### T12-3. 钢中镍含量测定
+<!-- ANSWER_START for="T12-3" -->
+**T12-3.** 钢中镍含量测定
 
 #### a. DMG 溶液体积计算
 
@@ -119,8 +129,6 @@ $$m(\text{溶液}) = \frac{0.178\ \text{g}}{1.0\%} = 17.8\ \text{g}$$
 **所需 DMG 溶液体积：**
 $$V = \frac{17.8\ \text{g}}{0.79\ \text{g/mL}} = \mathbf{23\ \text{mL}}$$
 
----
-
 #### b. 钢中 Ni 百分比计算
 
 **已知条件：**
@@ -138,10 +146,10 @@ $$m(\text{Ni}) = n(\text{Ni}) \times M(\text{Ni}) = 6.213 \times 10^{-4}\ \text{
 
 **Ni 质量百分比：**
 $$w(\text{Ni}) = \frac{0.03646\ \text{g}}{1.1634\ \text{g}} \times 100\% = \mathbf{3.134\%}$$
+<!-- ANSWER_END -->
 
----
-
-### T12-4. 沉淀洗涤效率计算
+<!-- ANSWER_START for="T12-4" -->
+**T12-4.** 沉淀洗涤效率计算
 
 **已知条件：**
 - 沉淀液体积：μ = 1.0 mL
@@ -151,8 +159,6 @@ $$w(\text{Ni}) = \frac{0.03646\ \text{g}}{1.1634\ \text{g}} \times 100\% = \math
 
 洗涤 n 次后残留污染物分数：
 $$\frac{x_n}{x_0} = \left(\frac{\mu}{\mu + V/n}\right)^n$$
-
----
 
 #### 当 V = 20 mL 时：
 
@@ -165,14 +171,10 @@ $$\frac{x_2}{x_0} = \left(\frac{1.0}{1.0 + 10}\right)^2 \times 100\% = \left(\fr
 **洗涤 3 次（n = 3）：** 每次用 6.67 mL
 $$\frac{x_3}{x_0} = \left(\frac{1.0}{1.0 + 6.67}\right)^3 \times 100\% = \left(\frac{1.0}{7.67}\right)^3 \times 100\% = \mathbf{0.22\%}$$
 
----
-
 #### 当 V = 60 mL，洗涤 3 次时：
 
 每次用 20 mL：
 $$\frac{x'_3}{x_0} = \left(\frac{1.0}{1.0 + 20}\right)^3 \times 100\% = \left(\frac{1.0}{21.0}\right)^3 \times 100\% = \mathbf{0.011\%}$$
-
----
 
 **结论：**
 
@@ -186,10 +188,13 @@ $$\frac{x'_3}{x_0} = \left(\frac{1.0}{1.0 + 20}\right)^3 \times 100\% = \left(\f
 1. **洗涤次数越多**，残留污染物越少，沉淀越纯净
 2. **洗涤液总体积越大**，残留污染物越少
 3. **少量多次**的洗涤方式比一次性用大量洗涤液更有效
+<!-- ANSWER_END -->
 
+<!-- PDF_LINKS_START -->
 ---
 
 ## 📎 原始 PDF 文件
 
 - **题目 PDF**: [12T-Tutorial for Anal Chem1.pdf](Tutorials-PDF/12T-Tutorial for Anal Chem1.pdf)
 - **答案 PDF**: [12T-Answer for Tutorial of Anal Chem1.pdf](Tutorials-PDF/12T-Answer for Tutorial of Anal Chem1.pdf)
+<!-- PDF_LINKS_END -->

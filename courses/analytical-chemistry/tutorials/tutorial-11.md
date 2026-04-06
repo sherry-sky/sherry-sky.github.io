@@ -4,12 +4,22 @@
 
 ---
 
+## 背景知识点
+
+<!-- BACKGROUND_START -->
+- **极谱法**：扩散电流与被分析物的本体浓度成正比，半波电位（E₁/₂）可用于定性分析
+- **电重量分析**：通过电解沉积测定物质含量
+- **法拉第定律**：$Q = I \times t = n \times F$，其中 F = 96485 C/mol
+- **库仑滴定**：通过电解产生的滴定剂进行滴定分析
+<!-- BACKGROUND_END -->
+
 ## 📝 题目部分
 
+<!-- QUESTION_START id="T11-1" -->
 **T11-1.** 药物 Librium 在 0.05M H₂SO₄ 中给出极谱波，E₁/₂ = -0.265 V（相对于 S.C.E.）。50.0 mL 含 Librium 的样品给出波高 0.37 μA。当向样品中加入 2.00 mL 3.00 mM Librium（溶于 0.05M H₂SO₄）后，波高增加到 0.8 μA。求未知样品中 Librium 的摩尔浓度。
+<!-- QUESTION_END -->
 
----
-
+<!-- QUESTION_START id="T11-2" -->
 **T11-2.** 能与 Ag⁺ 反应的离子可以通过在银工作阳极上沉积进行电重量分析测定：
 $$\text{Ag(s)} + \text{X}^- \rightarrow \text{AgX(s)} + \text{e}^- \quad \text{X} = \text{Cl}^-, \text{Br}^-, \text{I}^-, \text{SCN}^-$$
 
@@ -22,22 +32,24 @@ $$\text{AgBr(s)} + \text{e}^- \rightleftharpoons \text{Ag(s)} + \text{Br}^- \qua
 c. 通过控制电位电解，理论上能否将 99.99% 的 0.1M KI 从 0.10M KBr 中分离出来？
 - Ksp(AgI) = 8.3×10⁻¹⁷
 - Ksp(AgBr) = 5.0×10⁻¹³
+<!-- QUESTION_END -->
 
----
-
+<!-- QUESTION_START id="T11-3" -->
 **T11-3.** 在电解池中，用 0.800 A 的恒定电流在阴极沉积铜并在阳极释放氧气。计算 15.2 分钟内形成的每种产物的质量（克）。假设不发生其他氧化还原反应，使用以下反应：
 $$\text{Cu}^{2+}(\text{aq}) + 2\text{e}^- \rightleftharpoons \text{Cu(s)}$$
 $$\text{O}_2(\text{g}) + 4\text{H}^+(\text{aq}) + 4\text{e}^- \rightleftharpoons 2\text{H}_2\text{O(l)}$$
+<!-- QUESTION_END -->
 
----
-
+<!-- QUESTION_START id="T11-4" -->
 **T11-4.** 使用与 T11-3 相同的装置进行库仑滴定。在阳极室中加入几滴溴百里酚蓝指示剂（pKa = 7.1，pH 范围 6.0-7.6，颜色从黄色变为蓝色）和 1.00 mL 未知浓度的 KOH。按下启动按钮，通过 0.800 A 恒定电流在阳极室中产生酸。当观察到溶液颜色从黄色变为蓝色时，关闭电流并记录反应时间为 15.2 分钟。计算 KOH 的浓度。
+<!-- QUESTION_END -->
 
 ---
 
 ## 💡 参考答案
 
-### T11-1. 极谱法测定 Librium 浓度
+<!-- ANSWER_START for="T11-1" -->
+**T11-1.** 极谱法测定 Librium 浓度
 
 **原理：** 在伏安法中，若有足够浓度的支持电解质，扩散电流与被分析物的本体浓度成正比。半波电位（E₁/₂，最大电流一半时的电位）是特定被分析物在特定介质中的特征值，可用于定性分析。
 
@@ -62,10 +74,10 @@ $$\frac{y_2}{y_1} = \frac{50.0x + 6.00}{52.0x} = \frac{0.8}{0.37}$$
 $$x = \mathbf{0.096\ \text{mM}}$$
 
 **说明：** 本题结合了伏安法和标准加入法。
+<!-- ANSWER_END -->
 
----
-
-### T11-2. 电重量分析
+<!-- ANSWER_START for="T11-2" -->
+**T11-2.** 电重量分析
 
 #### a. 银阳极最终质量计算
 
@@ -86,8 +98,6 @@ $$m(\text{SCN}) = 1.785\ \text{mmol} \times 58.078\ \text{g/mol} = 103.67\ \text
 **最终质量：**
 $$m_\text{最终} = 12.4683\ \text{g} + 0.1037\ \text{g} = \mathbf{12.5720\ \text{g}}$$
 
----
-
 #### b. AgBr 沉积的电解电压
 
 **已知条件：**
@@ -103,8 +113,6 @@ $$E_\text{阴} = E(\text{S.C.E.}) = 0.241\ \text{V}$$
 
 **电解电压：**
 $$E = E_\text{阴} - E_\text{阳} = 0.241\ \text{V} - 0.130\ \text{V} = \mathbf{0.111\ \text{V}}$$
-
----
 
 #### c. KI 与 KBr 的分离可能性
 
@@ -123,10 +131,10 @@ $$[\text{Ag}^+] = \frac{K_{sp}(\text{AgI})}{[\text{I}^-]} = \frac{8.3 \times 10^
 $$[\text{Ag}^+]' = \frac{K_{sp}(\text{AgBr})}{[\text{Br}^-]} = \frac{5.0 \times 10^{-13}}{0.10} = 5.0 \times 10^{-12}\ \text{M}$$
 
 **结论：** 当 [Ag⁺] 达到 8.3×10⁻¹² M 时，AgBr 也开始沉淀（因为 8.3×10⁻¹² > 5.0×10⁻¹²）。因此，**理论上无法通过控制电位电解将 99.99% 的 KI 从 KBr 中分离出来**。
+<!-- ANSWER_END -->
 
----
-
-### T11-3. 电解产物质量计算
+<!-- ANSWER_START for="T11-3" -->
+**T11-3.** 电解产物质量计算
 
 **已知条件：**
 - 电流：I = 0.800 A
@@ -141,8 +149,6 @@ $$Q = I \times t = 0.800\ \text{A} \times 912\ \text{s} = 729.6\ \text{C}$$
 **电子物质的量：**
 $$n_\text{e} = \frac{Q}{F} = \frac{729.6\ \text{C}}{96485\ \text{C/mol}} = 7.56 \times 10^{-3}\ \text{mol}$$
 
----
-
 #### 阴极产物（Cu）
 
 反应：Cu²⁺ + 2e⁻ → Cu(s)
@@ -152,8 +158,6 @@ $$n(\text{Cu}) = \frac{1}{2} n_\text{e} = \frac{1}{2} \times 7.56 \times 10^{-3}
 
 $$m(\text{Cu}) = n(\text{Cu}) \times M(\text{Cu}) = 3.78 \times 10^{-3}\ \text{mol} \times 63.55\ \text{g/mol} = \mathbf{0.240\ \text{g}}$$
 
----
-
 #### 阳极产物（O₂）
 
 反应：2H₂O(l) → O₂(g) + 4H⁺(aq) + 4e⁻
@@ -162,10 +166,10 @@ $$m(\text{Cu}) = n(\text{Cu}) \times M(\text{Cu}) = 3.78 \times 10^{-3}\ \text{m
 $$n(\text{O}_2) = \frac{1}{4} n_\text{e} = \frac{1}{4} \times 7.56 \times 10^{-3} = 1.89 \times 10^{-3}\ \text{mol}$$
 
 $$m(\text{O}_2) = n(\text{O}_2) \times M(\text{O}_2) = 1.89 \times 10^{-3}\ \text{mol} \times 32\ \text{g/mol} = \mathbf{0.0605\ \text{g}}$$
+<!-- ANSWER_END -->
 
----
-
-### T11-4. 库仑滴定测定 KOH 浓度
+<!-- ANSWER_START for="T11-4" -->
+**T11-4.** 库仑滴定测定 KOH 浓度
 
 **已知条件：**
 - 电流：I = 0.800 A
@@ -189,10 +193,13 @@ $$n(\text{KOH}) = n(\text{H}^+) = 7.56 \times 10^{-3}\ \text{mol}$$
 
 **KOH 浓度：**
 $$C(\text{KOH}) = \frac{n(\text{KOH})}{V} = \frac{7.56 \times 10^{-3}\ \text{mol}}{0.00100\ \text{L}} = \mathbf{7.56\ \text{M}}$$
+<!-- ANSWER_END -->
 
+<!-- PDF_LINKS_START -->
 ---
 
 ## 📎 原始 PDF 文件
 
 - **题目 PDF**: [11T-Tutorial for Anal Chem1.pdf](Tutorials-PDF/11T-Tutorial for Anal Chem1.pdf)
 - **答案 PDF**: [11T-Answer for Tutorial of Anal Chem1.pdf](Tutorials-PDF/11T-Answer for Tutorial of Anal Chem1.pdf)
+<!-- PDF_LINKS_END -->

@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <title>习题解答 - 分析化学</title>
   <link rel="stylesheet" href="../../css/style.css">
   <!-- 引入 marked.js 用于解析 Markdown -->
@@ -66,6 +69,151 @@
     }
     .pdf-links a:hover {
       text-decoration: underline;
+    }
+    
+    /* 可折叠答案和解析样式 - 每道题独立卡片 */
+    .collapsible-wrapper {
+      margin: 1.5rem 0;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #fff;
+      border: 1px solid #e0e0e0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      transition: box-shadow 0.3s ease;
+    }
+    
+    .collapsible-wrapper:hover {
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    
+    .question-block {
+      background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+      border-left: 4px solid var(--primary-light);
+      padding: 1.5rem;
+      margin-bottom: 0;
+    }
+    
+    .question-block strong {
+      color: var(--primary-color);
+      font-weight: 600;
+      font-size: 1.05rem;
+    }
+    
+    .question-block p {
+      margin: 0.75rem 0 0 0;
+      line-height: 1.7;
+    }
+    
+    .toggle-answer-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1.25rem;
+      background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary-color) 100%);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.2s;
+      margin: 0.75rem 0 0.75rem 0;
+      font-size: 0.9rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .toggle-answer-btn:hover {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    }
+    
+    .toggle-answer-btn:active {
+      transform: translateY(0);
+    }
+    
+    .toggle-answer-btn .icon {
+      display: inline-block;
+      transition: transform 0.3s ease;
+      font-size: 0.75rem;
+    }
+    
+    .toggle-answer-btn.show .icon {
+      transform: rotate(90deg);
+    }
+    
+    .answer-content {
+      display: none;
+      margin: 0;
+      padding: 1.5rem;
+      background: linear-gradient(135deg, #f1f8e9 0%, #e8f5e9 100%);
+      border-top: 1px solid #c8e6c9;
+      overflow-x: auto;
+      max-width: 100%;
+    }
+    
+    /* 答案内容中的长公式和表格支持横向滚动 */
+    .answer-content table {
+      min-width: 100%;
+    }
+    
+    .answer-content .katex-display,
+    .answer-content mjx-container[jax="CHTML"][display="true"] {
+      overflow-x: auto;
+      overflow-y: hidden;
+      max-width: 100%;
+      padding: 0.5em 0;
+    }
+    
+    /* 自定义滚动条样式 */
+    .answer-content::-webkit-scrollbar {
+      height: 8px;
+    }
+    
+    .answer-content::-webkit-scrollbar-track {
+      background: #c8e6c9;
+      border-radius: 4px;
+    }
+    
+    .answer-content::-webkit-scrollbar-thumb {
+      background: #4caf50;
+      border-radius: 4px;
+    }
+    
+    .answer-content::-webkit-scrollbar-thumb:hover {
+      background: #2e7d32;
+    }
+    
+    .answer-content.show {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* 题目部分样式优化 */
+    .question-section {
+      background: #fff;
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin-bottom: 1.5rem;
+    }
+    
+    .question-item {
+      background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+      border: 1px solid #e0e0e0;
+      border-left: 4px solid var(--primary-light);
+      padding: 1.25rem;
+      margin: 1rem 0;
+      border-radius: 8px;
+    }
+    
+    .question-item strong {
+      color: var(--primary-color);
+      font-weight: 600;
     }
   </style>
 </head>
@@ -145,6 +293,329 @@
   <script src="../../js/components.js"></script>
   <script src="../../js/main.js"></script>
   <script>
+    // 存储从 Markdown 解析的题目、答案、背景知识和 PDF 链接
+    let parsedQuestions = [];
+    let parsedAnswers = {};
+    let parsedBackgroundKnowledge = '';
+    let parsedPdfLinks = '';
+    
+    // 从原始 Markdown 文本中解析题目、答案、背景知识和 PDF 链接
+    function parseMarkdownWithMarkers(markdown) {
+      console.log('开始解析 Markdown 中的标记...');
+      
+      // 解析背景知识部分
+      const backgroundPattern = /<!--\s*BACKGROUND_START\s*-->([\s\S]*?)<!--\s*BACKGROUND_END\s*-->/;
+      const backgroundMatch = markdown.match(backgroundPattern);
+      const backgroundKnowledge = backgroundMatch ? backgroundMatch[1].trim() : '';
+      console.log('解析背景知识:', backgroundKnowledge ? '找到' : '未找到');
+      
+      // 解析题目部分
+      const questionPattern = /<!--\s*QUESTION_START\s+id="([^"]+)"\s*-->([\s\S]*?)<!--\s*QUESTION_END\s*-->/g;
+      const questions = [];
+      let match;
+      
+      while ((match = questionPattern.exec(markdown)) !== null) {
+        questions.push({
+          id: match[1],
+          content: match[2].trim()
+        });
+      }
+      
+      console.log(`解析到 ${questions.length} 道题目`);
+      
+      // 解析答案部分
+      const answerPattern = /<!--\s*ANSWER_START\s+for="([^"]+)"\s*-->([\s\S]*?)<!--\s*ANSWER_END\s*-->/g;
+      const answers = {};
+      let answerMatch;
+      
+      while ((answerMatch = answerPattern.exec(markdown)) !== null) {
+        answers[answerMatch[1]] = answerMatch[2].trim();
+      }
+      
+      console.log(`解析到 ${Object.keys(answers).length} 个答案`);
+      
+      // 解析 PDF 链接部分
+      const pdfLinksPattern = /<!--\s*PDF_LINKS_START\s*-->([\s\S]*?)<!--\s*PDF_LINKS_END\s*-->/;
+      const pdfLinksMatch = markdown.match(pdfLinksPattern);
+      const pdfLinks = pdfLinksMatch ? pdfLinksMatch[1].trim() : '';
+      console.log('解析 PDF 链接:', pdfLinks ? '找到' : '未找到');
+      
+      // 存储到全局变量
+      parsedQuestions = questions;
+      parsedAnswers = answers;
+      parsedBackgroundKnowledge = backgroundKnowledge;
+      parsedPdfLinks = pdfLinks;
+      
+      return { questions, answers, backgroundKnowledge, pdfLinks };
+    }
+    
+    // 切换答案显示/隐藏的全局函数
+    window.toggleAnswer = function(questionId) {
+      console.log('toggleAnswer called with:', questionId);
+      const answerContent = document.getElementById(`answer-${questionId}`);
+      const wrapper = answerContent?.closest('.collapsible-wrapper');
+      const button = wrapper?.querySelector('.toggle-answer-btn');
+      
+      if (!answerContent || !button) {
+        console.log('未找到答案内容或按钮');
+        return;
+      }
+      
+      console.log('当前状态:', answerContent.classList.contains('show') ? '已展开' : '已收起');
+      
+      if (answerContent.classList.contains('show')) {
+        answerContent.classList.remove('show');
+        button.classList.remove('show');
+        button.innerHTML = '<span class="icon">▶</span> 查看答案';
+      } else {
+        answerContent.classList.add('show');
+        button.classList.add('show');
+        button.innerHTML = '<span class="icon">▼</span> 隐藏答案';
+        
+        // 重新渲染 MathJax 公式
+        if (window.MathJax && typeof MathJax.typesetPromise === 'function') {
+          MathJax.typesetPromise([answerContent]);
+        }
+      }
+    };
+    
+    // 检查元素或其子元素是否包含 QUESTION_START 注释
+    function checkForQuestionStart(element) {
+      if (!element) return false;
+      
+      // 检查元素本身的节点
+      if (element.nodeType === Node.COMMENT_NODE && element.textContent.includes('QUESTION_START')) {
+        return true;
+      }
+      
+      // 检查 innerHTML 中是否包含注释
+      if (element.innerHTML && element.innerHTML.includes('QUESTION_START')) {
+        return true;
+      }
+      
+      // 检查是否有 data-question-start 属性（marked.js 可能会转换注释）
+      if (element.hasAttribute && element.hasAttribute('data-question-start')) {
+        return true;
+      }
+      
+      return false;
+    }
+    
+    // 使用 HTML 注释标记处理可折叠答案 - 每道题独立卡片
+    function processWithCommentMarkers(contentElement) {
+      const questions = parsedQuestions;
+      const answers = parsedAnswers;
+      
+      if (questions.length === 0) {
+        console.log('没有找到题目数据');
+        return;
+      }
+      
+      console.log(`使用已解析的 ${questions.length} 道题目`);
+      
+      // 获取所有 h2 标题
+      const allH2 = Array.from(contentElement.querySelectorAll('h2'));
+      
+      // 找到"题目部分"和"参考答案"的 h2
+      const questionH2 = allH2.find(h2 => h2.textContent.includes('题目'));
+      const answerH2 = allH2.find(h2 => h2.textContent.includes('答案') || h2.textContent.includes('参考'));
+      
+      // 渲染背景知识（从解析的 Markdown 内容）
+      let backgroundKnowledgeHtml = '';
+      
+      // 使用 marked.js 渲染背景知识
+      if (parsedBackgroundKnowledge && parsedBackgroundKnowledge.trim()) {
+        const renderedBackground = marked.parse(parsedBackgroundKnowledge);
+        backgroundKnowledgeHtml = `<div class="background-knowledge-card" style="margin-bottom: 1.5rem; padding: 1.25rem; background: linear-gradient(135deg, #e3f2fd 0%, #f5f5f5 100%); border-radius: 12px; border-left: 4px solid #2196f3; box-shadow: 0 2px 8px rgba(33,150,243,0.15);"><h3 style="margin: 0 0 1rem 0; color: #1976d2; font-size: 1.1rem; display: flex; align-items: center; gap: 0.5rem;"><span style="font-size: 1.3rem;">📖</span> 背景知识</h3>${renderedBackground}</div>`;
+      }
+      
+      // 渲染 PDF 链接（从解析的 Markdown 内容）
+      let pdfLinksHtml = '';
+      if (parsedPdfLinks && parsedPdfLinks.trim()) {
+        const renderedPdfLinks = marked.parse(parsedPdfLinks);
+        pdfLinksHtml = `<div class="pdf-links" style="margin-top: 1rem;">${renderedPdfLinks}</div>`;
+      } else {
+        // 默认 PDF 链接
+        pdfLinksHtml = `
+          <div class="pdf-links" style="margin-top: 1rem;">
+            <p style="font-weight: 600; margin-bottom: 0.5rem;">📎 原始 PDF 文件</p>
+            <ul style="list-style: none; padding: 0;">
+              <li><a href="Tutorials-PDF/2T-Questions for Tutorial of Anal Chem 1.pdf" target="_blank">📄 题目 PDF</a></li>
+              <li><a href="Tutorials-PDF/2T-Answer for Tutorial of Anal Chem 1.pdf" target="_blank">📄 答案 PDF</a></li>
+            </ul>
+          </div>
+        `;
+      }
+      
+      // 创建每道题独立卡片的 HTML
+      const cardsHtml = questions.map((q, index) => {
+        const renderedQuestion = marked.parse(q.content);
+        const answer = answers[q.id] || '';
+        const renderedAnswer = marked.parse(answer);
+        
+        // 使用 data 属性存储 questionId，点击时通过事件委托处理
+        return `
+          <div class="collapsible-wrapper" data-question-id="${q.id}">
+            <div class="question-block">
+              ${renderedQuestion}
+              <button class="toggle-answer-btn" data-question-id="${q.id}">
+                <span class="icon">▶</span> 查看答案
+              </button>
+            </div>
+            <div class="answer-content" id="answer-${q.id}">
+              ${renderedAnswer}
+            </div>
+          </div>
+        `;
+      }).join('');
+      
+      // 直接设置整个内容区域，不删除任何元素
+      const mainContent = `
+        <div style="margin-bottom: 1.5rem;">
+          ${questionH2 ? questionH2.outerHTML : ''}
+        </div>
+        ${backgroundKnowledgeHtml}
+        ${cardsHtml}
+        <div style="margin-top: 2rem;">
+          ${answerH2 ? answerH2.outerHTML : ''}
+        </div>
+        ${pdfLinksHtml}
+      `;
+      
+      // 直接替换整个内容区域的 HTML
+      contentElement.innerHTML = mainContent;
+      
+      console.log('HTML 注释标记处理完成');
+    }
+    
+    // 全局事件委托 - 直接绑定，不等待 DOMContentLoaded
+    (function() {
+      document.addEventListener('click', function(e) {
+        const btn = e.target.closest('.toggle-answer-btn');
+        if (btn) {
+          e.stopPropagation();
+          e.preventDefault();
+          const questionId = btn.getAttribute('data-question-id');
+          console.log('事件委托 - 按钮点击，questionId:', questionId);
+          if (questionId) {
+            window.toggleAnswer(questionId);
+          }
+        }
+      }, true); // 使用捕获阶段
+    })();
+    
+    // 处理可折叠答案和解析
+    function processCollapsibleAnswers(contentElement) {
+      console.log('开始处理可折叠答案...');
+      
+      const hasCommentMarkers = contentElement.innerHTML.includes('QUESTION_START') || 
+                                 contentElement.innerHTML.includes('ANSWER_START');
+      
+      if (hasCommentMarkers) {
+        console.log('检测到 HTML 注释标记，使用新方法处理');
+        processWithCommentMarkers(contentElement);
+        return;
+      }
+      
+      console.log('未检测到 HTML 注释标记，使用旧方法处理');
+      processWithOldMethod(contentElement);
+    }
+    
+    // 使用旧方法处理可折叠答案（向后兼容）
+    function processWithOldMethod(contentElement) {
+      const answerSection = contentElement.querySelector('.answer-section');
+      if (!answerSection) {
+        console.log('未找到答案区域');
+        return;
+      }
+      
+      console.log('找到答案区域');
+      const children = Array.from(answerSection.children);
+      console.log(`答案区域有 ${children.length} 个子元素`);
+      
+      for (let i = 0; i < children.length; i++) {
+        const el = children[i];
+        if (el.tagName === 'P') {
+          const text = el.textContent.trim();
+          console.log(`检查段落：${text.substring(0, 50)}...`);
+          
+          const questionMatch = text.match(/^T(\d+)-(\d+)\./);
+          if (questionMatch) {
+            console.log(`匹配到题目：T${questionMatch[1]}-${questionMatch[2]}`);
+            createCollapsibleQuestion(el, questionMatch, children, i);
+          }
+        }
+      }
+      
+      console.log('处理完成');
+    }
+    
+    // 创建可折叠题目（旧方法）
+    function createCollapsibleQuestion(firstP, questionMatch, allChildren, startIndex) {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'collapsible-wrapper';
+      
+      const questionNum = `T${questionMatch[1]}-${questionMatch[2]}`;
+      const questionBlock = document.createElement('div');
+      questionBlock.className = 'question-block';
+      const questionText = firstP.textContent.trim().replace(/^T\d+-\d+\.\s*/, '');
+      questionBlock.innerHTML = `<span style="font-weight: 600; color: var(--primary-color);">${questionNum}.</span> ${questionText}`;
+      
+      const toggleBtn = document.createElement('button');
+      toggleBtn.className = 'toggle-answer-btn';
+      toggleBtn.innerHTML = '<span class="icon">▶</span> 查看答案';
+      
+      const answerDiv = document.createElement('div');
+      answerDiv.className = 'answer-content';
+      
+      let answerNodes = [];
+      let j = startIndex + 1;
+      
+      while (j < allChildren.length) {
+        const sibling = allChildren[j];
+        const siblingText = sibling.textContent || '';
+        
+        if (sibling.tagName.match(/^H[23]$/) || 
+            siblingText.match(/^T\d+-\d+\./) ||
+            siblingText.includes('原始 PDF 文件') ||
+            (sibling.tagName === 'P' && sibling.querySelector('a[href*=".pdf"]'))) {
+          break;
+        }
+        
+        answerNodes.push(sibling);
+        j++;
+      }
+      
+      answerNodes.forEach(node => {
+        answerDiv.appendChild(node.cloneNode(true));
+      });
+      
+      toggleBtn.onclick = function() {
+        if (answerDiv.classList.contains('show')) {
+          answerDiv.classList.remove('show');
+          this.classList.remove('show');
+          this.innerHTML = '<span class="icon">▶</span> 查看答案';
+        } else {
+          answerDiv.classList.add('show');
+          this.classList.add('show');
+          this.innerHTML = '<span class="icon">▼</span> 隐藏答案';
+          
+          if (window.MathJax && typeof MathJax.typesetPromise === 'function') {
+            MathJax.typesetPromise([answerDiv]);
+          }
+        }
+      };
+      
+      wrapper.appendChild(questionBlock);
+      wrapper.appendChild(toggleBtn);
+      wrapper.appendChild(answerDiv);
+      
+      if (firstP.parentNode) {
+        firstP.parentNode.replaceChild(wrapper, firstP);
+        console.log(`已替换题目 ${questionNum}`);
+      }
+    }
+
     // 习题标题映射
     const tutorialTitles = {
       2: '基础概念',
@@ -193,7 +664,6 @@
         nextBtn.style.display = 'none';
       }
       
-      // 更新习题导航高亮
       document.querySelectorAll('.reader-nav-list a').forEach(link => {
         link.classList.remove('active');
         if (parseInt(link.dataset.tutorial) === tutorial) {
@@ -201,7 +671,6 @@
         }
       });
       
-      // 更新页面标题
       document.title = `Tutorial ${tutorial} ${tutorialTitles[tutorial]} - 分析化学`;
     }
 
@@ -231,17 +700,30 @@
         const markdown = await response.text();
         console.log('Markdown 加载成功，长度:', markdown.length);
         
+        // 首先解析 Markdown 中的标记（在渲染之前）
+        parseMarkdownWithMarkers(markdown);
+        
         // 使用 marked.js 渲染 Markdown
         const html = marked.parse(markdown);
         content.innerHTML = html;
         
+        console.log('Markdown 渲染完成，开始处理可折叠...');
+        console.log('答案区域:', content.querySelector('.answer-section'));
+        
+        // 处理可折叠答案和解析
+        processCollapsibleAnswers(content);
+        
         // 为题目和答案部分添加特殊样式
         const sections = content.querySelectorAll('h2');
+        console.log(`找到 ${sections.length} 个 h2 元素`);
         sections.forEach(h2 => {
+          console.log(`检查 h2: ${h2.textContent}`);
           if (h2.textContent.includes('题目')) {
             h2.parentElement.classList.add('tutorial-section');
+            console.log('添加 tutorial-section 类');
           } else if (h2.textContent.includes('答案') || h2.textContent.includes('参考')) {
             h2.parentElement.classList.add('tutorial-section', 'answer-section');
+            console.log('添加 answer-section 类');
           }
         });
         
@@ -264,14 +746,13 @@
         
         updateNavButtons(tutorial);
         
-        // MathJax 渲染公式 - 使用 setTimeout 确保 MathJax 已加载
+        // MathJax 渲染公式
         setTimeout(() => {
           if (window.MathJax && typeof MathJax.typesetPromise === 'function') {
             MathJax.typesetPromise([content]).then(() => {
               console.log('MathJax 渲染完成');
             }).catch((err) => console.log('MathJax 渲染错误:', err));
           } else if (window.MathJax && typeof MathJax.typeset === 'function') {
-            // 备用方法
             MathJax.typeset([content]);
             console.log('MathJax 使用 typeset 渲染');
           } else {
@@ -306,7 +787,6 @@
         return;
       }
       
-      // 检查是否有 H3 子标题
       const hasH3 = Array.from(headings).some(h => h.tagName === 'H3');
       if (toggleAllBtn) {
         toggleAllBtn.style.display = hasH3 ? 'inline-block' : 'none';
@@ -316,16 +796,13 @@
       let currentH2Index = -1;
       
       headings.forEach((heading, index) => {
-        // 为每个标题添加 ID
         const id = `heading-${index}`;
         heading.id = id;
         
-        // 根据标题级别设置缩进
         const isH2 = heading.tagName === 'H2';
         
         if (isH2) {
           currentH2Index++;
-          // 检查这个 H2 后面是否有 H3
           let hasSubItems = false;
           for (let i = index + 1; i < headings.length; i++) {
             if (headings[i].tagName === 'H3') {
@@ -337,7 +814,6 @@
           }
           
           if (hasSubItems) {
-            // 有子项的 H2，添加展开/收起按钮
             html += `<li class="toc-item toc-h2" data-index="${currentH2Index}">
               <div class="toc-link-wrapper">
                 <button class="toc-toggle-btn" onclick="toggleTOC(${currentH2Index})" title="展开/收起">▼</button>
@@ -345,24 +821,19 @@
               </div>
             </li>`;
           } else {
-            // 没有子项的 H2，不添加按钮
             html += `<li class="toc-item toc-h2 no-children" data-index="${currentH2Index}">
               <a href="#${id}" class="toc-link">${heading.textContent}</a>
             </li>`;
           }
         } else {
-          // H3 子项，默认折叠，添加 expanded 类
           html += `<li class="toc-item toc-h3" data-parent="${currentH2Index}"><a href="#${id}">${heading.textContent}</a></li>`;
         }
       });
       
       tocList.innerHTML = html;
-      
-      // 默认展开所有一级目录
       expandAllTOC();
     }
     
-    // 切换单个目录项的展开/收起状态
     function toggleTOC(h2Index) {
       const tocList = document.getElementById('tocList');
       const h2Item = tocList.querySelector(`.toc-h2[data-index="${h2Index}"]`);
@@ -371,30 +842,23 @@
       if (!h2Item || !toggleBtn) return;
       
       const isExpanded = h2Item.classList.contains('expanded');
-      
-      // 直接查找所有属于这个 H2 的 H3 项
       const childH3s = tocList.querySelectorAll(`.toc-h3[data-parent="${h2Index}"]`);
       
       if (isExpanded) {
-        // 收起
         h2Item.classList.remove('expanded');
         toggleBtn.textContent = '▶';
-        // 隐藏所有属于这个 H2 的 H3 项
         childH3s.forEach(h3Item => {
           h3Item.style.display = 'none';
         });
       } else {
-        // 展开
         h2Item.classList.add('expanded');
         toggleBtn.textContent = '▼';
-        // 显示所有属于这个 H2 的 H3 项
         childH3s.forEach(h3Item => {
           h3Item.style.display = 'block';
         });
       }
     }
     
-    // 全部展开
     function expandAllTOC() {
       const tocList = document.getElementById('tocList');
       const toggleAllBtn = document.getElementById('tocToggleAll');
@@ -406,7 +870,6 @@
           h2Item.classList.add('expanded');
           toggleBtn.textContent = '▼';
         }
-        // 显示所有属于这个 H2 的 H3 项
         const childH3s = tocList.querySelectorAll(`.toc-h3[data-parent="${h2Index}"]`);
         childH3s.forEach(h3Item => {
           h3Item.style.display = 'block';
@@ -416,7 +879,6 @@
       if (toggleAllBtn) toggleAllBtn.textContent = '全部展开';
     }
     
-    // 全部收起
     function collapseAllTOC() {
       const tocList = document.getElementById('tocList');
       const toggleAllBtn = document.getElementById('tocToggleAll');
@@ -428,7 +890,6 @@
           h2Item.classList.remove('expanded');
           toggleBtn.textContent = '▶';
         }
-        // 隐藏所有属于这个 H2 的 H3 项
         const childH3s = tocList.querySelectorAll(`.toc-h3[data-parent="${h2Index}"]`);
         childH3s.forEach(h3Item => {
           h3Item.style.display = 'none';
@@ -438,12 +899,8 @@
       if (toggleAllBtn) toggleAllBtn.textContent = '全部收起';
     }
     
-    // 切换全部展开/收起
     function toggleAllTOC() {
       const tocList = document.getElementById('tocList');
-      const toggleAllBtn = document.getElementById('tocToggleAll');
-      
-      // 检查当前状态：如果有任何一个 H2 是展开的，就全部收起；否则全部展开
       const hasExpanded = tocList.querySelectorAll('.toc-h2.expanded').length > 0;
       
       if (hasExpanded) {

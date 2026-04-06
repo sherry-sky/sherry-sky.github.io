@@ -67,6 +67,92 @@
     .pdf-links a:hover {
       text-decoration: underline;
     }
+    
+    /* 可折叠答案和解析样式 */
+    .collapsible-wrapper {
+      margin: 1rem 0;
+    }
+    
+    .question-block {
+      background: #f8f9fa;
+      border-left: 4px solid var(--primary-light);
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 8px;
+    }
+    
+    .toggle-answer-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: var(--primary-light);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.2s;
+      margin-bottom: 0.5rem;
+    }
+    
+    .toggle-answer-btn:hover {
+      background: var(--primary-dark);
+    }
+    
+    .toggle-answer-btn .icon {
+      display: inline-block;
+      transition: transform 0.3s ease;
+      font-size: 0.8rem;
+    }
+    
+    .toggle-answer-btn.show .icon {
+      transform: rotate(90deg);
+    }
+    
+    .answer-content {
+      display: none;
+      margin-top: 0.5rem;
+    }
+    
+    .answer-content.show {
+      display: block;
+    }
+    
+    .toggle-explanation-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: #fef3c7;
+      color: #d97706;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.2s;
+      margin-top: 0.5rem;
+    }
+    
+    .toggle-explanation-btn:hover {
+      background: #d97706;
+      color: white;
+    }
+    
+    .toggle-explanation-btn.show .icon {
+      transform: rotate(90deg);
+    }
+    
+    .explanation-content {
+      display: none;
+      margin-top: 0.5rem;
+      padding-top: 0.5rem;
+      border-top: 1px solid var(--border-color);
+    }
+    
+    .explanation-content.show {
+      display: block;
+    }
   </style>
 </head>
 <body>
@@ -145,6 +231,158 @@
   <script src="../../js/components.js"></script>
   <script src="../../js/main.js"></script>
   <script>
+    // 处理可折叠答案和解析
+    function processCollapsibleAnswers(contentElement) {
+      // 查找所有答案部分的 h2 元素
+      const answerSection = contentElement.querySelector('.answer-section');
+      if (!answerSection) return;
+      
+      // 查找所有以"**H"开头的段落（作业答案）
+      const paragraphs = answerSection.querySelectorAll('p');
+      
+      paragraphs.forEach(p => {
+        const text = p.textContent;
+        
+        // 检测是否是作业编号（如 H2-1.）
+        const questionMatch = text.match(/^\*\*H(\d+)-(\d+)\.\*\*/);
+        if (questionMatch) {
+          // 创建新的题目卡片
+          const wrapper = document.createElement('div');
+          wrapper.className = 'collapsible-wrapper';
+          
+          // 创建题目显示区域
+          const questionNum = `H${questionMatch[1]}-${questionMatch[2]}`;
+          const questionBlock = document.createElement('div');
+          questionBlock.className = 'question-block';
+          questionBlock.innerHTML = `<span style="font-weight: 600; color: var(--primary-color);">${questionNum}.</span> ${text.replace(/^\*\*H\d+-\d+\.\*\*\s*/, '')}`;
+          
+          // 创建切换按钮
+          const toggleBtn = document.createElement('button');
+          toggleBtn.className = 'toggle-answer-btn';
+          toggleBtn.innerHTML = '<span class="icon">▶</span> 查看答案';
+          toggleBtn.onclick = function() {
+            const answerDiv = this.nextElementSibling;
+            const explanationBtn = answerDiv.querySelector('.toggle-explanation-btn');
+            const explanationDiv = answerDiv.querySelector('.explanation-content');
+            
+            if (answerDiv.classList.contains('show')) {
+              answerDiv.classList.remove('show');
+              this.classList.remove('show');
+              this.innerHTML = '<span class="icon">▶</span> 查看答案';
+              // 同时隐藏解析
+              if (explanationDiv) {
+                explanationDiv.classList.remove('show');
+                if (explanationBtn) {
+                  explanationBtn.classList.remove('show');
+                  explanationBtn.innerHTML = '<span class="icon">▶</span> 查看解析';
+                }
+              }
+            } else {
+              answerDiv.classList.add('show');
+              this.classList.add('show');
+              this.innerHTML = '<span class="icon">▼</span> 隐藏答案';
+            }
+          };
+          
+          // 创建答案内容区域
+          const answerDiv = document.createElement('div');
+          answerDiv.className = 'answer-content';
+          
+          // 收集这个题目的答案内容
+          let answerNodes = [];
+          let sibling = p.nextElementSibling;
+          let inAnswer = true;
+          
+          while (sibling && inAnswer) {
+            const siblingText = sibling.textContent;
+            // 如果遇到下一个题目或 PDF 链接部分，停止
+            if (sibling.tagName.match(/^H[23]$/) || 
+                siblingText.match(/^\*\*H\d+-\d+\.\*\*/) ||
+                siblingText.includes('原始 PDF 文件') ||
+                sibling.querySelector('a[href*=".pdf"]')) {
+              inAnswer = false;
+              break;
+            }
+            
+            answerNodes.push(sibling);
+            sibling = sibling.nextElementSibling;
+          }
+          
+          // 移动答案节点到答案内容区域
+          answerNodes.forEach(node => {
+            if (node !== p) {
+              answerDiv.appendChild(node.cloneNode(true));
+            }
+          });
+          
+          // 创建解析切换按钮
+          const explanationBtn = document.createElement('button');
+          explanationBtn.className = 'toggle-explanation-btn';
+          explanationBtn.innerHTML = '<span class="icon">▶</span> 查看解析';
+          explanationBtn.onclick = function() {
+            const explanationDiv = this.nextElementSibling;
+            if (explanationDiv.classList.contains('show')) {
+              explanationDiv.classList.remove('show');
+              this.classList.remove('show');
+              this.innerHTML = '<span class="icon">▶</span> 查看解析';
+            } else {
+              explanationDiv.classList.add('show');
+              this.classList.add('show');
+              this.innerHTML = '<span class="icon">▼</span> 隐藏解析';
+            }
+          };
+          
+          // 创建解析内容区域
+          const explanationDiv = document.createElement('div');
+          explanationDiv.className = 'explanation-content';
+          
+          // 查找解析内容
+          let explanationNodes = [];
+          let expSibling = p.nextElementSibling;
+          let inExplanation = false;
+          
+          while (expSibling) {
+            const expText = expSibling.textContent;
+            // 如果遇到下一个题目或 PDF 链接部分，停止
+            if (expSibling.tagName.match(/^H[23]$/) || 
+                expText.match(/^\*\*H\d+-\d+\.\*\*/) ||
+                expText.includes('原始 PDF 文件')) {
+              break;
+            }
+            
+            // 检测是否开始解析部分
+            if (expText.includes('**解：**') || expText.includes('**【解析】**') || expText.includes('**总结：**') || expText.includes('**答案：**')) {
+              inExplanation = true;
+            }
+            
+            if (inExplanation) {
+              explanationNodes.push(expSibling);
+            }
+            
+            expSibling = expSibling.nextElementSibling;
+          }
+          
+          // 移动解析节点到解析内容区域
+          explanationNodes.forEach(node => {
+            explanationDiv.appendChild(node.cloneNode(true));
+          });
+          
+          // 组装结构
+          if (explanationNodes.length > 0) {
+            answerDiv.appendChild(explanationBtn);
+            answerDiv.appendChild(explanationDiv);
+          }
+          
+          wrapper.appendChild(questionBlock);
+          wrapper.appendChild(toggleBtn);
+          wrapper.appendChild(answerDiv);
+          
+          // 替换原段落
+          p.parentNode.replaceChild(wrapper, p);
+        }
+      });
+    }
+
     // 作业标题映射
     const homeworkTitles = {
       2: '基础作业',
