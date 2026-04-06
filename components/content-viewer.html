@@ -1,0 +1,64 @@
+<!-- 通用内容查看器组件 -->
+<!-- 用于 tutorials、homework、exams 等需要侧边导航和 Markdown 内容展示的场景 -->
+
+<!-- 阅读页面容器 -->
+<div class="reader-container">
+  <!-- 左侧导航 -->
+  <aside class="reader-sidebar" id="readerSidebar">
+    <!-- 章节导航和本章目录并排容器 -->
+    <div class="sidebar-navs">
+      <!-- 内容导航 -->
+      <div class="sidebar-nav-column" id="chapterNavColumn">
+        <h3 id="viewer-nav-title">📚 内容导航</h3>
+        <ul class="reader-nav-list" id="viewerNavList">
+          <!-- 导航项将由 JavaScript 动态生成 -->
+        </ul>
+      </div>
+      
+      <!-- 本章目录 -->
+      <div class="sidebar-nav-column" id="tocColumn">
+        <h3>📑 本章目录 <button class="toc-toggle-all" id="tocToggleAll" onclick="viewerToggleAllTOC()">全部展开</button></h3>
+        <ul class="toc-list" id="tocList">
+          <li class="toc-loading">正在加载目录...</li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+  <!-- 右侧内容 -->
+  <main class="reader-content">
+    <!-- 切换按钮容器 -->
+    <div class="viewer-controls">
+      <button class="viewer-control-btn" onclick="viewerToggleChapterNav()" title="隐藏/显示章节导航 (Ctrl+1)">
+        <span id="chapterNavToggleIcon">📑</span>
+      </button>
+      <button class="viewer-control-btn" onclick="viewerToggleTOCNav()" title="隐藏/显示本章目录 (Ctrl+2)">
+        <span id="tocNavToggleIcon">📋</span>
+      </button>
+    </div>
+
+    <!-- 加载提示 -->
+    <div id="viewer-loading" style="text-align: center; padding: 4rem 2rem;">
+      <div style="font-size: 3rem; margin-bottom: 1rem;">📖</div>
+      <p>正在加载内容...</p>
+    </div>
+
+    <!-- Markdown 内容容器 -->
+    <div id="viewer-markdown-content" class="markdown-viewer" style="display: none;"></div>
+
+    <!-- 上一章/下一章导航 -->
+    <div class="reader-nav-buttons" id="viewer-nav-buttons" style="display: none;">
+      <a href="#" id="viewer-prev-btn" class="btn btn-outline">← 上一个</a>
+      <a href="#" id="viewer-list-btn" class="btn btn-primary">📋 返回列表</a>
+      <a href="#" id="viewer-next-btn" class="btn btn-outline">下一个 →</a>
+    </div>
+
+    <!-- 错误提示 -->
+    <div id="viewer-error-msg" style="display: none; text-align: center; padding: 4rem 2rem;">
+      <div style="font-size: 3rem; margin-bottom: 1rem;">😕</div>
+      <p style="color: var(--text-secondary);">无法加载内容</p>
+      <p style="font-size: 0.9rem; margin-top: 0.5rem;">请确保文件存在于对应文件夹中</p>
+      <button onclick="location.reload()" style="margin-top: 1rem; padding: 0.5rem 1rem; cursor: pointer;">🔄 重试</button>
+    </div>
+  </main>
+</div>

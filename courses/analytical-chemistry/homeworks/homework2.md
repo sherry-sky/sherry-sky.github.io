@@ -4,8 +4,20 @@
 
 ---
 
+## 背景知识点
+
+<!-- BACKGROUND_START -->
+- **单位前缀**：
+  - m (milli) = $10^{-3}$, μ (micro) = $10^{-6}$, n (nano) = $10^{-9}$, p (pico) = $10^{-12}$, f (femto) = $10^{-15}$
+  - k (kilo) = $10^3$, M (mega) = $10^6$, G (giga) = $10^9$, T (tera) = $10^{12}$
+  - d (deci) = $10^{-1}$
+- **ppb (parts per billion)**：十亿分之一，$1\ \text{ppb} = 10^{-9} = 1\ \mu\text{g/L}$（当密度为 1 g/mL 时）
+- **限制试剂**：在化学反应中首先被完全消耗的试剂，决定了反应的最大产率
+<!-- BACKGROUND_END -->
+
 ## 📋 作业题目
 
+<!-- QUESTION_START id="H2-1" -->
 **H2-1.** 写出每个符号代表的名称和数值。例如，对于 kW，你应该写 kW = kilowatt = $10^3$ watts。注意大小写。
 - (1) mmol
 - (2) TJ
@@ -17,15 +29,21 @@
 - (8) mL
 - (9) MK
 - (10) GA
+<!-- QUESTION_END -->
 
+<!-- QUESTION_START id="H2-2" -->
 **H2-2.** 某雨水样本中烷烃 $\text{C}_{20}\text{H}_{42}$ (摩尔质量 = 282.56 g/mol) 的浓度为 0.2 ppb。假设雨水密度接近 1.00 g/mL，求 $\text{C}_{20}\text{H}_{42}$ 的摩尔浓度。
+<!-- QUESTION_END -->
 
+<!-- QUESTION_START id="H2-3" -->
 **H2-3.** 反应 $5\text{H}_2\text{C}_2\text{O}_4 + 2\text{MnO}_4^- + 6\text{H}^+ \rightarrow 10\text{CO}_2 + 2\text{Mn}^{2+} + 8\text{H}_2\text{O}$ 需要 5 mol $\text{H}_2\text{C}_2\text{O}_4$ 对应 2 mol $\text{MnO}_4^-$。如果将 1.15 g $\text{Na}_2\text{C}_2\text{O}_4$ (摩尔质量 134.00 g/mol) 与 0.60 g $\text{KMnO}_4$ (摩尔质量 158.03 g/mol) 和过量酸混合。哪个反应物是限制试剂？应该产生多少 $\text{CO}_2$？
+<!-- QUESTION_END -->
 
 ---
 
 ## ✅ 参考答案
 
+<!-- ANSWER_START for="H2-1" -->
 **H2-1.** 单位符号对照表：
 
 | 符号 | 名称 | 数值 |
@@ -40,9 +58,9 @@
 | (8) mL | milliliter (毫升) | $10^{-3}$ L |
 | (9) MK | megakelvin (兆开尔文) | $10^6$ K |
 | (10) GA | gigaampere (吉安培) | $10^9$ A |
+<!-- ANSWER_END -->
 
----
-
+<!-- ANSWER_START for="H2-2" -->
 **H2-2.** 计算 $\text{C}_{20}\text{H}_{42}$ 的摩尔浓度。
 
 **解：**
@@ -58,9 +76,9 @@ MW(\text{C}_{20}\text{H}_{42}) &= 282.56\ \text{g/mol} \\
 $$
 
 **答案：** 0.7 nM
+<!-- ANSWER_END -->
 
----
-
+<!-- ANSWER_START for="H2-3" -->
 **H2-3.** 确定限制试剂并计算 $\text{CO}_2$ 产量。
 
 **解：**
@@ -103,10 +121,13 @@ $$
 **答案：** 
 - 限制试剂：$\text{Na}_2\text{C}_2\text{O}_4$
 - $\text{CO}_2$ 产量：17.2 mmol
+<!-- ANSWER_END -->
 
+<!-- PDF_LINKS_START -->
 ---
 
 ## 📎 原始 PDF 文件
 
 - **题目 PDF**: [2H-Homework of Analy Chem1.pdf](HW-PDF/2H-Homework of Analy Chem1.pdf)
 - **答案 PDF**: [2H-Answer of Homework for Analy Chem1.pdf](HW-PDF/2H-Answer of Homework for Analy Chem1.pdf)
+<!-- PDF_LINKS_END -->

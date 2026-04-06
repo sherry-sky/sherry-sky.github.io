@@ -796,8 +796,7 @@ a:hover {
 
 /* 阅读页面布局 */
 .reader-container {
-  display: grid;
-  grid-template-columns: 480px 1fr;
+  display: flex;
   gap: 2.5rem;
   max-width: 1600px;
   margin: 0 auto;
@@ -816,6 +815,34 @@ a:hover {
   overflow-y: auto;
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
+  transition: width 0.3s ease;
+}
+
+/* 默认侧边栏宽度 */
+.reader-sidebar {
+  width: 480px;
+}
+
+/* 隐藏章节导航时，侧边栏变窄 */
+.reader-container.chapter-nav-hidden:not(.toc-nav-hidden) .reader-sidebar {
+  width: 240px;
+}
+
+/* 隐藏本章目录时，侧边栏变窄 */
+.reader-container.toc-nav-hidden:not(.chapter-nav-hidden) .reader-sidebar {
+  width: 240px;
+}
+
+/* 两个都隐藏时，侧边栏隐藏 */
+.reader-container.chapter-nav-hidden.toc-nav-hidden .reader-sidebar {
+  display: none;
+}
+
+.reader-content {
+  flex: 1;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .reader-sidebar h3 {
@@ -1384,5 +1411,340 @@ mjx-container[jax="CHTML"][display="true"] {
   
   .course-selector {
     display: none;
+  }
+}
+
+/* ===== 通用 Viewer 组件样式 ===== */
+/* 可折叠答案和解析样式 - 每道题独立卡片 */
+.viewer-collapsible-wrapper {
+  margin: 1.5rem 0;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: box-shadow 0.3s ease;
+}
+
+.viewer-collapsible-wrapper:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+.viewer-question-block {
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+  border-left: 4px solid var(--primary-light);
+  padding: 1.5rem;
+  margin-bottom: 0;
+}
+
+.viewer-question-block strong {
+  color: var(--primary-color);
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+
+.viewer-question-block p {
+  margin: 0.75rem 0 0 0;
+  line-height: 1.7;
+}
+
+.viewer-toggle-answer-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.25rem;
+  background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary-color) 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s;
+  margin: 0.75rem 0 0.75rem 0;
+  font-size: 0.9rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.viewer-toggle-answer-btn:hover {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.viewer-toggle-answer-btn:active {
+  transform: translateY(0);
+}
+
+.viewer-toggle-answer-btn .icon {
+  display: inline-block;
+  transition: transform 0.3s ease;
+  font-size: 0.75rem;
+}
+
+.viewer-toggle-answer-btn.show .icon {
+  transform: rotate(90deg);
+}
+
+.viewer-answer-content {
+  display: none;
+  margin: 0;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #f1f8e9 0%, #e8f5e9 100%);
+  border-top: 1px solid #c8e6c9;
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+.viewer-answer-content.show {
+  display: block;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 答案内容中的长公式和表格支持横向滚动 */
+.viewer-answer-content table {
+  min-width: 100%;
+}
+
+.viewer-answer-content .katex-display,
+.viewer-answer-content mjx-container[jax="CHTML"][display="true"] {
+  overflow-x: auto;
+  overflow-y: hidden;
+  max-width: 100%;
+  padding: 0.5em 0;
+}
+
+/* 自定义滚动条样式 */
+.viewer-answer-content::-webkit-scrollbar {
+  height: 8px;
+}
+
+.viewer-answer-content::-webkit-scrollbar-track {
+  background: #c8e6c9;
+  border-radius: 4px;
+}
+
+.viewer-answer-content::-webkit-scrollbar-thumb {
+  background: #4caf50;
+  border-radius: 4px;
+}
+
+.viewer-answer-content::-webkit-scrollbar-thumb:hover {
+  background: #2e7d32;
+}
+
+/* 内容区域类型样式 */
+.viewer-tutorial-section,
+.viewer-homework-section,
+.viewer-exam-section {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.viewer-tutorial-section h2,
+.viewer-homework-section h2,
+.viewer-exam-section h2 {
+  color: var(--primary-color);
+  border-bottom: 2px solid var(--primary-color);
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.viewer-answer-section {
+  background: #e8f5e9;
+  border-left: 4px solid #4caf50;
+}
+
+.viewer-answer-section h2 {
+  color: #2e7d32;
+  border-bottom-color: #4caf50;
+}
+
+.viewer-pdf-links {
+  background: #fff3e0;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-top: 1rem;
+}
+
+.viewer-pdf-links a {
+  color: var(--primary-color);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.viewer-pdf-links a:hover {
+  text-decoration: underline;
+}
+
+.viewer-exam-info {
+  background: #e3f2fd;
+  border-left: 4px solid #2196f3;
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 4px;
+}
+
+.viewer-tips-section {
+  background: #f1f8e9;
+  border-left: 4px solid #8bc34a;
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 4px;
+}
+
+.viewer-background-knowledge-card {
+  margin-bottom: 1.5rem;
+  padding: 1.25rem;
+  background: linear-gradient(135deg, #e3f2fd 0%, #f5f5f5 100%);
+  border-radius: 12px;
+  border-left: 4px solid #2196f3;
+  box-shadow: 0 2px 8px rgba(33, 150, 243, 0.15);
+}
+
+.viewer-background-knowledge-card h3 {
+  margin: 0 0 1rem 0;
+  color: #1976d2;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Markdown 视图样式 */
+.markdown-viewer img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 1rem auto;
+  border-radius: 8px;
+}
+
+.markdown-viewer table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+}
+
+.markdown-viewer th,
+.markdown-viewer td {
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  text-align: left;
+}
+
+.markdown-viewer th {
+  background: var(--bg-color);
+  font-weight: 600;
+}
+
+.markdown-viewer pre {
+  background: #f6f8fa;
+  padding: 1rem;
+  border-radius: 6px;
+  overflow-x: auto;
+  margin: 1rem 0;
+}
+
+.markdown-viewer code {
+  background: #f6f8fa;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-family: 'Consolas', 'Monaco', monospace;
+  font-size: 0.9em;
+}
+
+.markdown-viewer pre code {
+  background: transparent;
+  padding: 0;
+}
+
+.markdown-viewer blockquote {
+  border-left: 4px solid var(--primary-light);
+  padding-left: 1rem;
+  margin: 1rem 0;
+  color: var(--text-secondary);
+}
+
+/* ===== 隐藏/显示控制按钮样式 ===== */
+.viewer-controls {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  z-index: 999;
+}
+
+.viewer-control-btn {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--primary-light), var(--primary-color));
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  transition: all 0.2s;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.viewer-control-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.viewer-control-btn:active {
+  transform: scale(0.95);
+}
+
+/* 隐藏章节导航 */
+.reader-container.chapter-nav-hidden #chapterNavColumn {
+  display: none;
+}
+
+/* 隐藏本章目录 */
+.reader-container.toc-nav-hidden #tocColumn {
+  display: none;
+}
+
+/* 两个都隐藏时，侧边栏也隐藏，内容区域占满全屏 */
+.reader-container.chapter-nav-hidden.toc-nav-hidden {
+  grid-template-columns: 1fr;
+}
+
+.reader-container.chapter-nav-hidden.toc-nav-hidden .reader-sidebar {
+  display: none;
+}
+
+.reader-container.chapter-nav-hidden.toc-nav-hidden .reader-content {
+  max-width: 100%;
+  width: 100%;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .viewer-controls {
+    top: 70px;
+    right: 10px;
+  }
+  
+  .viewer-control-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 1rem;
   }
 }
