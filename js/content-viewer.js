@@ -203,9 +203,19 @@ async function viewerLoadContent(id) {
     // 解析 Markdown 中的标记
     viewerParseMarkdown(markdown);
     
+    // 保护 LaTeX 公式
+    const { markdown: protectedMarkdown, formulas } = protectLatexFormulas(markdown);
+    
     // 使用 marked.js 渲染 Markdown
-    const html = marked.parse(markdown);
-    content.innerHTML = html;
+    marked.use({
+      mangle: false
+    });
+    
+    const html = marked.parse(protectedMarkdown);
+    
+    // 恢复 LaTeX 公式
+    const restoredHtml = restoreLatexFormulas(html, formulas);
+    content.innerHTML = restoredHtml;
     
     console.log('Viewer: Markdown 渲染完成，开始处理可折叠...');
     
@@ -258,6 +268,46 @@ async function viewerLoadContent(id) {
     navButtons.style.display = 'none';
     errorMsg.style.display = 'block';
   }
+}
+
+/**
+ * 在 marked 解析前保护 LaTeX 公式
+ * @param {string} markdown - Markdown 文本
+ * @returns {Object} 包含处理后的 markdown 和占位符映射
+ */
+function protectLatexFormulas(markdown) {
+  const formulas = [];
+  let index = 0;
+  
+  // 保护行内公式 $...$
+  markdown = markdown.replace(/\$([^$\n]+?)\$/g, (match) => {
+    const placeholder = `LATEX_INLINE_${index++}`;
+    formulas.push({ placeholder, content: match });
+    return placeholder;
+  });
+  
+  // 保护块级公式 $$...$$
+  markdown = markdown.replace(/\$\$([\s\S]*?)\$\$/g, (match) => {
+    const placeholder = `LATEX_BLOCK_${index++}`;
+    formulas.push({ placeholder, content: match });
+    return placeholder;
+  });
+  
+  return { markdown, formulas };
+}
+
+/**
+ * 在 marked 解析后恢复 LaTeX 公式
+ * @param {string} html - HTML 内容
+ * @param {Array} formulas - 公式占位符映射
+ * @returns {string} 恢复后的 HTML
+ */
+function restoreLatexFormulas(html, formulas) {
+  let result = html;
+  formulas.forEach(({ placeholder, content }) => {
+    result = result.replace(new RegExp(placeholder, 'g'), content);
+  });
+  return result;
 }
 
 /**
@@ -346,25 +396,29 @@ function viewerProcessWithCommentMarkers(contentElement) {
   const questionH2 = allH2.find(h2 => h2.textContent.includes('题目') || h2.textContent.includes('选择题') || h2.textContent.includes('问答'));
   const answerH2 = allH2.find(h2 => h2.textContent.includes('答案') || h2.textContent.includes('参考'));
   
-  // 渲染背景知识
+  // 渲染背景知识 - 使用保护/恢复机制保留 LaTeX 公式
   let backgroundKnowledgeHtml = '';
   if (viewerParsedBackgroundKnowledge && viewerParsedBackgroundKnowledge.trim()) {
-    const renderedBackground = marked.parse(viewerParsedBackgroundKnowledge);
+    const { markdown: protectedBg, formulas: bgFormulas } = protectLatexFormulas(viewerParsedBackgroundKnowledge);
+    const renderedBackground = restoreLatexFormulas(marked.parse(protectedBg), bgFormulas);
     backgroundKnowledgeHtml = `<div class="viewer-background-knowledge-card"><h3><span style="font-size: 1.3rem;">📖</span> 背景知识</h3>${renderedBackground}</div>`;
   }
   
-  // 渲染 PDF 链接
+  // 渲染 PDF 链接 - 使用保护/恢复机制保留 LaTeX 公式
   let pdfLinksHtml = '';
   if (viewerParsedPdfLinks && viewerParsedPdfLinks.trim()) {
-    const renderedPdfLinks = marked.parse(viewerParsedPdfLinks);
+    const { markdown: protectedPdf, formulas: pdfFormulas } = protectLatexFormulas(viewerParsedPdfLinks);
+    const renderedPdfLinks = restoreLatexFormulas(marked.parse(protectedPdf), pdfFormulas);
     pdfLinksHtml = `<div class="viewer-pdf-links">${renderedPdfLinks}</div>`;
   }
   
-  // 创建每道题独立卡片的 HTML
+  // 创建每道题独立卡片的 HTML - 使用保护/恢复机制保留 LaTeX 公式
   const cardsHtml = questions.map((q) => {
-    const renderedQuestion = marked.parse(q.content);
+    const { markdown: protectedQ, formulas: qFormulas } = protectLatexFormulas(q.content);
+    const renderedQuestion = restoreLatexFormulas(marked.parse(protectedQ), qFormulas);
     const answer = answers[q.id] || '';
-    const renderedAnswer = marked.parse(answer);
+    const { markdown: protectedA, formulas: aFormulas } = protectLatexFormulas(answer);
+    const renderedAnswer = restoreLatexFormulas(marked.parse(protectedA), aFormulas);
     
     return `
       <div class="viewer-collapsible-wrapper" data-question-id="${q.id}">
@@ -397,6 +451,16 @@ function viewerProcessWithCommentMarkers(contentElement) {
   contentElement.innerHTML = mainContent;
   
   console.log('Viewer: HTML 注释标记处理完成');
+  
+  // 立即调用 MathJax 渲染整个内容区域（包括隐藏的答案）
+  // 这样当用户展开答案时，公式已经渲染好了
+  setTimeout(() => {
+    if (window.MathJax && typeof MathJax.typesetPromise === 'function') {
+      MathJax.typesetPromise([contentElement])
+        .then(() => console.log('Viewer: MathJax 初始渲染完成'))
+        .catch((err) => console.log('Viewer: MathJax 初始渲染错误:', err));
+    }
+  }, 100);
 }
 
 /**
@@ -426,8 +490,13 @@ window.viewerToggleAnswer = function(questionId) {
     button.innerHTML = '<span class="icon">▼</span> 隐藏答案';
     
     // 重新渲染 MathJax 公式
+    // 等待 DOM 更新和动画完成后再渲染
     if (window.MathJax && typeof MathJax.typesetPromise === 'function') {
-      MathJax.typesetPromise([answerContent]);
+      setTimeout(() => {
+        MathJax.typesetPromise([answerContent])
+          .then(() => console.log('Viewer: MathJax 答案渲染完成'))
+          .catch((err) => console.log('Viewer: MathJax 答案渲染错误:', err));
+      }, 50);
     }
   }
 };

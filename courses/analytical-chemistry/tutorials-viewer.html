@@ -18,7 +18,9 @@
         inlineMath: [['$', '$'], ['\\(', '\\)']],
         displayMath: [['$$', '$$'], ['\\[', '\\]']],
         processEscapes: true,
-        processEnvironments: true
+        processEnvironments: true,
+        // 处理 Markdown 中的 $ 符号
+        packages: {'[+]': ['noerrors']}
       },
       svg: {
         fontCache: 'global'
@@ -27,7 +29,9 @@
         pageReady: function() {
           return MathJax.startup.defaultPageReady();
         }
-      }
+      },
+      // 忽略 HTML 实体转义
+      ignoreHtmlClass: 'tex2jax_ignore'
     };
   </script>
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
