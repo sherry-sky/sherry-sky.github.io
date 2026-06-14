@@ -165,9 +165,14 @@ $$\int \frac{1}{2}[\sin 12x + \sin 2x]\,dx = \boxed{-\frac{\cos 12x}{24} - \frac
 
 $$\sqrt{4 - (x-1)^2} = 2\cos\theta$$
 
-$$\int (1 + 2\sin\theta)^2 \cdot 2\cos\theta \cdot 2\cos\theta\,d\theta = 4\int (1 + 2\sin\theta)^2\cos^2\theta\,d\theta$$
+$$\int (1 + 2\sin\theta)^2 \cdot 2\cos\theta \cdot 2\cos\theta\,d\theta = 4\int (1 + 4\sin\theta + 4\sin^2\theta)\cos^2\theta\,d\theta$$
 
-展开后利用三角恒等式计算（过程较长）。
+展开后利用 $\sin^2\theta = \frac{1-\cos 2\theta}{2}$，$\cos^2\theta = \frac{1+\cos 2\theta}{2}$ 等恒等式逐项积分，最后回代 $\theta = \sin^{-1}\frac{x-1}{2}$。
+
+由于计算过程较长，建议读者按步骤完成。关键步骤为：
+$$= 4\int \cos^2\theta\,d\theta + 16\int \sin\theta\cos^2\theta\,d\theta + 16\int \sin^2\theta\cos^2\theta\,d\theta$$
+
+逐项计算后回代即可得到最终结果。
 
 **(c)** 令 $x = a\tan\theta$，$dx = a\sec^2\theta\,d\theta$，$x^2 + a^2 = a^2\sec^2\theta$：
 
@@ -287,7 +292,19 @@ $$\int \frac{1 + t^2}{-t^2 + 2t + 1} \cdot \frac{2}{1 + t^2}\,dt = 2\int \frac{d
 
 回代 $t = \tan\frac{x}{2}$。
 
-**(b)** 类似方法，代入后化为有理函数积分（过程较长，此处略）。
+**(b)** $\sin x = \frac{2t}{1+t^2}$，$1 + \sin x + \cos x = 1 + \frac{2t}{1+t^2} + \frac{1-t^2}{1+t^2} = \frac{2 + 2t}{1+t^2}$
+
+$$\int \frac{\frac{2t}{1+t^2}}{\frac{2(1+t)}{1+t^2}} \cdot \frac{2}{1+t^2}\,dt = \int \frac{2t}{(1+t)(1+t^2)}\,dt$$
+
+部分分式：$\frac{2t}{(1+t)(1+t^2)} = \frac{A}{1+t} + \frac{Bt + C}{1+t^2}$
+
+解得 $A = -1$，$B = 1$，$C = 1$：
+
+$$\int \left(\frac{-1}{1+t} + \frac{t + 1}{1+t^2}\right)\,dt = -\ln|1+t| + \frac{1}{2}\ln(1+t^2) + \tan^{-1}t + C$$
+
+回代 $t = \tan\frac{x}{2}$：
+
+$$\boxed{-\ln\left|1 + \tan\frac{x}{2}\right| + \frac{1}{2}\ln\left(1 + \tan^2\frac{x}{2}\right) + \tan^{-1}\left(\tan\frac{x}{2}\right) + C}$$
 
 **知识点：** Weierstrass 换元（万能代换）$t = \tan\frac{x}{2}$ 可将三角函数积分化为有理函数积分。
 

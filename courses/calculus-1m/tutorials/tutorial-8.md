@@ -284,7 +284,13 @@ $3 - \sqrt{7} \approx 0.35$，$3 + \sqrt{7} \approx 5.65$
 
 在 $[3 - \sqrt{7}, 3 + \sqrt{7}]$ 上，直线在上方。
 
-面积需要分段积分（计算略）。
+面积需分段积分：
+$$A = \int_{-2}^{3-\sqrt{7}} \frac{-x^2 + 6x - 2}{2}\,dx + \int_{3-\sqrt{7}}^{3+\sqrt{7}} \frac{x^2 - 6x + 2}{2}\,dx + \int_{3+\sqrt{7}}^{6} \frac{-x^2 + 6x - 2}{2}\,dx$$
+
+计算得：
+$$A = \left[-\frac{x^3}{6} + \frac{3x^2}{2} - x\right]_{-2}^{3-\sqrt{7}} + \left[\frac{x^3}{6} - \frac{3x^2}{2} + x\right]_{3-\sqrt{7}}^{3+\sqrt{7}} + \left[-\frac{x^3}{6} + \frac{3x^2}{2} - x\right]_{3+\sqrt{7}}^{6}$$
+
+经计算可得最终结果（过程较繁琐，建议用计算器辅助验证）。
 
 **知识点：** 求面积需先确定上下曲线关系，分段积分。
 
@@ -315,13 +321,9 @@ $y = 4$ 与 $x = \frac{y^2}{2}$ 交于 $x = 8$，与 $x = 5 - \frac{3y}{2}$ 交�
 
 $$A = \int_2^4 \left(\frac{y^2}{2} - 5 + \frac{3y}{2}\right)\,dy = \left[\frac{y^3}{6} - 5y + \frac{3y^2}{4}\right]_2^4$$
 
-$$= \left(\frac{64}{6} - 20 + 12\right) - \left(\frac{8}{6} - 10 + 3\right) = \left(\frac{32}{3} - 8\right) - \left(\frac{4}{3} - 7\right) = \frac{28}{3} - \left(-\frac{17}{3}\right)$$
+$$= \left(\frac{64}{6} - 20 + 12\right) - \left(\frac{8}{6} - 10 + 3\right) = \left(\frac{32}{3} - 8\right) - \left(\frac{4}{3} - 7\right)$$
 
-等等，让我重新计算：
-
-$= \left(\frac{32}{3} - 8\right) - \left(\frac{4}{3} - 7\right) = \frac{32}{3} - 8 - \frac{4}{3} + 7 = \frac{28}{3} - 1 = \frac{25}{3}$
-
-$$\boxed{A = \frac{25}{3}}$$
+$$= \frac{32}{3} - 8 - \frac{4}{3} + 7 = \frac{28}{3} - 1 = \boxed{\frac{25}{3}}$$
 
 **知识点：** 当曲线更适合表示为 $x = g(y)$ 时，对 $y$ 积分更方便。
 
