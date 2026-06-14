@@ -1548,6 +1548,38 @@ mjx-container[jax="CHTML"][display="true"] {
   border-radius: 8px;
 }
 
+/* <details> 格式题目卡片样式（tutorial-1.md 风格） */
+.viewer-collapsible-wrapper .viewer-question-block details,
+.viewer-collapsible-wrapper .viewer-question-block summary {
+  display: none;
+}
+
+/* 题目编号标题样式 */
+.viewer-collapsible-wrapper .viewer-question-block h3 {
+  color: var(--primary-color);
+  font-size: 1.1rem;
+  margin: 0 0 0.75rem 0;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px dashed #e0e0e0;
+}
+
+/* 题目中的子题目 (a)(b)(c) 等加粗 */
+.viewer-collapsible-wrapper .viewer-question-block p strong {
+  color: var(--primary-color);
+}
+
+/* 答案内容中的公式和表格优化 */
+.viewer-answer-content .markdown-viewer table {
+  margin: 0.75rem 0;
+}
+
+.viewer-answer-content .markdown-viewer pre {
+  background: #f5f7fa;
+  border-radius: 6px;
+  padding: 1rem;
+  overflow-x: auto;
+}
+
 .viewer-tutorial-section h2,
 .viewer-homework-section h2,
 .viewer-exam-section h2 {

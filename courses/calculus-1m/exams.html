@@ -7,32 +7,77 @@
   <link rel="stylesheet" href="../../css/style.css">
 </head>
 <body>
-  <!-- 导航栏容器 -->
   <div id="navbar-container"></div>
-  <script>
-    window.currentCourse = 'calculus-1m';
-  </script>
+  <script>window.currentCourse = 'calculus-1m';</script>
 
-  <!-- 主容器 -->
   <div class="container">
-    <!-- 页面标题 -->
     <div class="page-header">
       <h1>🎯 考试资料</h1>
-      <p>微积分 1M 考试资料待添加</p>
+      <p>期中考试与期末考试试题及参考答案</p>
     </div>
 
-    <!-- 空状态提示 -->
-    <div style="text-align: center; padding: 4rem 2rem; background: white; border-radius: 12px; margin-top: 2rem;">
-      <div style="font-size: 4rem; margin-bottom: 1rem;">📝</div>
-      <h3 style="color: var(--text-primary); margin-bottom: 0.5rem;">考试资料待添加</h3>
-      <p style="color: var(--text-secondary);">本课程的考试资料正在准备中，敬请期待</p>
+    <div class="card-grid" id="resourceGrid">
+      <div class="resource-card note-card" data-title="期中考试 2024" onclick="location.href='exams-viewer.html?exam=1'">
+        <div class="card-header"><span class="card-icon">📝</span><h3 class="card-title">期中考试 - Winter 2024</h3></div>
+        <p class="card-description">选择题与证明题，涵盖极限、连续性、导数、导数应用等前半学期内容</p>
+        <div class="card-meta"><span class="card-tag">期中</span><span class="note-meta">📄 Markdown 笔记</span></div>
+      </div>
+      <div class="resource-card note-card" data-title="期末综合复习 2024" onclick="location.href='exams-viewer.html?exam=2'">
+        <div class="card-header"><span class="card-icon">📝</span><h3 class="card-title">期末综合复习 - 2024</h3></div>
+        <p class="card-description">全课程综合复习题，涵盖积分、积分技巧、数列级数、幂级数与 Taylor 级数</p>
+        <div class="card-meta"><span class="card-tag">期末</span><span class="note-meta">📄 Markdown 笔记</span></div>
+      </div>
+    </div>
+
+    <!-- 历年真题 PDF 下载 -->
+    <div style="margin-top: 60px; padding-top: 40px; border-top: 2px solid #e0e0e0;">
+      <h2 style="text-align: center; margin-bottom: 30px; color: #333;">📁 历年真题下载</h2>
+      <div class="card-grid">
+        <div class="resource-card lecture-download-card">
+          <div class="card-header"><span class="card-icon">📄</span><h3 class="card-title">Midterm 2024</h3></div>
+          <p class="card-description">2024 年期中考试试卷</p>
+          <div class="card-meta"><div class="card-actions"><a href="旧资料/04 Midterm/Midterm-Calc1M-Winter2024.pdf" class="btn btn-primary btn-sm" download>⬇️ 下载</a></div></div>
+        </div>
+        <div class="resource-card lecture-download-card">
+          <div class="card-header"><span class="card-icon">📄</span><h3 class="card-title">Midterm Open Problems</h3></div>
+          <p class="card-description">期中考试开放题</p>
+          <div class="card-meta"><div class="card-actions"><a href="旧资料/04 Midterm/MidtermOpenProblems-Calculus1M.pdf" class="btn btn-primary btn-sm" download>⬇️ 下载</a></div></div>
+        </div>
+        <div class="resource-card lecture-download-card">
+          <div class="card-header"><span class="card-icon">📄</span><h3 class="card-title">Final 2024 Review</h3></div>
+          <p class="card-description">2024 年期末复习题</p>
+          <div class="card-meta"><div class="card-actions"><a href="旧资料/05 Final/Final-2024-Review.pdf" class="btn btn-primary btn-sm" download>⬇️ 下载</a></div></div>
+        </div>
+        <div class="resource-card lecture-download-card">
+          <div class="card-header"><span class="card-icon">📄</span><h3 class="card-title">Final 2023 A</h3></div>
+          <p class="card-description">2023 年期末考试 A 卷</p>
+          <div class="card-meta"><div class="card-actions"><a href="旧资料/05 Final/Final - 2023 A.pdf" class="btn btn-primary btn-sm" download>⬇️ 下载</a></div></div>
+        </div>
+        <div class="resource-card lecture-download-card">
+          <div class="card-header"><span class="card-icon">📄</span><h3 class="card-title">Final 2023 B</h3></div>
+          <p class="card-description">2023 年期末考试 B 卷</p>
+          <div class="card-meta"><div class="card-actions"><a href="旧资料/05 Final/Final - 2023 B.pdf" class="btn btn-primary btn-sm" download>⬇️ 下载</a></div></div>
+        </div>
+        <div class="resource-card lecture-download-card">
+          <div class="card-header"><span class="card-icon">📄</span><h3 class="card-title">Final 2022 A</h3></div>
+          <p class="card-description">2022 年期末考试 A 卷</p>
+          <div class="card-meta"><div class="card-actions"><a href="旧资料/05 Final/Final - 2022s exam A.pdf" class="btn btn-primary btn-sm" download>⬇️ 下载</a></div></div>
+        </div>
+        <div class="resource-card lecture-download-card">
+          <div class="card-header"><span class="card-icon">📄</span><h3 class="card-title">Final 2022 B</h3></div>
+          <p class="card-description">2022 年期末考试 B 卷</p>
+          <div class="card-meta"><div class="card-actions"><a href="旧资料/05 Final/Final - 2022s exam B.pdf" class="btn btn-primary btn-sm" download>⬇️ 下载</a></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="no-results" id="noResults" style="display: none;">
+      <div class="no-results-icon">🔍</div>
+      <p>未找到匹配的考试资料</p>
     </div>
   </div>
 
-  <!-- 页脚容器 -->
   <div id="footer-container"></div>
-
-  <!-- 引入组件加载脚本和主脚本 -->
   <script src="../../js/components.js"></script>
   <script src="../../js/main.js"></script>
   <script>

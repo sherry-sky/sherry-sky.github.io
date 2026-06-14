@@ -7,32 +7,130 @@
   <link rel="stylesheet" href="../../css/style.css">
 </head>
 <body>
-  <!-- 导航栏容器 -->
   <div id="navbar-container"></div>
-  <script>
-    window.currentCourse = 'calculus-1m';
-  </script>
+  <script>window.currentCourse = 'calculus-1m';</script>
 
-  <!-- 主容器 -->
   <div class="container">
-    <!-- 页面标题 -->
     <div class="page-header">
       <h1>📚 课程课件</h1>
-      <p>微积分 1M 课件内容待添加</p>
+      <p>微积分 1M 课堂讲义，共 20 讲</p>
     </div>
 
-    <!-- 空状态提示 -->
-    <div style="text-align: center; padding: 4rem 2rem; background: white; border-radius: 12px; margin-top: 2rem;">
-      <div style="font-size: 4rem; margin-bottom: 1rem;">📝</div>
-      <h3 style="color: var(--text-primary); margin-bottom: 0.5rem;">课件内容待添加</h3>
-      <p style="color: var(--text-secondary);">本课程的课件内容正在准备中，敬请期待</p>
+    <div class="search-container">
+      <span class="search-icon">🔍</span>
+      <input type="text" class="search-input" id="searchInput" placeholder="搜索课件..." onkeyup="searchResources()">
+    </div>
+
+    <div class="card-grid" id="resourceGrid">
+      <div class="resource-card lecture-download-card" data-title="Class 8 切线与导数">
+        <div class="card-header"><span class="card-icon">📖</span><h3 class="card-title">Class 8 - 切线与导数</h3></div>
+        <p class="card-description">导数的极限定义、切线方程、用定义求导、幂函数导数规则</p>
+        <div class="card-meta"><span class="card-tag">Week 4</span><div class="card-actions"><a href="旧资料/09 Lecture/Week 4-Class 8-TangentLine.pdf" class="btn btn-primary btn-sm" download>⬇️ 下载</a></div></div>
+      </div>
+      <div class="resource-card lecture-download-card" data-title="Class 9 导数法则">
+        <div class="card-header"><span class="card-icon">📖</span><h3 class="card-title">Class 9 - 导数法则</h3></div>
+        <p class="card-description">高阶导数、链式法则、对数求导法、三角函数导数</p>
+        <div class="card-meta"><span class="card-tag">Week 5</span><div class="card-actions"><a href="旧资料/09 Lecture/Week 5-Class 9-Derivatives.pdf" class="btn btn-primary btn-sm" download>⬇️ 下载</a></div></div>
+      </div>
+      <div class="resource-card lecture-download-card" data-title="Class 11 极值">
+        <div class="card-header"><span class="card-icon">📖</span><h3 class="card-title">Class 11 - 极值</h3></div>
+        <p class="card-description">费马定理、临界点、递增递减判别法、一阶导数判别法</p>
+        <div class="card-meta"><span class="card-tag">Week 6</span><div class="card-actions"><a href="旧资料/09 Lecture/Week 6-Class11-Extremes.pdf" class="btn btn-primary btn-sm" download>⬇️ 下载</a></div></div>
+      </div>
+      <div class="resource-card lecture-download-card" data-title="Class 13A 凹凸性与曲线描绘">
+        <div class="card-header"><span class="card-icon">📖</span><h3 class="card-title">Class 13A - 凹凸性与曲线描绘</h3></div>
+        <p class="card-description">二阶导数、凹凸性、拐点、二阶导数判别法、完整曲线描绘指南</p>
+        <div class="card-meta"><span class="card-tag">Week 7</span><div class="card-actions"><a href="旧资料/09 Lecture/Week 7-Class13-A-Concavity-CurveSketching.pdf" class="btn btn-primary btn-sm" download>⬇️ 下载</a></div></div>
+      </div>
+      <div class="resource-card lecture-download-card" data-title="Class 13B 反导数与换元法">
+        <div class="card-header"><span class="card-icon">📖</span><h3 class="card-title">Class 13B - 反导数与换元法</h3></div>
+        <p class="card-description">反导数概念、基本积分公式、换元积分法</p>
+        <div class="card-meta"><span class="card-tag">Week 7</span><div class="card-actions"><a href="旧资料/09 Lecture/Week 7-Class13-B-Antiderivatives-Substitution.pdf" class="btn btn-primary btn-sm" download>⬇️ 下载</a></div></div>
+      </div>
+      <div class="resource-card lecture-download-card" data-title="Class 14 定积分">
+        <div class="card-header"><span class="card-icon">📖</span><h3 class="card-title">Class 14 - 定积分</h3></div>
+        <p class="card-description">Riemann 和、定积分定义、用面积求解定积分</p>
+        <div class="card-meta"><span class="card-tag">Week 7</span><div class="card-actions"><a href="旧资料/09 Lecture/Week 7-Class14-Definite-Integral.pdf" class="btn btn-primary btn-sm" download>⬇️ 下载</a></div></div>
+      </div>
+      <div class="resource-card lecture-download-card" data-title="Class 15A 微积分基本定理">
+        <div class="card-header"><span class="card-icon">📖</span><h3 class="card-title">Class 15A - 微积分基本定理</h3></div>
+        <p class="card-description">FTC 第一部分与第二部分、换元法在定积分中的应用</p>
+        <div class="card-meta"><span class="card-tag">Week 8</span><div class="card-actions"><a href="旧资料/09 Lecture/Week 8 - Class 15-A-Fundamental-Theorem-Calculus.pdf" class="btn btn-primary btn-sm" download>⬇️ 下载</a></div></div>
+      </div>
+      <div class="resource-card lecture-download-card" data-title="Class 15B 奇偶函数积分">
+        <div class="card-header"><span class="card-icon">📖</span><h3 class="card-title">Class 15B - 奇偶函数积分</h3></div>
+        <p class="card-description">变上限积分求导、奇偶函数积分性质、净变化定理、两曲线面积</p>
+        <div class="card-meta"><span class="card-tag">Week 8</span><div class="card-actions"><a href="旧资料/09 Lecture/Week 8 - Class 15-B-Integrals-Odd-Even.pdf" class="btn btn-primary btn-sm" download>⬇️ 下载</a></div></div>
+      </div>
+      <div class="resource-card lecture-download-card" data-title="Class 16 面积体积平均值">
+        <div class="card-header"><span class="card-icon">📖</span><h3 class="card-title">Class 16 - 面积、体积与平均值</h3></div>
+        <p class="card-description">两曲线间面积、截面法求体积、函数平均值</p>
+        <div class="card-meta"><span class="card-tag">Week 8</span><div class="card-actions"><a href="旧资料/09 Lecture/Week 8 - Class 16-Areas-Volumes-Average-Value.pdf" class="btn btn-primary btn-sm" download>⬇️ 下载</a></div></div>
+      </div>
+      <div class="resource-card lecture-download-card" data-title="Class 17 三角积分">
+        <div class="card-header"><span class="card-icon">📖</span><h3 class="card-title">Class 17 - 三角积分</h3></div>
+        <p class="card-description">分部积分法、三角函数幂次积分、半角公式、递推公式</p>
+        <div class="card-meta"><span class="card-tag">Week 9</span><div class="card-actions"><a href="旧资料/09 Lecture/Week 9 - Class 17-Trigonometric-Integrals.pdf" class="btn btn-primary btn-sm" download>⬇️ 下载</a></div></div>
+      </div>
+      <div class="resource-card lecture-download-card" data-title="Class 18 部分分式">
+        <div class="card-header"><span class="card-icon">📖</span><h3 class="card-title">Class 18 - 部分分式</h3></div>
+        <p class="card-description">部分分式分解法积分有理函数：简单根、重根、二次因子</p>
+        <div class="card-meta"><span class="card-tag">Week 9</span><div class="card-actions"><a href="旧资料/09 Lecture/Week 9 - Class 18-PartialFractions.pdf" class="btn btn-primary btn-sm" download>⬇️ 下载</a></div></div>
+      </div>
+      <div class="resource-card lecture-download-card" data-title="Class 19A 分部积分法续">
+        <div class="card-header"><span class="card-icon">📖</span><h3 class="card-title">Class 19A - 分部积分法（续）</h3></div>
+        <p class="card-description">分部积分进阶、积分综合策略、部分分式总结</p>
+        <div class="card-meta"><span class="card-tag">Week 10</span><div class="card-actions"><a href="旧资料/09 Lecture/Week 10-Class 19-A-IntegrationByParts.pdf" class="btn btn-primary btn-sm" download>⬇️ 下载</a></div></div>
+      </div>
+      <div class="resource-card lecture-download-card" data-title="Class 19B 弧长">
+        <div class="card-header"><span class="card-icon">📖</span><h3 class="card-title">Class 19B - 弧长</h3></div>
+        <p class="card-description">弧长公式推导、弧长计算例题、弧长函数</p>
+        <div class="card-meta"><span class="card-tag">Week 10</span><div class="card-actions"><a href="旧资料/09 Lecture/Week 10-Class 19-B-Arc-Length.pdf" class="btn btn-primary btn-sm" download>⬇️ 下载</a></div></div>
+      </div>
+      <div class="resource-card lecture-download-card" data-title="Class 20 弧长与旋转面">
+        <div class="card-header"><span class="card-icon">📖</span><h3 class="card-title">Class 20 - 弧长与旋转面</h3></div>
+        <p class="card-description">弧长复习、旋转体表面积公式与应用</p>
+        <div class="card-meta"><span class="card-tag">Week 10</span><div class="card-actions"><a href="旧资料/09 Lecture/Week 10-Class 20-Arc-Length-ReviutionSurfaces.pdf" class="btn btn-primary btn-sm" download>⬇️ 下载</a></div></div>
+      </div>
+      <div class="resource-card lecture-download-card" data-title="Class 21 数列">
+        <div class="card-header"><span class="card-icon">📖</span><h3 class="card-title">Class 21 - 数列</h3></div>
+        <p class="card-description">数列定义、Fibonacci 数列、极限的 ε-N 定义、L'Hospital 法则求极限</p>
+        <div class="card-meta"><span class="card-tag">Week 11</span><div class="card-actions"><a href="旧资料/09 Lecture/Week 11-Class 21-Sequences.pdf" class="btn btn-primary btn-sm" download>⬇️ 下载</a></div></div>
+      </div>
+      <div class="resource-card lecture-download-card" data-title="Class 22 数列与级数">
+        <div class="card-header"><span class="card-icon">📖</span><h3 class="card-title">Class 22 - 数列与级数</h3></div>
+        <p class="card-description">单调数列、有界数列、完备性公理、单调收敛定理</p>
+        <div class="card-meta"><span class="card-tag">Week 11</span><div class="card-actions"><a href="旧资料/09 Lecture/Week 11-Class 22-Sequences-and-Series.pdf" class="btn btn-primary btn-sm" download>⬇️ 下载</a></div></div>
+      </div>
+      <div class="resource-card lecture-download-card" data-title="Class 12/30 级数">
+        <div class="card-header"><span class="card-icon">📖</span><h3 class="card-title">Class 12/30 - 级数</h3></div>
+        <p class="card-description">几何级数、积分判别法、比较判别法、极限比较判别法、交错级数</p>
+        <div class="card-meta"><span class="card-tag">Week 23</span><div class="card-actions"><a href="旧资料/09 Lecture/Week 23-Class-12-30-2024.pdf" class="btn btn-primary btn-sm" download>⬇️ 下载</a></div></div>
+      </div>
+      <div class="resource-card lecture-download-card" data-title="Class 1/6 幂级数">
+        <div class="card-header"><span class="card-icon">📖</span><h3 class="card-title">Class 1/6 - 幂级数</h3></div>
+        <p class="card-description">幂级数定义、收敛半径、比值判别法、逐项求导与积分</p>
+        <div class="card-meta"><span class="card-tag">Week 24</span><div class="card-actions"><a href="旧资料/09 Lecture/Week 24-Class-1-6-2025.pdf" class="btn btn-primary btn-sm" download>⬇️ 下载</a></div></div>
+      </div>
+      <div class="resource-card lecture-download-card" data-title="Class 1/8 Taylor 级数">
+        <div class="card-header"><span class="card-icon">📖</span><h3 class="card-title">Class 1/8 - Taylor 级数与二项式级数</h3></div>
+        <p class="card-description">Taylor/Maclaurin 级数应用、二项式系数与二项式级数</p>
+        <div class="card-meta"><span class="card-tag">Week 25</span><div class="card-actions"><a href="旧资料/09 Lecture/Week 25-Class-1-8-2025.pdf" class="btn btn-primary btn-sm" download>⬇️ 下载</a></div></div>
+      </div>
+      <div class="resource-card lecture-download-card" data-title="Tutorial 1/7 幂级数习题">
+        <div class="card-header"><span class="card-icon">📖</span><h3 class="card-title">Tutorial 1/7 - 幂级数习题</h3></div>
+        <p class="card-description">幂级数收敛区间、函数展开为幂级数、综合练习</p>
+        <div class="card-meta"><span class="card-tag">Week 26</span><div class="card-actions"><a href="旧资料/09 Lecture/Week 26-Tutorial-1-7-2025.pdf" class="btn btn-primary btn-sm" download>⬇️ 下载</a></div></div>
+      </div>
+    </div>
+
+    <div class="no-results" id="noResults" style="display: none;">
+      <div class="no-results-icon">🔍</div>
+      <p>未找到匹配的课件</p>
     </div>
   </div>
 
-  <!-- 页脚容器 -->
   <div id="footer-container"></div>
-
-  <!-- 引入组件加载脚本和主脚本 -->
   <script src="../../js/components.js"></script>
   <script src="../../js/main.js"></script>
   <script>

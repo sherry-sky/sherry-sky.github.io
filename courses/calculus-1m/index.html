@@ -7,52 +7,89 @@
   <link rel="stylesheet" href="../../css/style.css">
 </head>
 <body>
-  <!-- 导航栏容器 -->
   <div id="navbar-container"></div>
-  <script>
-    // 设置当前课程
-    window.currentCourse = 'calculus-1m';
-  </script>
+  <script>window.currentCourse = 'calculus-1m';</script>
 
-  <!-- 主容器 -->
   <div class="container">
-    <!-- 特色区域 -->
     <section class="hero">
       <h2>∫ 微积分 1M</h2>
       <p>微积分是数学的核心基础，研究函数的微分和积分，是理解变化和累积的重要工具</p>
       <div class="hero-buttons">
-        <a href="lectures.html" class="hero-btn">📚 浏览课件</a>
-        <a href="tutorials.html" class="hero-btn">✏️ 做习题</a>
-        <a href="homework.html" class="hero-btn">📝 查作业</a>
+        <a href="notes.html" class="hero-btn">📚 学习笔记</a>
+        <a href="tutorials.html" class="hero-btn">✏️ 习题解答</a>
+        <a href="workshops.html" class="hero-btn">💡 研讨课</a>
+        <a href="homework.html" class="hero-btn">📋 课后作业</a>
+      </div>
+    </section>
+
+    <!-- 学习路径 -->
+    <section style="margin-top: 2rem; background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+      <h2 style="color: var(--primary-color); margin-bottom: 1rem;">🗺️ 推荐学习路径</h2>
+      <p style="color: var(--text-secondary); line-height: 1.8;">建议按以下顺序学习每个主题：</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1.5rem; align-items: center;">
+        <div style="flex: 1; min-width: 120px; text-align: center; padding: 1rem; background: #eff6ff; border-radius: 8px;">
+          <div style="font-size: 2rem;">📖</div>
+          <strong>① 笔记</strong>
+          <p style="font-size: 0.85rem; color: #666; margin-top: 0.5rem;">学习知识点</p>
+        </div>
+        <div style="font-size: 1.5rem; color: #ccc;">→</div>
+        <div style="flex: 1; min-width: 120px; text-align: center; padding: 1rem; background: #f0fdf4; border-radius: 8px;">
+          <div style="font-size: 2rem;">✏️</div>
+          <strong>② 习题</strong>
+          <p style="font-size: 0.85rem; color: #666; margin-top: 0.5rem;">Tutorial 练习</p>
+        </div>
+        <div style="font-size: 1.5rem; color: #ccc;">→</div>
+        <div style="flex: 1; min-width: 120px; text-align: center; padding: 1rem; background: #fefce8; border-radius: 8px;">
+          <div style="font-size: 2rem;">💡</div>
+          <strong>③ 研讨</strong>
+          <p style="font-size: 0.85rem; color: #666; margin-top: 0.5rem;">Workshop 深入</p>
+        </div>
+        <div style="font-size: 1.5rem; color: #ccc;">→</div>
+        <div style="flex: 1; min-width: 120px; text-align: center; padding: 1rem; background: #fdf2f8; border-radius: 8px;">
+          <div style="font-size: 2rem;">📋</div>
+          <strong>④ 作业</strong>
+          <p style="font-size: 0.85rem; color: #666; margin-top: 0.5rem;">Homework 巩固</p>
+        </div>
+        <div style="font-size: 1.5rem; color: #ccc;">→</div>
+        <div style="flex: 1; min-width: 120px; text-align: center; padding: 1rem; background: #fef2f2; border-radius: 8px;">
+          <div style="font-size: 2rem;">🎯</div>
+          <strong>⑤ 考试</strong>
+          <p style="font-size: 0.85rem; color: #666; margin-top: 0.5rem;">期中/期末</p>
+        </div>
       </div>
     </section>
 
     <!-- 快速导航 -->
     <section class="quick-links">
-      <a href="lectures.html" class="quick-link-card">
-        <div class="quick-link-icon">📖</div>
-        <h3 class="quick-link-title">课程课件</h3>
-        <p class="quick-link-desc">待添加课件内容</p>
+      <a href="notes.html" class="quick-link-card">
+        <div class="quick-link-icon">📚</div>
+        <h3 class="quick-link-title">学习笔记</h3>
+        <p class="quick-link-desc">18 周笔记，基于课堂讲义整理</p>
       </a>
       <a href="tutorials.html" class="quick-link-card">
-        <div class="quick-link-icon">📝</div>
+        <div class="quick-link-icon">✏️</div>
         <h3 class="quick-link-title">习题解答</h3>
-        <p class="quick-link-desc">待添加习题内容</p>
+        <p class="quick-link-desc">13 次 Tutorial，每题配有详细解答</p>
+      </a>
+      <a href="workshops.html" class="quick-link-card">
+        <div class="quick-link-icon">💡</div>
+        <h3 class="quick-link-title">研讨课</h3>
+        <p class="quick-link-desc">12 次 Workshop，深入探讨核心问题</p>
       </a>
       <a href="homework.html" class="quick-link-card">
         <div class="quick-link-icon">📋</div>
         <h3 class="quick-link-title">课后作业</h3>
-        <p class="quick-link-desc">待添加作业内容</p>
+        <p class="quick-link-desc">10 次作业，含参考答案</p>
       </a>
       <a href="exams.html" class="quick-link-card">
         <div class="quick-link-icon">🎯</div>
         <h3 class="quick-link-title">考试资料</h3>
-        <p class="quick-link-desc">待添加考试资料</p>
+        <p class="quick-link-desc">期中期末试题与历年真题</p>
       </a>
-      <a href="notes.html" class="quick-link-card">
-        <div class="quick-link-icon">📚</div>
-        <h3 class="quick-link-title">学习笔记</h3>
-        <p class="quick-link-desc">待添加笔记内容</p>
+      <a href="lectures.html" class="quick-link-card">
+        <div class="quick-link-icon">📖</div>
+        <h3 class="quick-link-title">课程课件</h3>
+        <p class="quick-link-desc">20 节课件 PDF 下载</p>
       </a>
     </section>
 
@@ -60,28 +97,24 @@
     <section style="margin-top: 3rem; background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
       <h2 style="color: var(--primary-color); margin-bottom: 1rem;">📌 关于微积分 1M</h2>
       <p style="color: var(--text-secondary); line-height: 1.8;">
-        微积分 1M 是数学专业的基础课程，主要内容包括：
+        微积分 1M（Differential and Integral Calculus 1M）是数学专业的基础课程，基于 Stewart 微积分教材，主要内容包括：
       </p>
       <ul style="color: var(--text-secondary); line-height: 2; margin-top: 1rem; padding-left: 1.5rem;">
-        <li>极限与连续</li>
-        <li>导数与微分</li>
-        <li>微分中值定理与导数应用</li>
-        <li>不定积分</li>
-        <li>定积分及其应用</li>
-        <li>微分方程初步</li>
+        <li>预备知识：不等式、绝对值、函数、三角学</li>
+        <li>极限与连续性</li>
+        <li>导数与微分（链式法则、隐函数求导）</li>
+        <li>导数应用（极值、中值定理、曲线描绘）</li>
+        <li>不定积分与定积分（换元法、分部积分）</li>
+        <li>积分应用（面积、体积、弧长、旋转面）</li>
+        <li>数列与级数（收敛性判别、幂级数、Taylor 级数）</li>
       </ul>
-      <p style="color: #999; margin-top: 1rem; font-style: italic;">📝 课程内容待添加</p>
     </section>
   </div>
 
-  <!-- 页脚容器 -->
   <div id="footer-container"></div>
-
-  <!-- 引入组件加载脚本和主脚本 -->
   <script src="../../js/components.js"></script>
   <script src="../../js/main.js"></script>
   <script>
-    // 页面加载时初始化组件
     document.addEventListener('DOMContentLoaded', function() {
       loadComponent('navbar', 'navbar-container');
       loadComponent('footer', 'footer-container');

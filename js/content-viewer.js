@@ -196,13 +196,25 @@ async function viewerLoadContent(id) {
     if (!response.ok) {
       throw new Error(`HTTP 错误：${response.status} ${response.statusText}`);
     }
-    
-    const markdown = await response.text();
+
+    let markdown = await response.text();
     console.log('Viewer: Markdown 加载成功，长度:', markdown.length);
     
     // 解析 Markdown 中的标记
     viewerParseMarkdown(markdown);
-    
+
+    // 修复图片路径：将相对路径改为相对于 Markdown 文件所在目录
+    const mdDir = config.filePattern.split('/').slice(0, -1).join('/');
+    if (mdDir) {
+      markdown = markdown.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (match, alt, src) => {
+        // 如果图片路径不是以 / 或 http 开头，说明是相对路径，需要加上 Markdown 文件所在目录
+        if (!src.startsWith('/') && !src.startsWith('http://') && !src.startsWith('https://')) {
+          return `![${alt}](${mdDir}/${src})`;
+        }
+        return match;
+      });
+    }
+
     // 保护 LaTeX 公式
     const { markdown: protectedMarkdown, formulas } = protectLatexFormulas(markdown);
     
@@ -278,21 +290,23 @@ async function viewerLoadContent(id) {
 function protectLatexFormulas(markdown) {
   const formulas = [];
   let index = 0;
-  
-  // 保护行内公式 $...$
+
+  // 保护行内公式 $...$ （使用不含下划线的占位符，避免被 marked 解析为强调）
   markdown = markdown.replace(/\$([^$\n]+?)\$/g, (match) => {
-    const placeholder = `LATEX_INLINE_${index++}`;
+    const placeholder = `@@LTXI${index}@@`;
     formulas.push({ placeholder, content: match });
+    index++;
     return placeholder;
   });
-  
+
   // 保护块级公式 $$...$$
   markdown = markdown.replace(/\$\$([\s\S]*?)\$\$/g, (match) => {
-    const placeholder = `LATEX_BLOCK_${index++}`;
+    const placeholder = `@@LTXB${index}@@`;
     formulas.push({ placeholder, content: match });
+    index++;
     return placeholder;
   });
-  
+
   return { markdown, formulas };
 }
 
@@ -305,7 +319,11 @@ function protectLatexFormulas(markdown) {
 function restoreLatexFormulas(html, formulas) {
   let result = html;
   formulas.forEach(({ placeholder, content }) => {
-    result = result.replace(new RegExp(placeholder, 'g'), content);
+    // 转义占位符中的特殊字符，构建安全正则
+    const escaped = placeholder.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    // 匹配可能被 <code>/<em>/<strong> 等标签包裹的占位符
+    const regex = new RegExp(`<[^>]*>${escaped}</[^>]*>|${escaped}`, 'g');
+    result = result.replace(regex, content);
   });
   return result;
 }
@@ -361,17 +379,100 @@ function viewerParseMarkdown(markdown) {
  */
 function viewerProcessCollapsible(contentElement) {
   console.log('Viewer: 开始处理可折叠答案...');
-  
-  const hasCommentMarkers = contentElement.innerHTML.includes('QUESTION_START') || 
+
+  const hasCommentMarkers = contentElement.innerHTML.includes('QUESTION_START') ||
                             contentElement.innerHTML.includes('ANSWER_START');
-  
+
   if (hasCommentMarkers) {
     console.log('Viewer: 检测到 HTML 注释标记，使用新方法处理');
     viewerProcessWithCommentMarkers(contentElement);
     return;
   }
-  
-  console.log('Viewer: 未检测到 HTML 注释标记');
+
+  // 检测 <details> 格式（tutorial-1.md 风格）
+  const hasDetailsBlocks = contentElement.querySelectorAll('details').length > 0;
+  if (hasDetailsBlocks) {
+    console.log('Viewer: 检测到 <details> 格式，转换为题目卡片');
+    viewerProcessDetailsBlocks(contentElement);
+    return;
+  }
+
+  console.log('Viewer: 未检测到 HTML 注释标记或 <details> 块');
+}
+
+/**
+ * 将 <details><summary>参考答案</summary>...</details> 转换为题目卡片
+ * @param {HTMLElement} contentElement - 内容元素
+ */
+function viewerProcessDetailsBlocks(contentElement) {
+  const detailsElements = contentElement.querySelectorAll('details');
+  let cardIndex = 0;
+
+  detailsElements.forEach((detailsEl) => {
+    const summaryEl = detailsEl.querySelector('summary');
+    if (!summaryEl) return;
+
+    cardIndex++;
+    const questionId = `details-q-${cardIndex}`;
+    const answerContent = detailsEl.innerHTML.replace(summaryEl.outerHTML, '').trim();
+
+    // 找到 details 之前的所有兄弟元素（题目内容）
+    const questionParts = [];
+    let sibling = detailsEl.previousElementSibling;
+
+    // 收集题目内容：从 details 往前找，直到遇到 hr 或 h3（题目编号）或另一个 details
+    while (sibling && !sibling.matches('hr, h3.viewer-h3, details')) {
+      questionParts.unshift(sibling);
+      sibling = sibling.previousElementSibling;
+    }
+
+    // 创建题目卡片容器
+    const cardWrapper = document.createElement('div');
+    cardWrapper.className = 'viewer-collapsible-wrapper';
+    cardWrapper.dataset.questionId = questionId;
+
+    // 题目区块
+    const questionBlock = document.createElement('div');
+    questionBlock.className = 'viewer-question-block';
+
+    // 将收集到的题目内容移入题目区块
+    questionParts.forEach((part) => {
+      questionBlock.appendChild(part);
+    });
+
+    // 切换按钮
+    const toggleBtn = document.createElement('button');
+    toggleBtn.className = 'viewer-toggle-answer-btn';
+    toggleBtn.dataset.questionId = questionId;
+    toggleBtn.innerHTML = '<span class="icon">▶</span> 查看答案';
+    questionBlock.appendChild(toggleBtn);
+
+    // 答案区块
+    const answerDiv = document.createElement('div');
+    answerDiv.className = 'viewer-answer-content';
+    answerDiv.id = `answer-${questionId}`;
+    answerDiv.innerHTML = answerContent;
+    answerDiv.style.display = 'none';
+
+    cardWrapper.appendChild(questionBlock);
+    cardWrapper.appendChild(answerDiv);
+
+    // 替换 hr + details（如果前面有 hr 分隔符）
+    if (sibling && sibling.matches('hr')) {
+      sibling.replaceWith(cardWrapper);
+    } else {
+      detailsEl.replaceWith(cardWrapper);
+    }
+  });
+
+  // 重新渲染 MathJax
+  setTimeout(() => {
+    if (window.MathJax && typeof MathJax.typesetPromise === 'function') {
+      MathJax.typesetPromise([contentElement])
+        .then(() => console.log('Viewer: details 转换后 MathJax 渲染完成'))
+        .catch((err) => console.log('Viewer: MathJax 渲染错误:', err));
+    }
+  }, 100);
 }
 
 /**

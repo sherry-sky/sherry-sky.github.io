@@ -7,32 +7,95 @@
   <link rel="stylesheet" href="../../css/style.css">
 </head>
 <body>
-  <!-- 导航栏容器 -->
   <div id="navbar-container"></div>
-  <script>
-    window.currentCourse = 'calculus-1m';
-  </script>
+  <script>window.currentCourse = 'calculus-1m';</script>
 
-  <!-- 主容器 -->
   <div class="container">
-    <!-- 页面标题 -->
     <div class="page-header">
       <h1>✏️ 习题解答</h1>
-      <p>微积分 1M 习题内容待添加</p>
+      <p>Tutorial 习题集，每道题均配有详细参考答案与知识点梳理</p>
     </div>
 
-    <!-- 空状态提示 -->
-    <div style="text-align: center; padding: 4rem 2rem; background: white; border-radius: 12px; margin-top: 2rem;">
-      <div style="font-size: 4rem; margin-bottom: 1rem;">📝</div>
-      <h3 style="color: var(--text-primary); margin-bottom: 0.5rem;">习题内容待添加</h3>
-      <p style="color: var(--text-secondary);">本课程的习题内容正在准备中，敬请期待</p>
+    <div class="search-container">
+      <span class="search-icon">🔍</span>
+      <input type="text" class="search-input" id="searchInput" placeholder="搜索习题..." onkeyup="searchResources()">
+    </div>
+
+    <div class="card-grid" id="resourceGrid">
+      <div class="resource-card note-card" data-title="Tutorial 1 不等式与绝对值" onclick="location.href='tutorials-viewer.html?tutorial=1'">
+        <div class="card-header"><span class="card-icon">📝</span><h3 class="card-title">Tutorial 1 - 不等式、绝对值与坐标几何</h3></div>
+        <p class="card-description">不等式求解、绝对值不等式、直线方程、三角学基础</p>
+        <div class="card-meta"><span class="card-tag">第 1 周</span><span class="note-meta">📄 Markdown 笔记</span></div>
+      </div>
+      <div class="resource-card note-card" data-title="Tutorial 2 函数" onclick="location.href='tutorials-viewer.html?tutorial=2'">
+        <div class="card-header"><span class="card-icon">📝</span><h3 class="card-title">Tutorial 2 - 函数概念与性质</h3></div>
+        <p class="card-description">函数判断、差商、定义域与值域、单调性、反函数、复合函数</p>
+        <div class="card-meta"><span class="card-tag">第 2 周</span><span class="note-meta">📄 Markdown 笔记</span></div>
+      </div>
+      <div class="resource-card note-card" data-title="Tutorial 3 极限" onclick="location.href='tutorials-viewer.html?tutorial=3'">
+        <div class="card-header"><span class="card-icon">📝</span><h3 class="card-title">Tutorial 3 - 极限与连续性基础</h3></div>
+        <p class="card-description">极限计算、夹逼定理、epsilon-delta 证明、极限运算法则</p>
+        <div class="card-meta"><span class="card-tag">第 3 周</span><span class="note-meta">📄 Markdown 笔记</span></div>
+      </div>
+      <div class="resource-card note-card" data-title="Tutorial 4 连续性与导数定义" onclick="location.href='tutorials-viewer.html?tutorial=4'">
+        <div class="card-header"><span class="card-icon">📝</span><h3 class="card-title">Tutorial 4 - 连续性、渐近线与导数定义</h3></div>
+        <p class="card-description">间断点分类、渐近线、用定义求导、可微性条件</p>
+        <div class="card-meta"><span class="card-tag">第 4 周</span><span class="note-meta">📄 Markdown 笔记</span></div>
+      </div>
+      <div class="resource-card note-card" data-title="Tutorial 5 求导法则" onclick="location.href='tutorials-viewer.html?tutorial=5'">
+        <div class="card-header"><span class="card-icon">📝</span><h3 class="card-title">Tutorial 5 - 求导法则与隐函数求导</h3></div>
+        <p class="card-description">链式法则、隐函数求导、对数求导法、双曲函数导数</p>
+        <div class="card-meta"><span class="card-tag">第 5 周</span><span class="note-meta">📄 Markdown 笔记</span></div>
+      </div>
+      <div class="resource-card note-card" data-title="Tutorial 6 极值与中值定理" onclick="location.href='tutorials-viewer.html?tutorial=6'">
+        <div class="card-header"><span class="card-icon">📝</span><h3 class="card-title">Tutorial 6 - 极值、中值定理与函数分析</h3></div>
+        <p class="card-description">临界点分类、中值定理应用、完整函数图像分析</p>
+        <div class="card-meta"><span class="card-tag">第 6 周</span><span class="note-meta">📄 Markdown 笔记</span></div>
+      </div>
+      <div class="resource-card note-card" data-title="Tutorial 7 曲线描绘与反导数" onclick="location.href='tutorials-viewer.html?tutorial=7'">
+        <div class="card-header"><span class="card-icon">📝</span><h3 class="card-title">Tutorial 7 - 曲线描绘、最优化与反导数</h3></div>
+        <p class="card-description">函数图像绘制、最优化问题、反导数、Riemann 和</p>
+        <div class="card-meta"><span class="card-tag">第 7 周</span><span class="note-meta">📄 Markdown 笔记</span></div>
+      </div>
+      <div class="resource-card note-card" data-title="Tutorial 8 微积分基本定理" onclick="location.href='tutorials-viewer.html?tutorial=8'">
+        <div class="card-header"><span class="card-icon">📝</span><h3 class="card-title">Tutorial 8 - 微积分基本定理与积分应用</h3></div>
+        <p class="card-description">FTC 应用、积分函数分析、面积与体积计算</p>
+        <div class="card-meta"><span class="card-tag">第 8 周</span><span class="note-meta">📄 Markdown 笔记</span></div>
+      </div>
+      <div class="resource-card note-card" data-title="Tutorial 9 积分技巧" onclick="location.href='tutorials-viewer.html?tutorial=9'">
+        <div class="card-header"><span class="card-icon">📝</span><h3 class="card-title">Tutorial 9 - 积分技巧综合</h3></div>
+        <p class="card-description">分部积分、三角积分、三角换元、部分分式、有理化换元</p>
+        <div class="card-meta"><span class="card-tag">第 9 周</span><span class="note-meta">📄 Markdown 笔记</span></div>
+      </div>
+      <div class="resource-card note-card" data-title="Tutorial 10 反常积分与弧长" onclick="location.href='tutorials-viewer.html?tutorial=10'">
+        <div class="card-header"><span class="card-icon">📝</span><h3 class="card-title">Tutorial 10 - 反常积分、弧长与旋转面</h3></div>
+        <p class="card-description">反常积分收敛性判断、曲线长度、旋转面面积、Gabriel 号角</p>
+        <div class="card-meta"><span class="card-tag">第 10 周</span><span class="note-meta">📄 Markdown 笔记</span></div>
+      </div>
+      <div class="resource-card note-card" data-title="Tutorial 11 数列与级数" onclick="location.href='tutorials-viewer.html?tutorial=11'">
+        <div class="card-header"><span class="card-icon">📝</span><h3 class="card-title">Tutorial 11 - 数列与级数基础</h3></div>
+        <p class="card-description">数列极限、递推数列、级数收敛性判断、积分判别法</p>
+        <div class="card-meta"><span class="card-tag">第 11 周</span><span class="note-meta">📄 Markdown 笔记</span></div>
+      </div>
+      <div class="resource-card note-card" data-title="Tutorial 12 收敛性与幂级数" onclick="location.href='tutorials-viewer.html?tutorial=12'">
+        <div class="card-header"><span class="card-icon">📝</span><h3 class="card-title">Tutorial 12 - 收敛性与幂级数基础</h3></div>
+        <p class="card-description">绝对/条件收敛判断、交错级数、比值/根值判别法、幂级数入门</p>
+        <div class="card-meta"><span class="card-tag">第 12 周</span><span class="note-meta">📄 Markdown 笔记</span></div>
+      </div>
+      <div class="resource-card note-card" data-title="Tutorial 13 幂级数与 Taylor 级数" onclick="location.href='tutorials-viewer.html?tutorial=13'">
+        <div class="card-header"><span class="card-icon">📝</span><h3 class="card-title">Tutorial 13 - 幂级数与 Taylor 级数</h3></div>
+        <p class="card-description">收敛半径与收敛区间、函数展开、Taylor 多项式近似</p>
+        <div class="card-meta"><span class="card-tag">第 13 周</span><span class="note-meta">📄 Markdown 笔记</span></div>
+      </div>
+    </div>
+
+    <div class="no-results" id="noResults" style="display: none;">
+      <div class="no-results-icon">🔍</div>
+      <p>未找到匹配的习题</p>
     </div>
   </div>
 
-  <!-- 页脚容器 -->
   <div id="footer-container"></div>
-
-  <!-- 引入组件加载脚本和主脚本 -->
   <script src="../../js/components.js"></script>
   <script src="../../js/main.js"></script>
   <script>
