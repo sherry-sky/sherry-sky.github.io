@@ -3,149 +3,69 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>学习笔记 - 微积分 1M</title>
+  <title>笔记阅读 - 微积分 1M</title>
   <link rel="stylesheet" href="../../css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']], processEscapes: true, processEnvironments: true, packages: {'[+]': ['noerrors']} },
+      svg: { fontCache: 'global' },
+      ignoreHtmlClass: 'tex2jax_ignore'
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 </head>
 <body>
   <div id="navbar-container"></div>
   <script>window.currentCourse = 'calculus-1m';</script>
 
-  <div class="container">
-    <div class="page-header">
-      <h1>📝 学习笔记</h1>
-      <p>基于课程讲义整理，按教学周组织，涵盖微积分 1M 全部知识点</p>
-    </div>
-
-    <div class="search-container">
-      <span class="search-icon">🔍</span>
-      <input type="text" class="search-input" id="searchInput" placeholder="搜索笔记..." onkeyup="searchResources()">
-    </div>
-
-    <div class="card-grid" id="resourceGrid">
-      <!-- Week 1 -->
-      <div class="resource-card note-card" data-title="Week 1 预备知识：不等式与绝对值" onclick="location.href='notes-viewer.html?chapter=1'">
-        <div class="card-header"><span class="card-icon">📖</span><h3 class="card-title">Week 1 - 预备知识：不等式与绝对值</h3></div>
-        <p class="card-description">不等式、绝对值、坐标几何、直线方程、三角学基础</p>
-        <div class="card-meta"><span class="card-tag">第 1 周</span><span class="note-meta">📄 Markdown 笔记</span></div>
-      </div>
-      <!-- Week 2 -->
-      <div class="resource-card note-card" data-title="Week 2 函数：定义域、值域、反函数" onclick="location.href='notes-viewer.html?chapter=2'">
-        <div class="card-header"><span class="card-icon">📖</span><h3 class="card-title">Week 2 - 函数：定义域、值域、反函数</h3></div>
-        <p class="card-description">函数概念、差商、定义域与值域、单调性、反函数、复合函数</p>
-        <div class="card-meta"><span class="card-tag">第 2 周</span><span class="note-meta">📄 Markdown 笔记</span></div>
-      </div>
-      <!-- Week 3 -->
-      <div class="resource-card note-card" data-title="Week 3 极限：概念与计算" onclick="location.href='notes-viewer.html?chapter=3'">
-        <div class="card-header"><span class="card-icon">📖</span><h3 class="card-title">Week 3 - 极限：概念与计算</h3></div>
-        <p class="card-description">极限的直觉与精确定义、极限法则、夹逼定理、epsilon-delta 证明</p>
-        <div class="card-meta"><span class="card-tag">第 3 周</span><span class="note-meta">📄 Markdown 笔记</span></div>
-      </div>
-      <!-- Week 4 -->
-      <div class="resource-card note-card" data-title="Week 4 连续性与导数入门" onclick="location.href='notes-viewer.html?chapter=4'">
-        <div class="card-header"><span class="card-icon">📖</span><h3 class="card-title">Week 4 - 连续性与导数入门</h3></div>
-        <p class="card-description">连续性定义、间断点分类、渐近线、切线问题、导数的极限定义</p>
-        <div class="card-meta"><span class="card-tag">第 4 周</span><span class="note-meta">📄 Markdown 笔记</span></div>
-      </div>
-      <!-- Week 5 -->
-      <div class="resource-card note-card" data-title="Week 5 求导法则" onclick="location.href='notes-viewer.html?chapter=5'">
-        <div class="card-header"><span class="card-icon">📖</span><h3 class="card-title">Week 5 - 求导法则</h3></div>
-        <p class="card-description">乘积与商法则、链式法则、隐函数求导、对数求导法、双曲函数</p>
-        <div class="card-meta"><span class="card-tag">第 5 周</span><span class="note-meta">📄 Markdown 笔记</span></div>
-      </div>
-      <!-- Week 6 -->
-      <div class="resource-card note-card" data-title="Week 6 导数应用：极值与中值定理" onclick="location.href='notes-viewer.html?chapter=6'">
-        <div class="card-header"><span class="card-icon">📖</span><h3 class="card-title">Week 6 - 导数应用：极值与中值定理</h3></div>
-        <p class="card-description">费马定理、临界点、一阶导数判别法、中值定理、Rolle 定理</p>
-        <div class="card-meta"><span class="card-tag">第 6 周</span><span class="note-meta">📄 Markdown 笔记</span></div>
-      </div>
-      <!-- Week 7 -->
-      <div class="resource-card note-card" data-title="Week 7 曲线描绘与反导数" onclick="location.href='notes-viewer.html?chapter=7'">
-        <div class="card-header"><span class="card-icon">📖</span><h3 class="card-title">Week 7 - 曲线描绘与反导数</h3></div>
-        <p class="card-description">凹凸性、拐点、二阶导数判别法、曲线描绘指南、洛必达法则、反导数、换元积分法</p>
-        <div class="card-meta"><span class="card-tag">第 7 周</span><span class="note-meta">📄 Markdown 笔记</span></div>
-      </div>
-      <!-- Week 8 -->
-      <div class="resource-card note-card" data-title="Week 8 定积分与微积分基本定理" onclick="location.href='notes-viewer.html?chapter=8'">
-        <div class="card-header"><span class="card-icon">📖</span><h3 class="card-title">Week 8 - 定积分与微积分基本定理</h3></div>
-        <p class="card-description">Riemann 和、定积分定义、FTC 第一部分与第二部分、奇偶函数积分、净变化定理</p>
-        <div class="card-meta"><span class="card-tag">第 8 周</span><span class="note-meta">📄 Markdown 笔记</span></div>
-      </div>
-      <!-- Week 9 -->
-      <div class="resource-card note-card" data-title="Week 9 积分技巧（一）" onclick="location.href='notes-viewer.html?chapter=9'">
-        <div class="card-header"><span class="card-icon">📖</span><h3 class="card-title">Week 9 - 积分技巧（一）</h3></div>
-        <p class="card-description">分部积分法、三角积分、半角公式降幂、递推公式、部分分式分解</p>
-        <div class="card-meta"><span class="card-tag">第 9 周</span><span class="note-meta">📄 Markdown 笔记</span></div>
-      </div>
-      <!-- Week 10 -->
-      <div class="resource-card note-card" data-title="Week 10 积分技巧（二）与弧长" onclick="location.href='notes-viewer.html?chapter=10'">
-        <div class="card-header"><span class="card-icon">📖</span><h3 class="card-title">Week 10 - 积分技巧（二）与弧长</h3></div>
-        <p class="card-description">积分综合策略、弧长公式、旋转面面积、弧长函数</p>
-        <div class="card-meta"><span class="card-tag">第 10 周</span><span class="note-meta">📄 Markdown 笔记</span></div>
-      </div>
-      <!-- Week 11 -->
-      <div class="resource-card note-card" data-title="Week 11 数列" onclick="location.href='notes-viewer.html?chapter=11'">
-        <div class="card-header"><span class="card-icon">📖</span><h3 class="card-title">Week 11 - 数列</h3></div>
-        <p class="card-description">数列定义、极限的 ε-N 定义、单调有界定理、完备性公理</p>
-        <div class="card-meta"><span class="card-tag">第 11 周</span><span class="note-meta">📄 Markdown 笔记</span></div>
-      </div>
-      <!-- Week 12 -->
-      <div class="resource-card note-card" data-title="Week 12 级数收敛性判别" onclick="location.href='notes-viewer.html?chapter=12'">
-        <div class="card-header"><span class="card-icon">📖</span><h3 class="card-title">Week 12 - 级数收敛性判别</h3></div>
-        <p class="card-description">几何级数、积分判别法、比较判别法、极限比较判别法、交错级数、绝对与条件收敛</p>
-        <div class="card-meta"><span class="card-tag">第 12 周</span><span class="note-meta">📄 Markdown 笔记</span></div>
-      </div>
-      <!-- Week 13 -->
-      <div class="resource-card note-card" data-title="Week 13 幂级数与 Taylor 级数" onclick="location.href='notes-viewer.html?chapter=13'">
-        <div class="card-header"><span class="card-icon">📖</span><h3 class="card-title">Week 13 - 幂级数与 Taylor 级数</h3></div>
-        <p class="card-description">幂级数收敛半径、函数展开为幂级数、Taylor/Maclaurin 级数、二项式级数</p>
-        <div class="card-meta"><span class="card-tag">第 13 周</span><span class="note-meta">📄 Markdown 笔记</span></div>
-      </div>
-      <!-- Week 14 Midterm Review -->
-      <div class="resource-card note-card" data-title="Week 14 期中复习" onclick="location.href='notes-viewer.html?chapter=14'">
-        <div class="card-header"><span class="card-icon">🎯</span><h3 class="card-title">Week 14 - 期中复习</h3></div>
-        <p class="card-description">前半学期知识点总结：极限、连续、导数、导数应用</p>
-        <div class="card-meta"><span class="card-tag">第 14 周</span><span class="note-meta">📄 Markdown 笔记</span></div>
-      </div>
-      <!-- Week 23 -->
-      <div class="resource-card note-card" data-title="Week 23 级数进阶" onclick="location.href='notes-viewer.html?chapter=23'">
-        <div class="card-header"><span class="card-icon">📖</span><h3 class="card-title">Week 23 - 级数进阶</h3></div>
-        <p class="card-description">几何级数复习、积分判别法与余项估计、比较判别法、极限比较判别法、交错级数判别法</p>
-        <div class="card-meta"><span class="card-tag">第 23 周</span><span class="note-meta">📄 Markdown 笔记</span></div>
-      </div>
-      <!-- Week 24 -->
-      <div class="resource-card note-card" data-title="Week 24 幂级数" onclick="location.href='notes-viewer.html?chapter=24'">
-        <div class="card-header"><span class="card-icon">📖</span><h3 class="card-title">Week 24 - 幂级数</h3></div>
-        <p class="card-description">幂级数定义、收敛半径、比值判别法、函数表示为幂级数、逐项求导与积分</p>
-        <div class="card-meta"><span class="card-tag">第 24 周</span><span class="note-meta">📄 Markdown 笔记</span></div>
-      </div>
-      <!-- Week 25 -->
-      <div class="resource-card note-card" data-title="Week 25 Taylor 级数与二项式级数" onclick="location.href='notes-viewer.html?chapter=25'">
-        <div class="card-header"><span class="card-icon">📖</span><h3 class="card-title">Week 25 - Taylor 级数与二项式级数</h3></div>
-        <p class="card-description">Maclaurin 级数应用、e^{-x²} 的级数、二项式系数与二项式级数</p>
-        <div class="card-meta"><span class="card-tag">第 25 周</span><span class="note-meta">📄 Markdown 笔记</span></div>
-      </div>
-      <!-- Week 26 -->
-      <div class="resource-card note-card" data-title="Week 26 综合复习" onclick="location.href='notes-viewer.html?chapter=26'">
-        <div class="card-header"><span class="card-icon">📖</span><h3 class="card-title">Week 26 - 综合复习</h3></div>
-        <p class="card-description">全课程综合复习、幂级数习题、期末备考要点</p>
-        <div class="card-meta"><span class="card-tag">第 26 周</span><span class="note-meta">📄 Markdown 笔记</span></div>
-      </div>
-    </div>
-
-    <div class="no-results" id="noResults" style="display: none;">
-      <div class="no-results-icon">🔍</div>
-      <p>未找到匹配的笔记</p>
-    </div>
-  </div>
+  <div id="viewer-container"></div>
 
   <div id="footer-container"></div>
   <script src="../../js/components.js"></script>
-  <script src="../../js/main.js"></script>
+  <script src="../../js/content-viewer.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       loadComponent('navbar', 'navbar-container');
       loadComponent('footer', 'footer-container');
+      loadComponent('content-viewer', 'viewer-container');
       setCurrentPage('notes');
+
+      viewerInit({
+        type: 'notes',
+        navItems: [
+          { id: '1', title: 'Week 1 预备知识' },
+          { id: '2', title: 'Week 2 函数' },
+          { id: '3', title: 'Week 3 极限' },
+          { id: '4', title: 'Week 4 连续性与导数' },
+          { id: '5', title: 'Week 5 求导法则' },
+          { id: '6', title: 'Week 6 极值与中值定理' },
+          { id: '7', title: 'Week 7 曲线描绘与反导数' },
+          { id: '8', title: 'Week 8 定积分与 FTC' },
+          { id: '9', title: 'Week 9 积分技巧（一）' },
+          { id: '10', title: 'Week 10 积分技巧（二）与弧长' },
+          { id: '11', title: 'Week 11 数列' },
+          { id: '12', title: 'Week 12 级数收敛性' },
+          { id: '13', title: 'Week 13 幂级数与 Taylor' },
+          { id: '14', title: 'Week 14 期中复习' },
+          { id: '23', title: 'Week 23 级数进阶' },
+          { id: '24', title: 'Week 24 幂级数' },
+          { id: '25', title: 'Week 25 Taylor 与二项式' },
+          { id: '26', title: 'Week 26 综合复习' }
+        ],
+        filePattern: 'notes/notes-{id}.md',
+        defaultId: '1',
+        listPage: 'index.html',
+        titlePrefix: 'Week',
+        urlParam: 'chapter',
+        course: 'calculus-1m',
+        navTitle: '📚 章节导航',
+        loadingText: '正在加载笔记内容...',
+        errorText: '无法加载笔记内容',
+        prevText: '← 上一周',
+        nextText: '下一周 →',
+        listText: '🏠 返回首页'
+      });
     });
   </script>
 </body>

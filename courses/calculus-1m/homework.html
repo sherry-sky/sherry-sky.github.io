@@ -3,91 +3,61 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>课后作业 - 微积分 1M</title>
+  <title>作业解答 - 微积分 1M</title>
   <link rel="stylesheet" href="../../css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']], processEscapes: true, processEnvironments: true, packages: {'[+]': ['noerrors']} },
+      svg: { fontCache: 'global' },
+      ignoreHtmlClass: 'tex2jax_ignore'
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 </head>
 <body>
   <div id="navbar-container"></div>
   <script>window.currentCourse = 'calculus-1m';</script>
 
-  <div class="container">
-    <div class="page-header">
-      <h1>📋 课后作业</h1>
-      <p>课后作业题目与参考答案，覆盖微积分 1M 全部核心内容</p>
-    </div>
-
-    <div class="search-container">
-      <span class="search-icon">🔍</span>
-      <input type="text" class="search-input" id="searchInput" placeholder="搜索作业..." onkeyup="searchResources()">
-    </div>
-
-    <div class="card-grid" id="resourceGrid">
-      <div class="resource-card note-card" data-title="Homework 1 绝对值不等式与综合" onclick="location.href='homework-viewer.html?homework=1'">
-        <div class="card-header"><span class="card-icon">📋</span><h3 class="card-title">Homework 1 - 绝对值不等式与综合题</h3></div>
-        <p class="card-description">绝对值分式不等式、平面区域、直线平行垂直证明、圆锥曲线、三角方程、分段函数</p>
-        <div class="card-meta"><span class="card-tag">第 1-2 周</span><span class="note-meta">📄 Markdown 笔记</span></div>
-      </div>
-      <div class="resource-card note-card" data-title="Homework 2 反函数与极限" onclick="location.href='homework-viewer.html?homework=2'">
-        <div class="card-header"><span class="card-icon">📋</span><h3 class="card-title">Homework 2 - 反函数与极限</h3></div>
-        <p class="card-description">反函数证明与求解、极限计算、epsilon-delta 证明、夹逼定理</p>
-        <div class="card-meta"><span class="card-tag">第 3-4 周</span><span class="note-meta">📄 Markdown 笔记</span></div>
-      </div>
-      <div class="resource-card note-card" data-title="Homework 3 连续性与渐近线" onclick="location.href='homework-viewer.html?homework=3'">
-        <div class="card-header"><span class="card-icon">📋</span><h3 class="card-title">Homework 3 - 连续性与渐近线</h3></div>
-        <p class="card-description">分段函数连续性、渐近线求解、导数定义证明、可微性条件</p>
-        <div class="card-meta"><span class="card-tag">第 4-5 周</span><span class="note-meta">📄 Markdown 笔记</span></div>
-      </div>
-      <div class="resource-card note-card" data-title="Homework 4 导数应用" onclick="location.href='homework-viewer.html?homework=4'">
-        <div class="card-header"><span class="card-icon">📋</span><h3 class="card-title">Homework 4 - 导数应用</h3></div>
-        <p class="card-description">切线证明、ODE 验证、链式法则、隐函数求导、对数复合求导</p>
-        <div class="card-meta"><span class="card-tag">第 5-6 周</span><span class="note-meta">📄 Markdown 笔记</span></div>
-      </div>
-      <div class="resource-card note-card" data-title="Homework 5 极值与 Riemann 和" onclick="location.href='homework-viewer.html?homework=5'">
-        <div class="card-header"><span class="card-icon">📋</span><h3 class="card-title">Homework 5 - 极值与 Riemann 和</h3></div>
-        <p class="card-description">含参数渐近线、tanh 函数极值、扇形面积最优化、Riemann 和计算</p>
-        <div class="card-meta"><span class="card-tag">第 6-7 周</span><span class="note-meta">📄 Markdown 笔记</span></div>
-      </div>
-      <div class="resource-card note-card" data-title="Homework 6 FTC 与积分应用" onclick="location.href='homework-viewer.html?homework=6'">
-        <div class="card-header"><span class="card-icon">📋</span><h3 class="card-title">Homework 6 - 微积分基本定理与积分应用</h3></div>
-        <p class="card-description">积分方程、面积比较、曲线围成面积、旋转体体积、定积分恒等式证明</p>
-        <div class="card-meta"><span class="card-tag">第 8 周</span><span class="note-meta">📄 Markdown 笔记</span></div>
-      </div>
-      <div class="resource-card note-card" data-title="Homework 7 积分技巧与旋转体" onclick="location.href='homework-viewer.html?homework=7'">
-        <div class="card-header"><span class="card-icon">📋</span><h3 class="card-title">Homework 7 - 积分技巧与旋转体体积</h3></div>
-        <p class="card-description">三角换元、部分分式积分、旋转体体积（绕 x 轴/y 轴）、换元+分部积分</p>
-        <div class="card-meta"><span class="card-tag">第 9 周</span><span class="note-meta">📄 Markdown 笔记</span></div>
-      </div>
-      <div class="resource-card note-card" data-title="Homework 8 反常积分与弧长" onclick="location.href='homework-viewer.html?homework=8'">
-        <div class="card-header"><span class="card-icon">📋</span><h3 class="card-title">Homework 8 - 反常积分、弧长与旋转面</h3></div>
-        <p class="card-description">反常积分求值与收敛性、弧长计算、旋转面面积</p>
-        <div class="card-meta"><span class="card-tag">第 10 周</span><span class="note-meta">📄 Markdown 笔记</span></div>
-      </div>
-      <div class="resource-card note-card" data-title="Homework 9 数列与级数" onclick="location.href='homework-viewer.html?homework=9'">
-        <div class="card-header"><span class="card-icon">📋</span><h3 class="card-title">Homework 9 - 数列极限与级数收敛性</h3></div>
-        <p class="card-description">数列与函数极限关系、积分判别法、误差估计与项数确定</p>
-        <div class="card-meta"><span class="card-tag">第 11 周</span><span class="note-meta">📄 Markdown 笔记</span></div>
-      </div>
-      <div class="resource-card note-card" data-title="Homework 10 幂级数与 Taylor 级数" onclick="location.href='homework-viewer.html?homework=10'">
-        <div class="card-header"><span class="card-icon">📋</span><h3 class="card-title">Homework 10 - 幂级数与 Taylor 级数</h3></div>
-        <p class="card-description">比值判别法求参数、绝对/条件收敛、幂级数收敛半径、Maclaurin 展开、近似计算</p>
-        <div class="card-meta"><span class="card-tag">第 12-13 周</span><span class="note-meta">📄 Markdown 笔记</span></div>
-      </div>
-    </div>
-
-    <div class="no-results" id="noResults" style="display: none;">
-      <div class="no-results-icon">🔍</div>
-      <p>未找到匹配的作业</p>
-    </div>
-  </div>
+  <div id="viewer-container"></div>
 
   <div id="footer-container"></div>
   <script src="../../js/components.js"></script>
-  <script src="../../js/main.js"></script>
+  <script src="../../js/content-viewer.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       loadComponent('navbar', 'navbar-container');
       loadComponent('footer', 'footer-container');
+      loadComponent('content-viewer', 'viewer-container');
       setCurrentPage('homework');
+
+      viewerInit({
+        type: 'homework',
+        navItems: [
+          { id: '1', title: 'HW 1 绝对值不等式与综合' },
+          { id: '2', title: 'HW 2 反函数与极限' },
+          { id: '3', title: 'HW 3 连续性与渐近线' },
+          { id: '4', title: 'HW 4 导数应用' },
+          { id: '5', title: 'HW 5 极值与 Riemann 和' },
+          { id: '6', title: 'HW 6 FTC 与积分应用' },
+          { id: '7', title: 'HW 7 积分技巧与旋转体' },
+          { id: '8', title: 'HW 8 反常积分与弧长' },
+          { id: '9', title: 'HW 9 数列与级数' },
+          { id: '10', title: 'HW 10 幂级数与 Taylor' }
+        ],
+        filePattern: 'homeworks/homework-{id}.md',
+        defaultId: '1',
+        listPage: 'index.html',
+        titlePrefix: 'Homework',
+        urlParam: 'homework',
+        course: 'calculus-1m',
+        navTitle: '📚 作业导航',
+        loadingText: '正在加载作业内容...',
+        errorText: '无法加载作业内容',
+        prevText: '← 上一次',
+        nextText: '下一次 →',
+        listText: '🏠 返回首页'
+      });
     });
   </script>
 </body>

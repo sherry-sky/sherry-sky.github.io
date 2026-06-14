@@ -5,6 +5,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>课后作业 - 分析化学</title>
   <link rel="stylesheet" href="../../css/style.css">
+  <!-- 引入 marked.js 用于解析 Markdown -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  
+  <!-- 引入 MathJax 用于渲染数学公式 -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true,
+        processEnvironments: true,
+        // 处理 Markdown 中的 $ 符号
+        packages: {'[+]': ['noerrors']}
+      },
+      svg: {
+        fontCache: 'global'
+      },
+      startup: {
+        pageReady: function() {
+          return MathJax.startup.defaultPageReady();
+        }
+      },
+      // 忽略 HTML 实体转义
+      ignoreHtmlClass: 'tex2jax_ignore'
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 </head>
 <body>
   <!-- 导航栏容器 -->
@@ -14,185 +41,52 @@
     window.currentCourse = 'analytical-chemistry';
   </script>
 
-  <!-- 主容器 -->
-  <div class="container">
-    <!-- 页面标题 -->
-    <div class="page-header">
-      <h1>📋 课后作业</h1>
-      <p>12 次课后作业，包含题目和参考答案</p>
-    </div>
-
-    <!-- 搜索框 -->
-    <div class="search-container">
-      <span class="search-icon">🔍</span>
-      <input type="text" class="search-input" id="searchInput" placeholder="搜索作业..." onkeyup="searchResources()">
-    </div>
-
-    <!-- 作业列表 -->
-    <div class="card-grid" id="resourceGrid">
-      <!-- Homework 2 -->
-      <div class="resource-card note-card" data-title="Homework 2 基础作业" onclick="location.href='homework-viewer.html?course=analytical-chemistry&homework=2'">
-        <div class="card-header">
-          <span class="card-icon">📝</span>
-          <h3 class="card-title">Homework 2 - 基础作业</h3>
-        </div>
-        <p class="card-description">分析化学基础概念作业</p>
-        <div class="card-meta">
-          <span class="card-tag">第 2 次作业</span>
-          <span class="note-meta">📄 Markdown 笔记</span>
-        </div>
-      </div>
-
-      <!-- Homework 3 -->
-      <div class="resource-card note-card" data-title="Homework 3 误差作业" onclick="location.href='homework-viewer.html?course=analytical-chemistry&homework=3'">
-        <div class="card-header">
-          <span class="card-icon">📝</span>
-          <h3 class="card-title">Homework 3 - 误差分析作业</h3>
-        </div>
-        <p class="card-description">实验误差估算作业</p>
-        <div class="card-meta">
-          <span class="card-tag">第 3 次作业</span>
-          <span class="note-meta">📄 Markdown 笔记</span>
-        </div>
-      </div>
-
-      <!-- Homework 4 -->
-      <div class="resource-card note-card" data-title="Homework 4 随机误差作业" onclick="location.href='homework-viewer.html?course=analytical-chemistry&homework=4'">
-        <div class="card-header">
-          <span class="card-icon">📝</span>
-          <h3 class="card-title">Homework 4 - 随机误差作业</h3>
-        </div>
-        <p class="card-description">随机误差统计分析作业</p>
-        <div class="card-meta">
-          <span class="card-tag">第 4 次作业</span>
-          <span class="note-meta">📄 Markdown 笔记</span>
-        </div>
-      </div>
-
-      <!-- Homework 5 -->
-      <div class="resource-card note-card" data-title="Homework 5 线性回归作业" onclick="location.href='homework-viewer.html?course=analytical-chemistry&homework=5'">
-        <div class="card-header">
-          <span class="card-icon">📝</span>
-          <h3 class="card-title">Homework 5 - 线性回归作业</h3>
-        </div>
-        <p class="card-description">回归分析应用作业</p>
-        <div class="card-meta">
-          <span class="card-tag">第 5 次作业</span>
-          <span class="note-meta">📄 Markdown 笔记</span>
-        </div>
-      </div>
-
-      <!-- Homework 6 -->
-      <div class="resource-card note-card" data-title="Homework 6 pH 缓冲作业" onclick="location.href='homework-viewer.html?course=analytical-chemistry&homework=6'">
-        <div class="card-header">
-          <span class="card-icon">📝</span>
-          <h3 class="card-title">Homework 6 - pH 与缓冲溶液作业</h3>
-        </div>
-        <p class="card-description">酸碱平衡与缓冲溶液计算作业</p>
-        <div class="card-meta">
-          <span class="card-tag">第 6 次作业</span>
-          <span class="note-meta">📄 Markdown 笔记</span>
-        </div>
-      </div>
-
-      <!-- Homework 7 -->
-      <div class="resource-card note-card" data-title="Homework 7 滴定作业" onclick="location.href='homework-viewer.html?course=analytical-chemistry&homework=7'">
-        <div class="card-header">
-          <span class="card-icon">📝</span>
-          <h3 class="card-title">Homework 7 - 滴定分析作业</h3>
-        </div>
-        <p class="card-description">酸碱滴定分析作业</p>
-        <div class="card-meta">
-          <span class="card-tag">第 7 次作业</span>
-          <span class="note-meta">📄 Markdown 笔记</span>
-        </div>
-      </div>
-
-      <!-- Homework 8 -->
-      <div class="resource-card note-card" data-title="Homework 8 电位滴定作业" onclick="location.href='homework-viewer.html?course=analytical-chemistry&homework=8'">
-        <div class="card-header">
-          <span class="card-icon">📝</span>
-          <h3 class="card-title">Homework 8 - 电位滴定作业</h3>
-        </div>
-        <p class="card-description">电位分析法作业</p>
-        <div class="card-meta">
-          <span class="card-tag">第 8 次作业</span>
-          <span class="note-meta">📄 Markdown 笔记</span>
-        </div>
-      </div>
-
-      <!-- Homework 9 -->
-      <div class="resource-card note-card" data-title="Homework 9 Gran 作图作业" onclick="location.href='homework-viewer.html?course=analytical-chemistry&homework=9'">
-        <div class="card-header">
-          <span class="card-icon">📝</span>
-          <h3 class="card-title">Homework 9 - Gran 作图法作业</h3>
-        </div>
-        <p class="card-description">Gran 作图法在滴定中的应用作业</p>
-        <div class="card-meta">
-          <span class="card-tag">第 9 次作业</span>
-          <span class="note-meta">📄 Markdown 笔记</span>
-        </div>
-      </div>
-
-      <!-- Homework 10 -->
-      <div class="resource-card note-card" data-title="Homework 10 电化学作业" onclick="location.href='homework-viewer.html?course=analytical-chemistry&homework=10'">
-        <div class="card-header">
-          <span class="card-icon">📝</span>
-          <h3 class="card-title">Homework 10 - 电化学分析作业</h3>
-        </div>
-        <p class="card-description">电化学分析技术作业</p>
-        <div class="card-meta">
-          <span class="card-tag">第 10 次作业</span>
-          <span class="note-meta">📄 Markdown 笔记</span>
-        </div>
-      </div>
-
-      <!-- Homework 11 -->
-      <div class="resource-card note-card" data-title="Homework 11 重量分析作业" onclick="location.href='homework-viewer.html?course=analytical-chemistry&homework=11'">
-        <div class="card-header">
-          <span class="card-icon">📝</span>
-          <h3 class="card-title">Homework 11 - 重量分析作业</h3>
-        </div>
-        <p class="card-description">重量分析法作业</p>
-        <div class="card-meta">
-          <span class="card-tag">第 11 次作业</span>
-          <span class="note-meta">📄 Markdown 笔记</span>
-        </div>
-      </div>
-
-      <!-- Homework 12 -->
-      <div class="resource-card note-card" data-title="Homework 12 综合作业" onclick="location.href='homework-viewer.html?course=analytical-chemistry&homework=12'">
-        <div class="card-header">
-          <span class="card-icon">📝</span>
-          <h3 class="card-title">Homework 12 - 综合复习作业</h3>
-        </div>
-        <p class="card-description">课程综合复习作业</p>
-        <div class="card-meta">
-          <span class="card-tag">第 12 次作业</span>
-          <span class="note-meta">📄 Markdown 笔记</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- 无结果提示 -->
-    <div class="no-results" id="noResults" style="display: none;">
-      <div class="no-results-icon">🔍</div>
-      <p>未找到匹配的作业</p>
-    </div>
-  </div>
+  <!-- 通用内容查看器容器 -->
+  <div id="viewer-container"></div>
 
   <!-- 页脚容器 -->
   <div id="footer-container"></div>
 
-  <!-- 引入组件加载脚本和主脚本 -->
+  <!-- 引入组件加载脚本和通用查看器脚本 -->
   <script src="../../js/components.js"></script>
-  <script src="../../js/main.js"></script>
+  <script src="../../js/content-viewer.js"></script>
   <script>
-    // 页面加载时初始化组件
+    // 配置查看器
     document.addEventListener('DOMContentLoaded', function() {
       loadComponent('navbar', 'navbar-container');
       loadComponent('footer', 'footer-container');
+      loadComponent('content-viewer', 'viewer-container');
       setCurrentPage('homework');
+      
+      // 初始化查看器配置
+      viewerInit({
+        type: 'homework',
+        navItems: [
+          { id: '2', title: 'Homework 2 - 基础作业' },
+          { id: '3', title: 'Homework 3 - 误差分析作业' },
+          { id: '4', title: 'Homework 4 - 随机误差作业' },
+          { id: '5', title: 'Homework 5 - 线性回归作业' },
+          { id: '6', title: 'Homework 6 - pH 与缓冲溶液作业' },
+          { id: '7', title: 'Homework 7 - 滴定分析作业' },
+          { id: '8', title: 'Homework 8 - 电位滴定作业' },
+          { id: '9', title: 'Homework 9 - Gran 作图法作业' },
+          { id: '10', title: 'Homework 10 - 电化学分析作业' },
+          { id: '11', title: 'Homework 11 - 重量分析作业' },
+          { id: '12', title: 'Homework 12 - 综合复习作业' }
+        ],
+        filePattern: 'homeworks/homework{id}.md',
+        defaultId: '2',
+        listPage: 'index.html',
+        titlePrefix: 'Homework ',
+        urlParam: 'homework',
+        course: 'analytical-chemistry',
+        navTitle: '📚 章节导航',
+        loadingText: '正在加载作业内容...',
+        errorText: '无法加载作业内容',
+        prevText: '← 上一次',
+        nextText: '下一次 →',
+        listText: '🏠 返回首页'
+      });
     });
   </script>
 </body>

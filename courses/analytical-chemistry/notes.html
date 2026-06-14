@@ -3,8 +3,35 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>学习笔记 - 分析化学</title>
+  <title>笔记阅读 - 分析化学</title>
   <link rel="stylesheet" href="../../css/style.css">
+  <!-- 引入 marked.js 用于解析 Markdown -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  
+  <!-- 引入 MathJax 用于渲染数学公式 -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true,
+        processEnvironments: true,
+        // 处理 Markdown 中的 $ 符号
+        packages: {'[+]': ['noerrors']}
+      },
+      svg: {
+        fontCache: 'global'
+      },
+      startup: {
+        pageReady: function() {
+          return MathJax.startup.defaultPageReady();
+        }
+      },
+      // 忽略 HTML 实体转义
+      ignoreHtmlClass: 'tex2jax_ignore'
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 </head>
 <body>
   <!-- 导航栏容器 -->
@@ -14,412 +41,54 @@
     window.currentCourse = 'analytical-chemistry';
   </script>
 
-  <!-- 主容器 -->
-  <div class="container">
-    <!-- 页面标题 -->
-    <div class="page-header">
-      <h1>📝 学习笔记</h1>
-      <p>分析化学 1 课程学习笔记，共 13 章</p>
-    </div>
-
-    <!-- 搜索框 -->
-    <div class="search-container">
-      <span class="search-icon">🔍</span>
-      <input type="text" class="search-input" id="searchInput" placeholder="搜索笔记..." onkeyup="searchResources()">
-    </div>
-
-    <!-- 笔记列表 -->
-    <div class="card-grid" id="resourceGrid">
-      <!-- Chapter 1 -->
-      <div class="resource-card note-card" data-title="Chapter 1 分析化学导论" onclick="location.href='notes-viewer.html?course=analytical-chemistry&chapter=1'">
-        <div class="card-header">
-          <span class="card-icon">📖</span>
-          <h3 class="card-title">Chapter 1 - 分析化学导论</h3>
-        </div>
-        <p class="card-description">介绍分析化学的基本概念、发展历程、分析方法分类和应用领域</p>
-        <div class="card-meta">
-          <span class="card-tag">第 1 章</span>
-          <span class="note-meta">📄 Markdown 笔记</span>
-        </div>
-      </div>
-
-      <!-- Chapter 2 -->
-      <div class="resource-card note-card" data-title="Chapter 2 基础知识" onclick="location.href='notes-viewer.html?course=analytical-chemistry&chapter=2'">
-        <div class="card-header">
-          <span class="card-icon">📖</span>
-          <h3 class="card-title">Chapter 2 - 基础知识</h3>
-        </div>
-        <p class="card-description">溶液浓度表示方法、化学平衡原理、活度与活度系数</p>
-        <div class="card-meta">
-          <span class="card-tag">第 2 章</span>
-          <span class="note-meta">📄 Markdown 笔记</span>
-        </div>
-      </div>
-
-      <!-- Chapter 3 -->
-      <div class="resource-card note-card" data-title="Chapter 3 实验误差" onclick="location.href='notes-viewer.html?course=analytical-chemistry&chapter=3'">
-        <div class="card-header">
-          <span class="card-icon">📖</span>
-          <h3 class="card-title">Chapter 3 - 实验误差及其估算</h3>
-        </div>
-        <p class="card-description">误差的来源、分类、准确度与精密度、误差的表示方法</p>
-        <div class="card-meta">
-          <span class="card-tag">第 3 章</span>
-          <span class="note-meta">📄 Markdown 笔记</span>
-        </div>
-      </div>
-
-      <!-- Chapter 4 -->
-      <div class="resource-card note-card" data-title="Chapter 4 随机误差" onclick="location.href='notes-viewer.html?course=analytical-chemistry&chapter=4'">
-        <div class="card-header">
-          <span class="card-icon">📖</span>
-          <h3 class="card-title">Chapter 4 - 随机误差及其估算</h3>
-        </div>
-        <p class="card-description">随机误差的统计特性、正态分布、置信区间、显著性检验</p>
-        <div class="card-meta">
-          <span class="card-tag">第 4 章</span>
-          <span class="note-meta">📄 Markdown 笔记</span>
-        </div>
-      </div>
-
-      <!-- Chapter 5 -->
-      <div class="resource-card note-card" data-title="Chapter 5 线性回归" onclick="location.href='notes-viewer.html?course=analytical-chemistry&chapter=5'">
-        <div class="card-header">
-          <span class="card-icon">📖</span>
-          <h3 class="card-title">Chapter 5 - 线性回归分析</h3>
-        </div>
-        <p class="card-description">最小二乘法原理、校准曲线、相关系数、回归方程的应用</p>
-        <div class="card-meta">
-          <span class="card-tag">第 5 章</span>
-          <span class="note-meta">📄 Markdown 笔记</span>
-        </div>
-      </div>
-
-      <!-- Chapter 6 -->
-      <div class="resource-card note-card" data-title="Chapter 6 pH 缓冲溶液" onclick="location.href='notes-viewer.html?course=analytical-chemistry&chapter=6'">
-        <div class="card-header">
-          <span class="card-icon">📖</span>
-          <h3 class="card-title">Chapter 6 - pH 与缓冲溶液</h3>
-        </div>
-        <p class="card-description">酸碱质子理论、pH 计算、缓冲溶液原理、缓冲容量</p>
-        <div class="card-meta">
-          <span class="card-tag">第 6 章</span>
-          <span class="note-meta">📄 Markdown 笔记</span>
-        </div>
-      </div>
-
-      <!-- Chapter 7 -->
-      <div class="resource-card note-card" data-title="Chapter 7 滴定分析入门" onclick="location.href='notes-viewer.html?course=analytical-chemistry&chapter=7'">
-        <div class="card-header">
-          <span class="card-icon">📖</span>
-          <h3 class="card-title">Chapter 7 - 滴定分析入门</h3>
-        </div>
-        <p class="card-description">滴定分析概述、滴定曲线、指示剂选择、终点误差</p>
-        <div class="card-meta">
-          <span class="card-tag">第 7 章</span>
-          <span class="note-meta">📄 Markdown 笔记</span>
-        </div>
-      </div>
-
-      <!-- Chapter 8 -->
-      <div class="resource-card note-card" data-title="Chapter 8 滴定分析进阶" onclick="location.href='notes-viewer.html?course=analytical-chemistry&chapter=8'">
-        <div class="card-header">
-          <span class="card-icon">📖</span>
-          <h3 class="card-title">Chapter 8 - 滴定分析进阶</h3>
-        </div>
-        <p class="card-description">酸碱滴定法、氧化还原滴定法、配位滴定法、沉淀滴定法</p>
-        <div class="card-meta">
-          <span class="card-tag">第 8 章</span>
-          <span class="note-meta">📄 Markdown 笔记</span>
-        </div>
-      </div>
-
-      <!-- Chapter 9 -->
-      <div class="resource-card note-card" data-title="Chapter 9 电位滴定法" onclick="location.href='notes-viewer.html?course=analytical-chemistry&chapter=9'">
-        <div class="card-header">
-          <span class="card-icon">📖</span>
-          <h3 class="card-title">Chapter 9 - 电位滴定法</h3>
-        </div>
-        <p class="card-description">电位分析原理、指示电极、参比电极、电位滴定应用</p>
-        <div class="card-meta">
-          <span class="card-tag">第 9 章</span>
-          <span class="note-meta">📄 Markdown 笔记</span>
-        </div>
-      </div>
-
-      <!-- Chapter 10 -->
-      <div class="resource-card note-card" data-title="Chapter 10 Gran 作图法" onclick="location.href='notes-viewer.html?course=analytical-chemistry&chapter=10'">
-        <div class="card-header">
-          <span class="card-icon">📖</span>
-          <h3 class="card-title">Chapter 10 - Gran 作图法</h3>
-        </div>
-        <p class="card-description">Gran 函数、Gran 作图法原理、终点确定的数学方法</p>
-        <div class="card-meta">
-          <span class="card-tag">第 10 章</span>
-          <span class="note-meta">📄 Markdown 笔记</span>
-        </div>
-      </div>
-
-      <!-- Chapter 11 -->
-      <div class="resource-card note-card" data-title="Chapter 11 电化学分析" onclick="location.href='notes-viewer.html?course=analytical-chemistry&chapter=11'">
-        <div class="card-header">
-          <span class="card-icon">📖</span>
-          <h3 class="card-title">Chapter 11 - 电化学分析技术</h3>
-        </div>
-        <p class="card-description">伏安法、极谱法、库仑分析法、电导分析法</p>
-        <div class="card-meta">
-          <span class="card-tag">第 11 章</span>
-          <span class="note-meta">📄 Markdown 笔记</span>
-        </div>
-      </div>
-
-      <!-- Chapter 12 -->
-      <div class="resource-card note-card" data-title="Chapter 12 重量分析" onclick="location.href='notes-viewer.html?course=analytical-chemistry&chapter=12'">
-        <div class="card-header">
-          <span class="card-icon">📖</span>
-          <h3 class="card-title">Chapter 12 - 重量分析法</h3>
-        </div>
-        <p class="card-description">沉淀重量法原理、沉淀条件、沉淀纯度、结果计算</p>
-        <div class="card-meta">
-          <span class="card-tag">第 12 章</span>
-          <span class="note-meta">📄 Markdown 笔记</span>
-        </div>
-      </div>
-
-      <!-- Chapter 13 -->
-      <div class="resource-card note-card" data-title="Chapter 13 课程总结" onclick="location.href='notes-viewer.html?course=analytical-chemistry&chapter=13'">
-        <div class="card-header">
-          <span class="card-icon">📖</span>
-          <h3 class="card-title">Chapter 13 - 课程总结</h3>
-        </div>
-        <p class="card-description">分析化学 1 全课程重点内容回顾与总结</p>
-        <div class="card-meta">
-          <span class="card-tag">第 13 章</span>
-          <span class="note-meta">📄 Markdown 笔记</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- 课件下载区域 -->
-    <div class="lecture-downloads-section" style="margin-top: 60px; padding-top: 40px; border-top: 2px solid #e0e0e0;">
-      <h2 style="text-align: center; margin-bottom: 30px; color: #333;">📚 课件下载</h2>
-      <div class="card-grid">
-        <!-- Lecture 1 -->
-        <div class="resource-card lecture-download-card">
-          <div class="card-header">
-            <span class="card-icon">📖</span>
-            <h3 class="card-title">Lecture 1 - Introduction of Analytical Chemistry</h3>
-          </div>
-          <p class="card-description">分析化学导论，介绍分析化学的基本概念、发展历程和应用领域</p>
-          <div class="card-meta">
-            <span class="card-tag">第 1 章</span>
-            <div class="card-actions">
-              <a href="Lectures-PDF/1L-Introduction of Anal Chem 2025.pdf" class="btn btn-primary btn-sm" download>⬇️ 下载</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Lecture 2 -->
-        <div class="resource-card lecture-download-card">
-          <div class="card-header">
-            <span class="card-icon">📖</span>
-            <h3 class="card-title">Lecture 2 - Fundamental Knowledge</h3>
-          </div>
-          <p class="card-description">分析化学基础知识，包括溶液浓度、化学平衡等基本概念</p>
-          <div class="card-meta">
-            <span class="card-tag">第 2 章</span>
-            <div class="card-actions">
-              <a href="Lectures-PDF/2L-Fundamental knowledge 2025.pdf" class="btn btn-primary btn-sm" download>⬇️ 下载</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Lecture 3 -->
-        <div class="resource-card lecture-download-card">
-          <div class="card-header">
-            <span class="card-icon">📖</span>
-            <h3 class="card-title">Lecture 3 - Experimental Error and Its Estimation</h3>
-          </div>
-          <p class="card-description">实验误差及其估算，介绍误差的来源、分类和表示方法</p>
-          <div class="card-meta">
-            <span class="card-tag">第 3 章</span>
-            <div class="card-actions">
-              <a href="Lectures-PDF/3L-Experimetal error and its estimation.pdf" class="btn btn-primary btn-sm" download>⬇️ 下载</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Lecture 4 -->
-        <div class="resource-card lecture-download-card">
-          <div class="card-header">
-            <span class="card-icon">📖</span>
-            <h3 class="card-title">Lecture 4 - Random Error and Its Estimation</h3>
-          </div>
-          <p class="card-description">随机误差及其估算，讲解随机误差的统计特性和处理方法</p>
-          <div class="card-meta">
-            <span class="card-tag">第 4 章</span>
-            <div class="card-actions">
-              <a href="Lectures-PDF/4L-Random error and its estimation.pdf" class="btn btn-primary btn-sm" download>⬇️ 下载</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Lecture 5 -->
-        <div class="resource-card lecture-download-card">
-          <div class="card-header">
-            <span class="card-icon">📖</span>
-            <h3 class="card-title">Lecture 5 - Linear Regression Analysis</h3>
-          </div>
-          <p class="card-description">线性回归分析，介绍最小二乘法和校准曲线的应用</p>
-          <div class="card-meta">
-            <span class="card-tag">第 5 章</span>
-            <div class="card-actions">
-              <a href="Lectures-PDF/5L-Linear regression analysis.pdf" class="btn btn-primary btn-sm" download>⬇️ 下载</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Lecture 6 -->
-        <div class="resource-card lecture-download-card">
-          <div class="card-header">
-            <span class="card-icon">📖</span>
-            <h3 class="card-title">Lecture 6 - pH and Buffer Solutions</h3>
-          </div>
-          <p class="card-description">pH 值和缓冲溶液，讲解酸碱平衡和缓冲溶液的原理与计算</p>
-          <div class="card-meta">
-            <span class="card-tag">第 6 章</span>
-            <div class="card-actions">
-              <a href="Lectures-PDF/6L-pH and Buffer solutions 2023.pdf" class="btn btn-primary btn-sm" download>⬇️ 下载</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Lecture 7 -->
-        <div class="resource-card lecture-download-card">
-          <div class="card-header">
-            <span class="card-icon">📖</span>
-            <h3 class="card-title">Lecture 7 - Let Titration Begin (1)</h3>
-          </div>
-          <p class="card-description">滴定分析入门（第一部分），介绍滴定分析的基本原理和方法</p>
-          <div class="card-meta">
-            <span class="card-tag">第 7 章</span>
-            <div class="card-actions">
-              <a href="Lectures-PDF/7L-Let Titration begin-1.pdf" class="btn btn-primary btn-sm" download>⬇️ 下载</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Lecture 8 -->
-        <div class="resource-card lecture-download-card">
-          <div class="card-header">
-            <span class="card-icon">📖</span>
-            <h3 class="card-title">Lecture 8 - Let Titration Begin (2)</h3>
-          </div>
-          <p class="card-description">滴定分析深入（第二部分），讲解各种滴定方法和指示剂选择</p>
-          <div class="card-meta">
-            <span class="card-tag">第 8 章</span>
-            <div class="card-actions">
-              <a href="Lectures-PDF/8L-Let Titration begin-2.pdf" class="btn btn-primary btn-sm" download>⬇️ 下载</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Lecture 9 -->
-        <div class="resource-card lecture-download-card">
-          <div class="card-header">
-            <span class="card-icon">📖</span>
-            <h3 class="card-title">Lecture 9 - Potentiometry in Titrations</h3>
-          </div>
-          <p class="card-description">电位滴定法，介绍电位分析的原理和应用</p>
-          <div class="card-meta">
-            <span class="card-tag">第 9 章</span>
-            <div class="card-actions">
-              <a href="Lectures-PDF/9L-Potentiometry in titration 2.pdf" class="btn btn-primary btn-sm" download>⬇️ 下载</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Lecture 10 -->
-        <div class="resource-card lecture-download-card">
-          <div class="card-header">
-            <span class="card-icon">📖</span>
-            <h3 class="card-title">Lecture 10 - Gran Plot in Titrations</h3>
-          </div>
-          <p class="card-description">Gran 作图法在滴定中的应用，讲解终点确定的数学方法</p>
-          <div class="card-meta">
-            <span class="card-tag">第 10 章</span>
-            <div class="card-actions">
-              <a href="Lectures-PDF/10L-Gran plot in titrations.pdf" class="btn btn-primary btn-sm" download>⬇️ 下载</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Lecture 11 -->
-        <div class="resource-card lecture-download-card">
-          <div class="card-header">
-            <span class="card-icon">📖</span>
-            <h3 class="card-title">Lecture 11 - Electroanalysis Techniques</h3>
-          </div>
-          <p class="card-description">电化学分析技术，介绍各种电化学分析方法及其应用</p>
-          <div class="card-meta">
-            <span class="card-tag">第 11 章</span>
-            <div class="card-actions">
-              <a href="Lectures-PDF/11L-Electroanalysis techniques 2023.pdf" class="btn btn-primary btn-sm" download>⬇️ 下载</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Lecture 12 -->
-        <div class="resource-card lecture-download-card">
-          <div class="card-header">
-            <span class="card-icon">📖</span>
-            <h3 class="card-title">Lecture 12 - Gravimetric Analysis</h3>
-          </div>
-          <p class="card-description">重量分析法，讲解沉淀重量法的原理、操作和计算</p>
-          <div class="card-meta">
-            <span class="card-tag">第 12 章</span>
-            <div class="card-actions">
-              <a href="Lectures-PDF/12L-Gravimetric analysis 2023.pdf" class="btn btn-primary btn-sm" download>⬇️ 下载</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Lecture 13 -->
-        <div class="resource-card lecture-download-card">
-          <div class="card-header">
-            <span class="card-icon">📖</span>
-            <h3 class="card-title">Lecture 13 - Summary on Analytical Chemistry 1</h3>
-          </div>
-          <p class="card-description">分析化学 1 课程总结，回顾全课程重点内容</p>
-          <div class="card-meta">
-            <span class="card-tag">第 13 章</span>
-            <div class="card-actions">
-              <a href="Lectures-PDF/13L-Summary on Analytical Chemistry 1 2025.pdf" class="btn btn-primary btn-sm" download>⬇️ 下载</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 无结果提示 -->
-    <div class="no-results" id="noResults" style="display: none;">
-      <div class="no-results-icon">🔍</div>
-      <p>未找到匹配的笔记</p>
-    </div>
-  </div>
+  <!-- 通用内容查看器容器 -->
+  <div id="viewer-container"></div>
 
   <!-- 页脚容器 -->
   <div id="footer-container"></div>
 
-  <!-- 引入组件加载脚本和主脚本 -->
+  <!-- 引入组件加载脚本和通用查看器脚本 -->
   <script src="../../js/components.js"></script>
-  <script src="../../js/main.js"></script>
+  <script src="../../js/content-viewer.js"></script>
   <script>
-    // 页面加载时初始化组件
+    // 配置查看器
     document.addEventListener('DOMContentLoaded', function() {
       loadComponent('navbar', 'navbar-container');
       loadComponent('footer', 'footer-container');
+      loadComponent('content-viewer', 'viewer-container');
       setCurrentPage('notes');
+      
+      // 初始化查看器配置
+      viewerInit({
+        type: 'notes',
+        navItems: [
+          { id: '1', title: '第 1 章 分析化学导论' },
+          { id: '2', title: '第 2 章 基础知识' },
+          { id: '3', title: '第 3 章 实验误差' },
+          { id: '4', title: '第 4 章 随机误差' },
+          { id: '5', title: '第 5 章 线性回归' },
+          { id: '6', title: '第 6 章 pH 与缓冲溶液' },
+          { id: '7', title: '第 7 章 滴定分析入门' },
+          { id: '8', title: '第 8 章 滴定分析进阶' },
+          { id: '9', title: '第 9 章 电位滴定法' },
+          { id: '10', title: '第 10 章 Gran 作图法' },
+          { id: '11', title: '第 11 章 电化学分析' },
+          { id: '12', title: '第 12 章 重量分析' },
+          { id: '13', title: '第 13 章 课程总结' }
+        ],
+        filePattern: 'notes/notes-{id}.md',
+        defaultId: '1',
+        listPage: 'index.html',
+        titlePrefix: '第',
+        urlParam: 'chapter',
+        course: 'analytical-chemistry',
+        navTitle: '📚 章节导航',
+        loadingText: '正在加载笔记内容...',
+        errorText: '无法加载笔记内容',
+        prevText: '← 上一章',
+        nextText: '下一章 →',
+        listText: '📝 返回笔记列表'
+      });
     });
   </script>
 </body>

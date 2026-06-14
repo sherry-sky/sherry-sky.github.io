@@ -5,6 +5,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>考试资料 - 分析化学</title>
   <link rel="stylesheet" href="../../css/style.css">
+  <!-- 引入 marked.js 用于解析 Markdown -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  
+  <!-- 引入 MathJax 用于渲染数学公式 -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true,
+        processEnvironments: true,
+        // 处理 Markdown 中的 $ 符号
+        packages: {'[+]': ['noerrors']}
+      },
+      svg: {
+        fontCache: 'global'
+      },
+      startup: {
+        pageReady: function() {
+          return MathJax.startup.defaultPageReady();
+        }
+      },
+      // 忽略 HTML 实体转义
+      ignoreHtmlClass: 'tex2jax_ignore'
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 </head>
 <body>
   <!-- 导航栏容器 -->
@@ -14,80 +41,43 @@
     window.currentCourse = 'analytical-chemistry';
   </script>
 
-  <!-- 主容器 -->
-  <div class="container">
-    <!-- 页面标题 -->
-    <div class="page-header">
-      <h1>🎯 考试资料</h1>
-      <p>期末考试样题、评分标准和参考答案</p>
-    </div>
-
-    <!-- 搜索框 -->
-    <div class="search-container">
-      <span class="search-icon">🔍</span>
-      <input type="text" class="search-input" id="searchInput" placeholder="搜索考试资料..." onkeyup="searchResources()">
-    </div>
-
-    <!-- 考试资料列表 -->
-    <div class="card-grid" id="resourceGrid">
-      <!-- 期末考试样题 -->
-      <div class="resource-card note-card" data-title="Final Exam 期末考试样题" onclick="location.href='exams-viewer.html?course=analytical-chemistry&exam=model'">
-        <div class="card-header">
-          <span class="card-icon">📄</span>
-          <h3 class="card-title">期末考试样题模型</h3>
-        </div>
-        <p class="card-description">分析化学 1 期末考试样题模板，工程师课程适用</p>
-        <div class="card-meta">
-          <span class="card-tag">样题</span>
-          <span class="note-meta">📄 Markdown 笔记</span>
-        </div>
-      </div>
-
-      <!-- 2024 春季期末考题 A 卷答案 -->
-      <div class="resource-card note-card" data-title="2024 Spring Final Exam A 2024 春季期末考 A 卷" onclick="location.href='exams-viewer.html?course=analytical-chemistry&exam=2024spring'">
-        <div class="card-header">
-          <span class="card-icon">📝</span>
-          <h3 class="card-title">2024 春季学期期末考试 A 卷 - 评分答案</h3>
-        </div>
-        <p class="card-description">2024 年春季学期期末考试 A 卷的评分标准和参考答案</p>
-        <div class="card-meta">
-          <span class="card-tag">2024 春季</span>
-          <span class="note-meta">📄 Markdown 笔记</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- 备考提示 -->
-    <section style="margin-top: 3rem; background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-      <h2 style="color: var(--primary-color); margin-bottom: 1rem;">💡 备考建议</h2>
-      <ul style="color: var(--text-secondary); line-height: 2; padding-left: 1.5rem;">
-        <li>复习所有课件（Lecture 1-13），重点关注每章的核心概念</li>
-        <li>完成所有习题（Tutorial）和作业（Homework），确保理解解题方法</li>
-        <li>研究期末考试样题，熟悉题型和考试格式</li>
-        <li>重点掌握：误差分析、酸碱滴定、电位分析、重量分析等核心内容</li>
-        <li>练习计算题，熟练掌握公式应用</li>
-      </ul>
-    </section>
-
-    <!-- 无结果提示 -->
-    <div class="no-results" id="noResults" style="display: none;">
-      <div class="no-results-icon">🔍</div>
-      <p>未找到匹配的考试资料</p>
-    </div>
-  </div>
+  <!-- 通用内容查看器容器 -->
+  <div id="viewer-container"></div>
 
   <!-- 页脚容器 -->
   <div id="footer-container"></div>
 
-  <!-- 引入组件加载脚本和主脚本 -->
+  <!-- 引入组件加载脚本和通用查看器脚本 -->
   <script src="../../js/components.js"></script>
-  <script src="../../js/main.js"></script>
+  <script src="../../js/content-viewer.js"></script>
   <script>
-    // 页面加载时初始化组件
+    // 配置查看器
     document.addEventListener('DOMContentLoaded', function() {
       loadComponent('navbar', 'navbar-container');
       loadComponent('footer', 'footer-container');
+      loadComponent('content-viewer', 'viewer-container');
       setCurrentPage('exams');
+      
+      // 初始化查看器配置
+      viewerInit({
+        type: 'exams',
+        navItems: [
+          { id: 'model', title: '📄 期末考试样题模型' },
+          { id: '2024spring', title: '📝 2024 春季期末考试 A 卷' }
+        ],
+        filePattern: 'exams/final_exam_{id}.md',
+        defaultId: 'model',
+        listPage: 'index.html',
+        titlePrefix: '',
+        urlParam: 'exam',
+        course: 'analytical-chemistry',
+        navTitle: '📚 章节导航',
+        loadingText: '正在加载考试资料...',
+        errorText: '无法加载考试资料',
+        prevText: '← 上一份',
+        nextText: '下一份 →',
+        listText: '🏠 返回首页'
+      });
     });
   </script>
 </body>

@@ -5,99 +5,61 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>研讨课 - 微积分 1M</title>
   <link rel="stylesheet" href="../../css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']], processEscapes: true, processEnvironments: true, packages: {'[+]': ['noerrors']} },
+      svg: { fontCache: 'global' },
+      ignoreHtmlClass: 'tex2jax_ignore'
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 </head>
 <body>
   <div id="navbar-container"></div>
   <script>window.currentCourse = 'calculus-1m';</script>
 
-  <div class="container">
-    <div class="page-header">
-      <h1>💡 研讨课</h1>
-      <p>Workshop 研讨课题目与详细解答，深入探讨核心知识点</p>
-    </div>
-
-    <div class="search-container">
-      <span class="search-icon">🔍</span>
-      <input type="text" class="search-input" id="searchInput" placeholder="搜索研讨课..." onkeyup="searchResources()">
-    </div>
-
-    <div class="card-grid" id="resourceGrid">
-      <div class="resource-card note-card" data-title="Workshop 1 绝对值不等式与直线" onclick="location.href='workshops-viewer.html?workshop=1'">
-        <div class="card-header"><span class="card-icon">💡</span><h3 class="card-title">Workshop 1 - 绝对值不等式与直线</h3></div>
-        <p class="card-description">绝对值不等式、直线斜率、平行与垂直、圆方程、区域草图</p>
-        <div class="card-meta"><span class="card-tag">第 1 周</span><span class="note-meta">📄 Markdown 笔记</span></div>
-      </div>
-      <div class="resource-card note-card" data-title="Workshop 2 函数建模与反函数" onclick="location.href='workshops-viewer.html?workshop=2'">
-        <div class="card-header"><span class="card-icon">💡</span><h3 class="card-title">Workshop 2 - 函数建模与反函数</h3></div>
-        <p class="card-description">函数建模、差商、定义域与值域、单射与反函数、指数对数方程</p>
-        <div class="card-meta"><span class="card-tag">第 2 周</span><span class="note-meta">📄 Markdown 笔记</span></div>
-      </div>
-      <div class="resource-card note-card" data-title="Workshop 3 连续性与极限" onclick="location.href='workshops-viewer.html?workshop=3'">
-        <div class="card-header"><span class="card-icon">💡</span><h3 class="card-title">Workshop 3 - 连续性与极限</h3></div>
-        <p class="card-description">函数连续性判断、无穷极限计算</p>
-        <div class="card-meta"><span class="card-tag">第 3-4 周</span><span class="note-meta">📄 Markdown 笔记</span></div>
-      </div>
-      <div class="resource-card note-card" data-title="Workshop 4 隐函数求导与双曲函数" onclick="location.href='workshops-viewer.html?workshop=4'">
-        <div class="card-header"><span class="card-icon">💡</span><h3 class="card-title">Workshop 4 - 隐函数求导与双曲函数</h3></div>
-        <p class="card-description">隐函数求导、重要极限 (1+x)^{1/x}=e、双曲函数导数、反函数切线</p>
-        <div class="card-meta"><span class="card-tag">第 5 周</span><span class="note-meta">📄 Markdown 笔记</span></div>
-      </div>
-      <div class="resource-card note-card" data-title="Workshop 5 函数图像与极值" onclick="location.href='workshops-viewer.html?workshop=5'">
-        <div class="card-header"><span class="card-icon">💡</span><h3 class="card-title">Workshop 5 - 函数图像与极值</h3></div>
-        <p class="card-description">函数图像绘制、全局极值、Rolle 定理、洛必达法则、含参数分析</p>
-        <div class="card-meta"><span class="card-tag">第 6 周</span><span class="note-meta">📄 Markdown 笔记</span></div>
-      </div>
-      <div class="resource-card note-card" data-title="Workshop 6 积分技巧" onclick="location.href='workshops-viewer.html?workshop=6'">
-        <div class="card-header"><span class="card-icon">💡</span><h3 class="card-title">Workshop 6 - 积分技巧</h3></div>
-        <p class="card-description">积分方法综合练习</p>
-        <div class="card-meta"><span class="card-tag">第 7 周</span><span class="note-meta">📄 Markdown 笔记</span></div>
-      </div>
-      <div class="resource-card note-card" data-title="Workshop 7 积分应用" onclick="location.href='workshops-viewer.html?workshop=7'">
-        <div class="card-header"><span class="card-icon">💡</span><h3 class="card-title">Workshop 7 - 积分应用</h3></div>
-        <p class="card-description">面积、体积、积分应用综合</p>
-        <div class="card-meta"><span class="card-tag">第 8 周</span><span class="note-meta">📄 Markdown 笔记</span></div>
-      </div>
-      <div class="resource-card note-card" data-title="Workshop 8 积分技巧进阶" onclick="location.href='workshops-viewer.html?workshop=8'">
-        <div class="card-header"><span class="card-icon">💡</span><h3 class="card-title">Workshop 8 - 积分技巧进阶</h3></div>
-        <p class="card-description">分部积分、三角积分、部分分式综合练习</p>
-        <div class="card-meta"><span class="card-tag">第 9 周</span><span class="note-meta">📄 Markdown 笔记</span></div>
-      </div>
-      <div class="resource-card note-card" data-title="Workshop 9 反常积分与弧长" onclick="location.href='workshops-viewer.html?workshop=9'">
-        <div class="card-header"><span class="card-icon">💡</span><h3 class="card-title">Workshop 9 - 反常积分与弧长</h3></div>
-        <p class="card-description">反常积分收敛性、曲线长度、旋转面面积</p>
-        <div class="card-meta"><span class="card-tag">第 10 周</span><span class="note-meta">📄 Markdown 笔记</span></div>
-      </div>
-      <div class="resource-card note-card" data-title="Workshop 10 数列与级数" onclick="location.href='workshops-viewer.html?workshop=10'">
-        <div class="card-header"><span class="card-icon">💡</span><h3 class="card-title">Workshop 10 - 数列与级数</h3></div>
-        <p class="card-description">数列极限、级数收敛性判断综合练习</p>
-        <div class="card-meta"><span class="card-tag">第 11 周</span><span class="note-meta">📄 Markdown 笔记</span></div>
-      </div>
-      <div class="resource-card note-card" data-title="Workshop 11 幂级数" onclick="location.href='workshops-viewer.html?workshop=11'">
-        <div class="card-header"><span class="card-icon">💡</span><h3 class="card-title">Workshop 11 - 幂级数</h3></div>
-        <p class="card-description">幂级数收敛区间、函数展开为幂级数</p>
-        <div class="card-meta"><span class="card-tag">第 12 周</span><span class="note-meta">📄 Markdown 笔记</span></div>
-      </div>
-      <div class="resource-card note-card" data-title="Workshop 12 综合专题" onclick="location.href='workshops-viewer.html?workshop=12'">
-        <div class="card-header"><span class="card-icon">💡</span><h3 class="card-title">Workshop 12 - 综合专题</h3></div>
-        <p class="card-description">关于正弦函数的专题讨论与综合练习</p>
-        <div class="card-meta"><span class="card-tag">综合</span><span class="note-meta">📄 Markdown 笔记</span></div>
-      </div>
-    </div>
-
-    <div class="no-results" id="noResults" style="display: none;">
-      <div class="no-results-icon">🔍</div>
-      <p>未找到匹配的研讨课</p>
-    </div>
-  </div>
+  <div id="viewer-container"></div>
 
   <div id="footer-container"></div>
   <script src="../../js/components.js"></script>
-  <script src="../../js/main.js"></script>
+  <script src="../../js/content-viewer.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       loadComponent('navbar', 'navbar-container');
       loadComponent('footer', 'footer-container');
+      loadComponent('content-viewer', 'viewer-container');
       setCurrentPage('workshops');
+
+      viewerInit({
+        type: 'workshops',
+        navItems: [
+          { id: '1', title: 'Workshop 1 绝对值与直线' },
+          { id: '2', title: 'Workshop 2 函数与反函数' },
+          { id: '3', title: 'Workshop 3 连续性与极限' },
+          { id: '4', title: 'Workshop 4 隐函数与双曲' },
+          { id: '5', title: 'Workshop 5 图像与极值' },
+          { id: '6', title: 'Workshop 6 积分技巧' },
+          { id: '7', title: 'Workshop 7 积分应用' },
+          { id: '8', title: 'Workshop 8 积分进阶' },
+          { id: '9', title: 'Workshop 9 反常积分与弧长' },
+          { id: '10', title: 'Workshop 10 数列与级数' },
+          { id: '11', title: 'Workshop 11 幂级数' },
+          { id: '12', title: 'Workshop 12 综合专题' }
+        ],
+        filePattern: 'workshops/workshop-{id}.md',
+        defaultId: '1',
+        listPage: 'index.html',
+        titlePrefix: 'Workshop',
+        urlParam: 'workshop',
+        course: 'calculus-1m',
+        navTitle: '📚 研讨导航',
+        loadingText: '正在加载研讨课内容...',
+        errorText: '无法加载研讨课内容',
+        prevText: '← 上一次',
+        nextText: '下一次 →',
+        listText: '🏠 返回首页'
+      });
     });
   </script>
 </body>
